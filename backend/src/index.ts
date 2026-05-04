@@ -1,4 +1,5 @@
 import "dotenv/config";
+import path from "path";
 import express from "express";
 import cors from "cors";
 import { chatRouter } from "./routes/chat";
@@ -10,6 +11,7 @@ import { workflowsRouter } from "./routes/workflows";
 import { userRouter } from "./routes/user";
 import { downloadsRouter } from "./routes/downloads";
 import { authRouter } from "./routes/auth";
+import { buildContentDisposition } from "./lib/storage";
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
@@ -35,6 +37,19 @@ app.use("/users", userRouter);
 app.use("/download", downloadsRouter);
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
+
+// Local file server — only active when R2 env vars are not set
+app.get("/local-storage/*", (req, res) => {
+  const key = (req.params as Record<string, string>)[0];
+  const filePath = path.join(process.cwd(), "uploads", path.normalize(key));
+  const dl = req.query.dl as string | undefined;
+  if (dl) {
+    res.setHeader("Content-Disposition", buildContentDisposition("attachment", dl));
+  }
+  res.sendFile(filePath, { root: "/" }, (err) => {
+    if (err) res.status(404).json({ detail: "File not found" });
+  });
+});
 
 app.listen(PORT, () => {
     console.log(`Emilie backend running on port ${PORT}`);

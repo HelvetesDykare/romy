@@ -1,14 +1,5 @@
-/**
- * Infomaniak Swiss Object Storage utilities for Emilie document management.
- * S3-compatible — uses @aws-sdk/client-s3.
- *
- * Required env vars:
- *   R2_ENDPOINT_URL     — https://s3.ir-1.infomaniak.com
- *   R2_ACCESS_KEY_ID    — Infomaniak Object Storage access key
- *   R2_SECRET_ACCESS_KEY — Infomaniak Object Storage secret key
- *   R2_BUCKET_NAME      — bucket name (default: "emilie")
- */
-
+import fs from "fs";
+import path from "path";
 import {
   S3Client,
   PutObjectCommand,
@@ -16,6 +7,18 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl as awsGetSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+const cloud = Boolean(
+  process.env.R2_ENDPOINT_URL &&
+  process.env.R2_ACCESS_KEY_ID &&
+  process.env.R2_SECRET_ACCESS_KEY,
+);
+
+export const storageEnabled = true;
+
+// ---------------------------------------------------------------------------
+// Cloud (Infomaniak S3)
+// ---------------------------------------------------------------------------
 
 function getClient(): S3Client {
   return new S3Client({
@@ -30,11 +33,17 @@ function getClient(): S3Client {
 
 const BUCKET = process.env.R2_BUCKET_NAME ?? "emilie";
 
-export const storageEnabled = Boolean(
-  process.env.R2_ENDPOINT_URL &&
-  process.env.R2_ACCESS_KEY_ID &&
-  process.env.R2_SECRET_ACCESS_KEY,
-);
+// ---------------------------------------------------------------------------
+// Local filesystem
+// ---------------------------------------------------------------------------
+
+const LOCAL_DIR = path.join(process.cwd(), "uploads");
+
+function localPath(key: string): string {
+  const resolved = path.normalize(path.join(LOCAL_DIR, key));
+  if (!resolved.startsWith(LOCAL_DIR)) throw new Error("Invalid storage key");
+  return resolved;
+}
 
 // ---------------------------------------------------------------------------
 // Upload
@@ -45,15 +54,21 @@ export async function uploadFile(
   content: ArrayBuffer,
   contentType: string,
 ): Promise<void> {
-  const client = getClient();
-  await client.send(
-    new PutObjectCommand({
-      Bucket: BUCKET,
-      Key: key,
-      Body: Buffer.from(content),
-      ContentType: contentType,
-    }),
-  );
+  if (cloud) {
+    const client = getClient();
+    await client.send(
+      new PutObjectCommand({
+        Bucket: BUCKET,
+        Key: key,
+        Body: Buffer.from(content),
+        ContentType: contentType,
+      }),
+    );
+  } else {
+    const dest = localPath(key);
+    await fs.promises.mkdir(path.dirname(dest), { recursive: true });
+    await fs.promises.writeFile(dest, Buffer.from(content));
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -61,17 +76,25 @@ export async function uploadFile(
 // ---------------------------------------------------------------------------
 
 export async function downloadFile(key: string): Promise<ArrayBuffer | null> {
-  if (!storageEnabled) return null;
-  try {
-    const client = getClient();
-    const response = await client.send(
-      new GetObjectCommand({ Bucket: BUCKET, Key: key }),
-    );
-    if (!response.Body) return null;
-    const bytes = await response.Body.transformToByteArray();
-    return bytes.buffer as ArrayBuffer;
-  } catch {
-    return null;
+  if (cloud) {
+    try {
+      const client = getClient();
+      const response = await client.send(
+        new GetObjectCommand({ Bucket: BUCKET, Key: key }),
+      );
+      if (!response.Body) return null;
+      const bytes = await response.Body.transformToByteArray();
+      return bytes.buffer as ArrayBuffer;
+    } catch {
+      return null;
+    }
+  } else {
+    try {
+      const buf = await fs.promises.readFile(localPath(key));
+      return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+    } catch {
+      return null;
+    }
   }
 }
 
@@ -80,13 +103,18 @@ export async function downloadFile(key: string): Promise<ArrayBuffer | null> {
 // ---------------------------------------------------------------------------
 
 export async function deleteFile(key: string): Promise<void> {
-  if (!storageEnabled) return;
-  const client = getClient();
-  await client.send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }));
+  if (cloud) {
+    const client = getClient();
+    await client.send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }));
+  } else {
+    try {
+      await fs.promises.unlink(localPath(key));
+    } catch {}
+  }
 }
 
 // ---------------------------------------------------------------------------
-// Signed URL (pre-signed for temporary direct access)
+// Signed URL — local returns a backend serve URL instead
 // ---------------------------------------------------------------------------
 
 export async function getSignedUrl(
@@ -94,24 +122,27 @@ export async function getSignedUrl(
   expiresIn = 3600,
   downloadFilename?: string,
 ): Promise<string | null> {
-  if (!storageEnabled) return null;
-  try {
-    const client = getClient();
-    // Override the response Content-Disposition so the browser uses this
-    // filename on download, instead of the last path segment of the R2 key
-    // (which includes the document UUID). The `download` attribute on <a>
-    // is ignored for cross-origin URLs, so we have to set it server-side.
-    const responseContentDisposition = downloadFilename
-      ? buildContentDisposition("attachment", downloadFilename)
-      : undefined;
-    const command = new GetObjectCommand({
-      Bucket: BUCKET,
-      Key: key,
-      ResponseContentDisposition: responseContentDisposition,
-    });
-    return await awsGetSignedUrl(client, command, { expiresIn });
-  } catch {
-    return null;
+  if (cloud) {
+    try {
+      const client = getClient();
+      const responseContentDisposition = downloadFilename
+        ? buildContentDisposition("attachment", downloadFilename)
+        : undefined;
+      const command = new GetObjectCommand({
+        Bucket: BUCKET,
+        Key: key,
+        ResponseContentDisposition: responseContentDisposition,
+      });
+      return await awsGetSignedUrl(client, command, { expiresIn });
+    } catch {
+      return null;
+    }
+  } else {
+    const port = process.env.PORT ?? "3001";
+    const qs = downloadFilename
+      ? `?dl=${encodeURIComponent(downloadFilename)}`
+      : "";
+    return `http://localhost:${port}/local-storage/${key}${qs}`;
   }
 }
 
