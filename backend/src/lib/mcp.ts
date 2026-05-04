@@ -1,11 +1,15 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
+import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import type { OpenAIToolSchema } from "./llm/types";
 
 type MCPServerConfig = {
     name: string;
     url: string;
     apiKey?: string;
+    // "http" = Streamable HTTP (MCP spec 2024-11-05+, default)
+    // "sse"  = legacy SSE transport
+    transport?: "http" | "sse";
 };
 
 type MCPClientEntry = {
@@ -43,9 +47,11 @@ async function getClient(entry: MCPClientEntry): Promise<Client | null> {
             if (entry.config.apiKey) {
                 headers["Authorization"] = `Bearer ${entry.config.apiKey}`;
             }
-            const transport = new SSEClientTransport(new URL(entry.config.url), {
-                requestInit: { headers },
-            });
+            const requestInit = { headers };
+            const useSSE = entry.config.transport === "sse";
+            const transport = useSSE
+                ? new SSEClientTransport(new URL(entry.config.url), { requestInit })
+                : new StreamableHTTPClientTransport(new URL(entry.config.url), { requestInit });
             const client = new Client({ name: "emilie", version: "1.0.0" });
             await client.connect(transport);
             entry.client = client;
