@@ -18,8 +18,6 @@ Mike relies on Supabase for user authentication. Emilie replaces this with custo
 
 Emilie connects to any [Model Context Protocol](https://modelcontextprotocol.io) server and exposes its tools directly to the LLM. Configure servers in `MCP_SERVERS` and they are available in every conversation without code changes.
 
-Primary target: [Lexplorer](https://lexplorer.ch), a Swiss case law search engine with an MCP interface. With Lexplorer connected, Emilie can search Swiss federal and cantonal court decisions as part of a conversation.
-
 ### Local model support
 
 Emilie routes to any OpenAI-compatible inference endpoint — no OpenAI dependency. Point `VLLM_BASE_URL` at a local or managed server and select "Local Model" in the UI.
@@ -42,7 +40,7 @@ Two deployment paths:
 | Auth | Custom JWT + bcrypt — no third-party service |
 | Database | Postgres (self-hosted, Infomaniak VPS, or any provider) |
 | LLM | Apertus (self-hosted via vLLM) or Infomaniak AI Tools |
-| Case law | Lexplorer via MCP |
+| Case law | Any MCP-compatible legal database |
 | Object storage | [Infomaniak Object Storage](https://www.infomaniak.com/en/hosting/cloud-object-storage) (S3-compatible, Switzerland) |
 | App | Emilie, self-hosted |
 
@@ -128,7 +126,7 @@ Select "Local Model" in the chat model picker once `VLLM_BASE_URL` is set.
 Add to `backend/.env`:
 
 ```env
-MCP_SERVERS=[{"name":"lexplorer","url":"https://mcp.lexplorer.ch/sse","apiKey":"YOUR_KEY"}]
+MCP_SERVERS=[{"name":"your-server","url":"https://your-mcp-server.example.com/sse","apiKey":"YOUR_KEY"}]
 ```
 
 Multiple servers are supported. Each server's tools appear automatically in every conversation.
