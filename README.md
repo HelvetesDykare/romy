@@ -1,180 +1,194 @@
-# Romy
+# Romy — Sovereign French Legal AI
 
-THE REST TO BE COMPLETED
+> *"No Anthropic. No OpenAI. No data leaving France."*
 
-A fork of [Mike](https://github.com/willchen96/mike), extended for Swiss sovereign legal AI.
+Romy is an open-source French legal AI platform built as a fork of [Emilie](https://github.com/veronica-builds/emilie) (itself a fork of [MikeOSS](https://github.com/willchen96/mike)), extended for French law and deployed on French sovereign infrastructure.
 
-Named after **Emilie Kempin-Spyri** (1853–1901) — the first woman in Europe to earn a law degree, who was then denied the right to practice it in Switzerland. She deserves to be in the stack.
-
----
-
-## What it does
-
-Emilie is a document assistant for legal work. You upload legal documents (DOCX, PDF) and work with them through a chat interface powered by a local or managed LLM. Core capabilities:
-
-- **Document chat**: ask questions, extract clauses, summarize, compare versions
-- **Projects**: organize documents into matters or workspaces, share with colleagues by email
-- **Tabular review**: run structured clause extraction across a set of documents simultaneously
-- **Workflows**: define reusable AI workflows that run against documents automatically
-- **Version tracking**: upload revised documents and track changes across versions
-- **Swiss case law search**: query federal and cantonal court decisions mid-conversation via MCP
-
-All processing runs on infrastructure you control. No document content leaves your environment unless you configure a cloud model as fallback.
+Built by **Andres Alma** — TMT, Data Privacy & Disputes lawyer, Panthéon-Assas and UVSQ alumnus — as a hands-on exercise in Legal AI Engineering and a contribution to the French open legal tech community, and, **Romy Descours-Karmitz**
 
 ---
 
-## What is different from Mike
+## Why Romy?
 
-Emilie adds three capabilities on top of Mike's core document assistant:
+Harvey AI raised $100M. Legora is valued at $5.6B. Both are closed, US-hosted, and expensive.
 
-### Sovereign auth
+France has one of the richest open legal data ecosystems in Europe:
+- **JusticeLibre** — 4M+ decisions (CE, CAA, TA, Cour de cassation, CEDH, CJUE), free, no auth, with a native MCP server
+- **Légifrance API** — all French legislation, codes, regulations
+- **Judilibre (PISTE)** — official Cour de cassation case law API
 
-Mike relies on Supabase for user authentication. Emilie replaces this with custom JWT + bcrypt directly against Postgres — no third-party auth service, no data leaving your infrastructure. Users and sessions are stored in your own database.
+Romy assembles these pieces into a working sovereign legal AI that costs less per month than a single hour of BigLaw associate time.
 
-### MCP client
+Named after my dear friend and contributor **Romy Descours-Karmitz** (aka La Rockstar)
 
-Emilie connects to any [Model Context Protocol](https://modelcontextprotocol.io) server and exposes its tools directly to the LLM. Configure servers in `MCP_SERVERS` and they are available in every conversation without code changes.
+---
 
-The following Swiss legal data sources are open, free, and MCP-ready:
+## What Romy Does
 
-| Source | Coverage | Auth |
+- **Document analysis** — upload French contracts, NDAs, court decisions; ask legal questions; get cited, grounded answers
+- **Jurisprudence research** — searches JusticeLibre's 4M+ decisions in real time via MCP; returns real case identifiers, not hallucinations
+- **Contract drafting** — generates Word (.docx) documents with proper French legal formatting
+- **Tracked changes** — proposes edits to uploaded contracts as Accept/Reject tracked changes
+- **Tabular review** — extract structured data from batches of contracts (governing law, liability caps, notice periods, etc.)
+- **Workflows** — reusable legal prompts for recurring tasks
+
+---
+
+## The Sovereign Stack
+
+| Layer | Choice | Why |
 |---|---|---|
-| [Entscheidsuche](https://entscheidsuche.ch) | Federal + 22 cantonal courts, de/fr/it | None |
-| [OpenCaseLaw.ch](https://opencaselaw.ch) | 971K+ decisions (1875–present), all 26 cantons, citation graph, legislation | None |
-| [Online Kommentar](https://onlinekommentar.ch) | Swiss legal commentaries, article-level, multilingual | None |
-| [Fedlex](https://fedlex.data.admin.ch) | Complete Swiss federal legislation, all 3 national languages | None |
+| AI Model | [Mistral Large](https://mistral.ai) | French company, EU infrastructure, OpenAI-compatible API |
+| Case law | [JusticeLibre](https://justicelibre.org) | 4M+ decisions, free, MCP server, no auth required |
+| Legislation | Légifrance / PISTE API | Official French government open data |
+| Object storage | OVHcloud / Scaleway | French data centers, S3-compatible |
+| Auth | Custom JWT + bcrypt | No Supabase, no third-party auth service |
+| Database | PostgreSQL | Self-hosted, no external dependency |
 
-### Local model support
-
-Emilie routes to any OpenAI-compatible inference endpoint — no OpenAI dependency. Point `VLLM_BASE_URL` at a local or managed server and select "Local Model" in the UI.
-
-Recommended model: **[Apertus](https://www.swiss-ai.org/apertus)**, the open-weights LLM developed by ETH Zurich, EPFL, and the Swiss National Supercomputing Centre. Apache 2.0 licensed. Trained across 1,000+ languages with strong coverage of Swiss national languages.
-
-Two deployment paths:
-
-| Path | How | Data stays |
-|---|---|---|
-| Self-hosted | Run Apertus via [vLLM](https://github.com/vllm-project/vllm) on your own hardware | Your infrastructure |
-| Managed Swiss | [Infomaniak AI Tools](https://www.infomaniak.com/en/hosting/ai-services) — hosts Apertus in Swiss data centers | Switzerland |
+No query leaves France. No document touches a US server.
 
 ---
 
-## Sovereign stack
+## Architecture
 
-| Layer | Option |
-|---|---|
-| Auth | Custom JWT + bcrypt — no third-party service |
-| Database | Postgres (self-hosted, Infomaniak VPS, or any provider) |
-| LLM | Apertus (self-hosted via vLLM) or Infomaniak AI Tools |
-| Case law | Entscheidsuche, OpenCaseLaw.ch, Fedlex, Online Kommentar — all free and open |
-| Object storage | [Infomaniak Object Storage](https://www.infomaniak.com/en/hosting/cloud-object-storage) (S3-compatible, Switzerland) |
-| App | Emilie, self-hosted |
+```
+Browser (Next.js)
+    │
+    ▼
+Backend (Express / TypeScript)
+    ├── Mistral Large (via OpenAI-compatible endpoint)
+    ├── JusticeLibre MCP Client ──► justicelibre.org/mcp
+    ├── Légifrance API (PISTE)
+    └── PostgreSQL + OVHcloud Object Storage
+```
 
-Cloud providers (Anthropic, Google) remain available as fallback but are not required.
+The MCP client connects to JusticeLibre at startup and exposes 24 legal tools to the model — `search_all`, `search_admin`, `search_judiciaire_libre`, `get_law_article`, `get_law_versions`, and more.
 
 ---
 
-## Setup
+## Changes from Emilie
 
-Install dependencies:
+Emilie made three changes from MikeOSS for Swiss sovereignty. Romy makes three more for France:
 
-```bash
-npm install --prefix backend
-npm install --prefix frontend
-```
-
-Create and fill in env files:
-
-```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.local.example frontend/.env.local
-```
-
-Generate a JWT secret and add it to `backend/.env`:
-
-```bash
-openssl rand -base64 48
-# → paste result as JWT_SECRET=<output>
-```
-
-Run the schema migration against your Postgres database:
-
-```bash
-psql "$DATABASE_URL" -f backend/migrations/000_one_shot_schema.sql
-```
-
-Start backend:
-
-```bash
-npm run dev --prefix backend
-```
-
-Start frontend:
-
-```bash
-npm run dev --prefix frontend
-```
-
-Open `http://localhost:3000`.
+1. **French legal data** — JusticeLibre MCP server configured as default; PISTE (Judilibre + Légifrance) credentials supported
+2. **MCP pre-connection** — JusticeLibre tools loaded at server startup, not lazily, so they're available on the first query
+3. **Mistral routing fixed** — `models.ts` default changed from Gemini to `VLLM_MAIN_MODEL`; `resolveModel()` extended to accept Mistral model IDs; `localllm.ts` fixed to send `content: ""` instead of `content: null` when Mistral returns tool calls (Mistral API compatibility fix)
 
 ---
 
-## Required services
+## Getting Started
 
-- **Postgres**: Any Postgres database. Auth is handled by Emilie directly using JWT + bcrypt — no third-party auth service required. For a sovereign deployment, run Postgres on your own infrastructure or an Infomaniak VPS.
-- **Object storage**: Any S3-compatible store. Infomaniak Object Storage (Switzerland) is the recommended option.
-- **Model**: A local inference endpoint via `VLLM_BASE_URL` (Apertus via vLLM, or Infomaniak AI Tools). Anthropic and Gemini API keys are supported as a fallback but route documents through US cloud servers.
-- **LibreOffice**: Required for DOC/DOCX to PDF conversion. Runs entirely locally — no data leaves your machine. Maintained by The Document Foundation (German non-profit, open-source).
+### Prerequisites
+- Node.js 20+ (LTS)
+- PostgreSQL 14+
+- A [Mistral AI](https://console.mistral.ai) API key
+- Optional: [PISTE](https://piste.api.gouv.fr) credentials for Judilibre + Légifrance
 
----
+### Installation
 
-## Local model configuration
+```bash
+git clone https://github.com/YOUR_USERNAME/romy
+cd romy
 
-Add to `backend/.env`:
+# Backend
+cd backend
+npm install
+cp .env.example .env
+# Edit .env with your credentials (see below)
+# Run the database schema
+psql -U postgres -d romy -f migrations/000_one_shot_schema.sql
+npm run dev
+
+# Frontend (separate terminal)
+cd ../frontend
+npm install --legacy-peer-deps
+cp .env.local.example .env.local
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+### Environment Variables
 
 ```env
-# Option A: self-hosted Apertus via vLLM
-VLLM_BASE_URL=http://localhost:8000/v1
-VLLM_MAIN_MODEL=<apertus-model-id>
+# Database
+DATABASE_URL=postgres://postgres:password@localhost:5432/romy
 
-# Option B: Infomaniak AI Tools (Swiss managed, includes Apertus)
-VLLM_BASE_URL=https://api.infomaniak.com/2/ai/<product_id>/openai/v1
-VLLM_API_KEY=<infomaniak-api-key>
-VLLM_MAIN_MODEL=apertus
+# Auth
+JWT_SECRET=your-long-random-secret
+
+# Mistral (sovereign model)
+VLLM_BASE_URL=https://api.mistral.ai/v1
+VLLM_API_KEY=your-mistral-api-key
+VLLM_MAIN_MODEL=mistral-large-latest
+VLLM_LIGHT_MODEL=mistral-small-latest
+
+# JusticeLibre MCP (free, no key required)
+MCP_SERVERS=[{"name":"justicelibre","url":"https://justicelibre.org/mcp"}]
+
+# Object storage (leave blank for local filesystem in dev)
+STORAGE_ENDPOINT_URL=
+STORAGE_ACCESS_KEY_ID=
+STORAGE_SECRET_ACCESS_KEY=
+STORAGE_BUCKET_NAME=
 ```
-
-Select "Local Model" in the chat model picker once `VLLM_BASE_URL` is set.
 
 ---
 
-## MCP configuration
+## Sovereign Deployment (OVHcloud)
 
-Add to `backend/.env`:
+For a fully sovereign French deployment:
 
-```env
-MCP_SERVERS=[
-  {"name":"entscheidsuche","url":"https://mcp.entscheidsuche.ch/mcp"},
-  {"name":"opencaselaw","url":"https://mcp.opencaselaw.ch/mcp"},
-  {"name":"fedlex","url":"https://fedlex-connector.ch/mcp"}
-]
-```
+1. Spin up a VPS on [OVHcloud](https://www.ovhcloud.com) (Paris region)
+2. Use OVHcloud Object Storage (S3-compatible) for document storage
+3. Point `VLLM_BASE_URL` at Mistral's EU API endpoint
+4. Configure your domain and HTTPS
 
-Multiple servers are supported. Each server's tools appear automatically in every conversation. API keys are optional — omit the `apiKey` field for servers that require no authentication.
+No data leaves France.
 
 ---
 
-## Checks
+## French Legal Data Sources
 
-```bash
-npm run build --prefix backend
-npm run build --prefix frontend
-npm run lint --prefix frontend
+| Source | Coverage | Access |
+|---|---|---|
+| [JusticeLibre](https://justicelibre.org) | 4M+ decisions (CE, CAA, TA, Cass, CEDH, CJUE) + 1.5M law articles | Free, no auth, MCP server |
+| [Judilibre (PISTE)](https://piste.api.gouv.fr) | Cour de cassation decisions (official API) | Free, registration required |
+| [Légifrance (PISTE)](https://piste.api.gouv.fr) | All French legislation, codes, regulations | Free, registration required |
+
+---
+
+## Lineage
+
 ```
+MikeOSS (Will Chen) ──► Emilie (veronica-builds) ──► Romy (this repo)
+Harvey alternative      Swiss sovereignty           French sovereignty
+```
+
+This project stands on the shoulders of Will Chen's insight that Harvey's core platform can be replicated in two weeks, and the Swiss legal engineer who showed what sovereign deployment looks like in practice.
+
+---
+
+## Roadmap
+
+- [ ] Légifrance API integration (PISTE credentials → legislation search)
+- [ ] OVHcloud production deployment guide
+- [ ] French legal prompt library (workflows for common TMT/data privacy tasks)
+- [ ] Spanish fork (BOE-MCP already exists)
+- [ ] Swedish fork (Riksdagen API)
 
 ---
 
 ## License
 
-AGPL-3.0-only. See `LICENSE`.
+AGPL-3.0 — same as MikeOSS and Emilie. If you build on this, share your changes.
 
-This project is a fork of [Mike](https://github.com/willchen96/mike) by Will Chen, used under AGPL-3.0.
+---
+
+## Contributing
+
+Issues and PRs welcome. If you're building a sovereign legal AI for another jurisdiction, open an issue — the architecture is jurisdiction-agnostic.
+
+---
+
+*Built with the conviction that access to legal knowledge should not cost €200/month per lawyer.*
