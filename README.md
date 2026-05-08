@@ -219,7 +219,6 @@ This project stands on the shoulders of Will Chen's insight that Harvey's core p
 - [ ] French legal prompt library (workflows for TMT/data privacy/disputes)
 - [ ] Swedish fork (Riksdagen API — open, well-structured)
 - [ ] Spanish fork (BOE-MCP already exists)
-- [ ] Dominican Republic fork (requires building legal corpus from scratch)
 
 ---
 
