@@ -12,6 +12,7 @@ import { userRouter } from "./routes/user";
 import { downloadsRouter } from "./routes/downloads";
 import { authRouter } from "./routes/auth";
 import { buildContentDisposition } from "./lib/storage";
+import { initMCPConnections } from "./lib/mcp";
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
@@ -51,6 +52,8 @@ app.get("/local-storage/*", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Emilie backend running on port ${PORT}`);
+    await initMCPConnections();
+    console.log(`[mcp] Connections initialized`);
 });

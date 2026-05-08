@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserProfile } from "@/contexts/UserProfileContext";
-import { EmilieIcon } from "@/components/chat/emilie-icon";
+import { RomyIcon } from "@/components/chat/Romy-icon";
 import { ChatInput } from "./ChatInput";
 import { SelectAssistantProjectModal } from "./SelectAssistantProjectModal";
 import type { EmilieMessage } from "../shared/types";
@@ -56,7 +56,7 @@ export function InitialView({ onSubmit }: InitialViewProps) {
                                     "transform 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                             }}
                         >
-                            <EmilieIcon size={ICON_SIZE} />
+                            <RomyIcon size={ICON_SIZE} />
                         </div>
                         <h1
                             ref={textRef}

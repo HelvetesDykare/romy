@@ -19,7 +19,7 @@ export const GEMINI_MID_MODELS = ["gemini-3-flash-preview"] as const;
 export const CLAUDE_LOW_MODELS = ["claude-haiku-4-5"] as const;
 export const GEMINI_LOW_MODELS = ["gemini-3.1-flash-lite-preview"] as const;
 
-export const DEFAULT_MAIN_MODEL = "gemini-3-flash-preview";
+export const DEFAULT_MAIN_MODEL = process.env.VLLM_MAIN_MODEL ?? "localllm-main";
 export const DEFAULT_TITLE_MODEL = "gemini-3.1-flash-lite-preview";
 export const DEFAULT_TABULAR_MODEL = "gemini-3-flash-preview";
 
@@ -54,5 +54,6 @@ export function providerForModel(model: string): Provider {
 
 export function resolveModel(id: string | null | undefined, fallback: string): string {
     if (id && ALL_MODELS.has(id)) return id;
+    if (id && (LOCAL_MODELS as readonly string[]).includes(id)) return id;
     return fallback;
 }

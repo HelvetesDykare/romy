@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EmilieIcon } from "@/components/chat/emilie-icon";
+import { RomyIcon } from "@/components/chat/Romy-icon";
 
 interface SiteLogoProps {
     size?: "sm" | "md" | "lg" | "xl";
@@ -36,8 +36,8 @@ export function SiteLogo({
                 animate ? "sidebar-fade-in" : ""
             } ${className}`}
         >
-            <EmilieIcon size={iconSizes[size]} />
-            <span>Emilie</span>
+            <RomyIcon size={iconSizes[size]} />
+            <span>Romy</span>
         </h1>
     );
 

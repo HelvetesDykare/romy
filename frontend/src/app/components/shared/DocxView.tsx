@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { EmilieIcon } from "@/components/chat/emilie-icon";
+import { RomyIcon } from "@/components/chat/Romy-icon";
 import { useFetchDocxBytes } from "@/app/hooks/useFetchDocxBytes";
 import { getToken } from "@/lib/tokenStore";
 import {
@@ -491,7 +491,7 @@ export function DocxView({
             >
                 {loading && !bytes && (
                     <div className="flex h-full items-center justify-center">
-                        <EmilieIcon spin emilie size={28} />
+                        <RomyIcon spin emilie size={28} />
                     </div>
                 )}
                 {error && (

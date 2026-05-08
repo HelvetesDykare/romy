@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ZoomIn, ZoomOut } from "lucide-react";
-import { EmilieIcon } from "@/components/chat/emilie-icon";
+import { RomyIcon } from "@/components/chat/Romy-icon";
 import { useFetchSingleDoc } from "@/app/hooks/useFetchSingleDoc";
 import { DocxView } from "./DocxView";
 import type { CitationQuote } from "./types";
@@ -550,7 +550,7 @@ export function DocView({
             >
                 {loading && (
                     <div className="flex h-full items-center justify-center">
-                        <EmilieIcon spin emilie size={28} />
+                        <RomyIcon spin emilie size={28} />
                     </div>
                 )}
                 {error && (

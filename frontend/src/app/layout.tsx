@@ -15,7 +15,7 @@ const ebGaramond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-    title: "Emilie - AI Legal Platform",
+    title: "Romy - AI Legal Platform",
     description:
         "AI-powered legal document analysis and contract review platform.",
     icons: {

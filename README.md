@@ -19,7 +19,7 @@ France has one of the richest open legal data ecosystems in Europe:
 
 Romy assembles these pieces into a working sovereign legal AI that costs less per month than a single hour of BigLaw associate time.
 
-Named after my dear friend and contributor **Romy Descours-Karmitz** (aka La Rockstar)
+Named after my dear friend and contributor **Romy Descours-Karmitz** (aka La Rockstar), who is an amazing Lawyer. 
 
 ---
 

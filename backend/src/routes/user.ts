@@ -24,7 +24,7 @@ userRouter.get("/profile", requireAuth, async (_req, res) => {
     try {
         const { rows } = await pool.query(
             `SELECT display_name, organisation, message_credits_used, credits_reset_date,
-                    tier, tabular_model, claude_api_key, gemini_api_key
+                    tier, tabular_model, claude_api_key, gemini_api_key, language
              FROM user_profiles WHERE user_id = $1`,
             [userId],
         );
@@ -47,6 +47,7 @@ userRouter.patch("/profile", requireAuth, async (req, res) => {
         gemini_api_key: "gemini_api_key",
         message_credits_used: "message_credits_used",
         credits_reset_date: "credits_reset_date",
+        language: "language",
     };
 
     const updates: { col: string; val: unknown }[] = [];

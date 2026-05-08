@@ -264,10 +264,13 @@ chatRouter.post("/", requireAuth, async (req, res) => {
         );
     }
 
-    const { docIndex, docStore } = await buildDocContext(messages, userId, chatId);
+const { docIndex, docStore } = await buildDocContext(messages, userId, chatId);
     const docAvailability = Object.entries(docIndex).map(([doc_id, info]) => ({ doc_id, filename: info.filename }));
     const enrichedMessages = await enrichWithPriorEvents(messages, chatId, docIndex);
-    const apiMessages = buildMessages(enrichedMessages, docAvailability);
+    const { rows: langRows } = await pool.query<{ language: string }>("SELECT language FROM user_profiles WHERE user_id = $1", [userId]);
+    const userLanguage = langRows[0]?.language ?? "en";
+    const languageInstruction = userLanguage === "fr" ? "Réponds toujours en français." : userLanguage === "es" ? "Responde siempre en español." : "";
+    const apiMessages = buildMessages(enrichedMessages, docAvailability, languageInstruction || undefined);
     const workflowStore = await buildWorkflowStore(userId, userEmail);
 
     console.log("[chat/stream] starting LLM stream", {

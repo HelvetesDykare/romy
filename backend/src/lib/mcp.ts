@@ -42,7 +42,7 @@ async function getClient(entry: MCPClientEntry): Promise<Client | null> {
     // If a connect is already in flight, wait for it instead of racing
     if (entry.connecting) return entry.connecting;
     entry.connecting = (async () => {
-        try {
+        try {console.log(`[mcp] Connecting to ${entry.config.name}`);
             const headers: Record<string, string> = {};
             if (entry.config.apiKey) {
                 headers["Authorization"] = `Bearer ${entry.config.apiKey}`;
@@ -57,6 +57,7 @@ async function getClient(entry: MCPClientEntry): Promise<Client | null> {
             entry.client = client;
             return client;
         } catch (err) {
+console.log(`[mcp] Attempting to connect to ${entry.config.name} at ${entry.config.url}`);
             console.error(`[mcp] Failed to connect to ${entry.config.name}:`, err);
             return null;
         } finally {
@@ -66,11 +67,17 @@ async function getClient(entry: MCPClientEntry): Promise<Client | null> {
     return entry.connecting;
 }
 
+export async function initMCPConnections(): Promise<void> {
+    const tools = await getMCPTools();
+    console.log(`[mcp] Pre-loaded ${tools.length} tools`);
+}
 export async function getMCPTools(): Promise<OpenAIToolSchema[]> {
     const tools: OpenAIToolSchema[] = [];
     for (const entry of entries) {
-        const client = await getClient(entry);
-        if (!client) continue;
+console.log(`[mcp] Getting tools from ${entry.config.name}`);
+const client = await getClient(entry);
+if (!client) { console.log(`[mcp] No client for ${entry.config.name}`); continue; }
+console.log(`[mcp] Client obtained, listing tools`);
         try {
             const result = await client.listTools();
             // Atomic swap: only update toolNames after a successful listTools,

@@ -24,6 +24,7 @@ interface UserProfile {
     tabularModel: string;
     claudeApiKey: string | null;
     geminiApiKey: string | null;
+    language: string;
 }
 
 interface UserProfileContextType {
@@ -39,6 +40,7 @@ interface UserProfileContextType {
         provider: "claude" | "gemini",
         value: string | null,
     ) => Promise<boolean>;
+    updateLanguage: (language: string) => Promise<boolean>;
     reloadProfile: () => Promise<void>;
     incrementMessageCredits: () => Promise<boolean>;
 }
@@ -78,6 +80,7 @@ function fallbackProfile(): UserProfile {
         tabularModel: "gemini-3-flash-preview",
         claudeApiKey: null,
         geminiApiKey: null,
+                language: "en",
     };
 }
 
@@ -137,6 +140,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                 tabularModel: data.tabular_model ?? "gemini-3-flash-preview",
                 claudeApiKey: data.claude_api_key ?? null,
                 geminiApiKey: data.gemini_api_key ?? null,
+                language: (data as any).language ?? "en",
             });
         } catch {
             setProfile(fallbackProfile());
@@ -196,6 +200,15 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
         [],
     );
 
+    const updateLanguage = useCallback(
+        async (language: string): Promise<boolean> => {
+            const ok = await patchProfile({ language });
+            if (ok) setProfile((prev) => (prev ? { ...prev, language } : null));
+            return ok;
+        },
+        [],
+    );
+
     const reloadProfile = useCallback(async () => {
         if (user) await loadProfile();
     }, [user, loadProfile]);
@@ -229,6 +242,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                 updateOrganisation,
                 updateModelPreference,
                 updateApiKey,
+                updateLanguage,
                 reloadProfile,
                 incrementMessageCredits,
             }}

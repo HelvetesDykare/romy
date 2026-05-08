@@ -184,10 +184,10 @@ export async function streamLocalLLM(
 
         const results = await runTools(toolCalls);
 
-        messages.push({
-            role: "assistant",
-            content: iterText || null,
-            tool_calls: Object.values(toolCallAccumulators).map((acc) => ({
+       messages.push({
+    role: "assistant",
+    content: iterText || "",
+    tool_calls: Object.values(toolCallAccumulators).map((acc) => ({
                 id: acc.id,
                 type: "function" as const,
                 function: { name: acc.name, arguments: acc.args },

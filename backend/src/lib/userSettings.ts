@@ -10,7 +10,7 @@ export type UserModelSettings = {
 function resolveTitleModel(apiKeys: UserApiKeys): string {
     if (apiKeys.gemini?.trim()) return DEFAULT_TITLE_MODEL;
     if (apiKeys.claude?.trim()) return "claude-haiku-4-5";
-    return DEFAULT_TITLE_MODEL;
+    return process.env.VLLM_LIGHT_MODEL ?? "localllm-light";
 }
 
 export async function getUserModelSettings(userId: string): Promise<UserModelSettings> {
