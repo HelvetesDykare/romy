@@ -676,13 +676,14 @@ export default function HomePage() {
                     <div className="r-cta-inner">
                         <h2 className="r-cta-h2">L&apos;accès au droit est <em>un bien commun.</em></h2>
                         <p className="r-cta-p">
-                            La France a rendu ses données juridiques publiques et gratuites.<br />
-                            Romy les assemble. Open source. AGPL-3.0. Hébergé en France.
-                        </p>
-                        <div className="r-cta-actions">
-                            <Link href="/signup" className="r-btn-primary">Créer un compte</Link>
-                            <a href="https://github.com/HelvetesDykare/romy" className="r-btn-secondary" target="_blank" rel="noopener noreferrer">Lire le code source</a>
-                        </div>
+    La France a rendu ses données juridiques publiques et gratuites.<br />
+    Romy les assemble. Open source. AGPL-3.0.<br />
+    Déployez sur vos propres serveurs — vos données restent les vôtres.
+</p>
+<div className="r-cta-actions">
+    <a href="https://github.com/HelvetesDykare/romy" className="r-btn-primary" target="_blank" rel="noopener noreferrer">Déployer Romy</a>
+    <a href="https://github.com/HelvetesDykare/romy/blob/main/README.md" className="r-btn-secondary" target="_blank" rel="noopener noreferrer">Lire la documentation</a>
+</div>
                     </div>
                 </section>
 
