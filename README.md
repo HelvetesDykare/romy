@@ -2,6 +2,9 @@
 
 > *"No data leaving France."*
 
+> A fork of **[Emilie](https://github.com/veronica-builds/emilie)**, extended for French sovereign legal AI.
+> Emilie is itself a fork of **[MikeOSS](https://github.com/willchen96/mike)** by Will Chen.
+
 Romy is an open-source French legal AI platform built on France's own public legal data infrastructure. It assembles the richest open legal dataset in Europe into a working, sovereign AI tool — deployable on French servers, powered by a French model, at a fraction of the cost of proprietary alternatives.
 
 Built by **Andres Alma** (TMT, Data Privacy & Disputes lawyer, Panthéon-Assas and UVSQ alumnus — as a hands-on exercise in Legal AI Engineering and a contribution to the French open legal tech community) and **Romy Descours-Karmitz**.
