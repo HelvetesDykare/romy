@@ -22,6 +22,7 @@ import {
     type OpenAIToolSchema,
 } from "./llm";
 import { getMCPTools, isMCPTool, callMCPTool } from "./mcp";
+import { LEGIFRANCE_TOOLS, callLegifranceTool, isLegifranceTool } from "./legifrance";
 
 const STANDARD_FONT_DATA_URL = (() => {
     try {
@@ -2056,6 +2057,9 @@ export async function runToolCalls(
                 tool_call_id: tc.id,
                 content: JSON.stringify(toolResultPayload),
             });
+        } else if (isLegifranceTool(tc.function.name)) {
+    const legiResult = await callLegifranceTool(tc.function.name, args);
+    toolResults.push({ role: "tool", tool_call_id: tc.id, content: legiResult ?? JSON.stringify({ error: "Tool not found" }) });
         } else if (isMCPTool(tc.function.name)) {
             const mcpResult = await callMCPTool(tc.function.name, args);
             toolResults.push({ role: "tool", tool_call_id: tc.id, content: mcpResult });
@@ -2179,8 +2183,8 @@ export async function runLLMStream(params: {
     const { apiMessages, docStore, docIndex, userId, write, extraTools, workflowStore, tabularStore, buildCitations, model, apiKeys, projectId } = params;
     const mcpTools = await getMCPTools();
     const activeTools = extraTools?.length
-        ? [...TOOLS, ...WORKFLOW_TOOLS, ...extraTools, ...mcpTools]
-        : [...TOOLS, ...WORKFLOW_TOOLS, ...mcpTools];
+        ? [...TOOLS, ...WORKFLOW_TOOLS, ...extraTools, ...mcpTools, ...LEGIFRANCE_TOOLS]
+        : [...TOOLS, ...WORKFLOW_TOOLS, ...mcpTools, ...LEGIFRANCE_TOOLS];
 
     const rawMsgs = apiMessages as { role: string; content: string | null }[];
     const systemPrompt =
