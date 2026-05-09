@@ -1241,6 +1241,516 @@ export const BUILT_IN_WORKFLOWS: EmilieWorkflow[] = [
             },
         ],
     },
+// ─── Contrat de Prestation de Services (TMT) ──────────────────────────────
+    {
+        id: "builtin-fr-prestation-services",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Contrat de Prestation de Services",
+        type: "tabular",
+        practice: "TMT",
+        prompt_md: null,
+        columns_config: [
+            {
+                index: 0,
+                name: "Parties",
+                format: "bulleted_list",
+                prompt: "Identifiez toutes les parties à ce contrat de prestation de services. Pour chacune, indiquez la dénomination sociale complète, la forme juridique, le numéro SIREN/SIRET si mentionné, et le rôle (prestataire / client).",
+            },
+            {
+                index: 1,
+                name: "Date et entrée en vigueur",
+                format: "date",
+                prompt: "Quelle est la date de signature de ce contrat ? Si une date d'entrée en vigueur différente est prévue, indiquez les deux.",
+            },
+            {
+                index: 2,
+                name: "Objet",
+                format: "text",
+                prompt: "Quel est l'objet de ce contrat ? Décrivez les prestations de services prévues, en précisant leur nature (développement logiciel, conseil, intégration, maintenance, hébergement, etc.) et leur périmètre.",
+            },
+            {
+                index: 3,
+                name: "Durée",
+                format: "text",
+                prompt: "Quelle est la durée de ce contrat ? Précisez s'il s'agit d'un contrat à durée déterminée ou indéterminée, et le cas échéant la date d'échéance, les conditions de renouvellement, et le préavis requis.",
+            },
+            {
+                index: 4,
+                name: "Prix et conditions de paiement",
+                format: "text",
+                prompt: "Quel est le prix des prestations ? Précisez le montant (forfait, régie, abonnement, etc.), la devise, la périodicité de facturation, les délais de paiement, et les conditions d'indexation ou de révision des prix.",
+            },
+            {
+                index: 5,
+                name: "Obligations du prestataire",
+                format: "bulleted_list",
+                prompt: "Quelles sont les principales obligations du prestataire ? Précisez s'il s'agit d'obligations de moyens ou de résultat, les niveaux de service (SLA) si prévus, et les engagements en matière de qualité et de délais.",
+            },
+            {
+                index: 6,
+                name: "Propriété intellectuelle",
+                format: "text",
+                prompt: "Quelles sont les stipulations relatives à la propriété intellectuelle ? Précisez qui détient les droits sur les livrables, les développements spécifiques, les outils préexistants, et les conditions de cession ou de licence consentie au client.",
+            },
+            {
+                index: 7,
+                name: "Confidentialité",
+                format: "text",
+                prompt: "Quelles obligations de confidentialité sont prévues ? Précisez leur étendue, leur durée, les catégories d'informations couvertes, et les exceptions admises.",
+            },
+            {
+                index: 8,
+                name: "Protection des données personnelles",
+                format: "text",
+                prompt: "Le contrat contient-il des stipulations relatives au traitement de données personnelles au sens du RGPD ? Précisez si le prestataire intervient en qualité de sous-traitant ou de responsable de traitement, et si un DPA (Data Processing Agreement) est prévu ou annexé.",
+            },
+            {
+                index: 9,
+                name: "Responsabilité et limitation",
+                format: "text",
+                prompt: "Quelles sont les stipulations relatives à la responsabilité des parties ? Précisez l'existence d'un plafond de responsabilité, son montant ou son mode de calcul, les exclusions de responsabilité (dommages indirects, perte d'exploitation, etc.), et les carve-outs éventuels.",
+            },
+            {
+                index: 10,
+                name: "Résiliation",
+                format: "text",
+                prompt: "Quels sont les droits de résiliation prévus ? Distinguez la résiliation pour manquement (en précisant les conditions et délais de mise en demeure), la résiliation pour convenance (préavis applicable), et les conséquences de la résiliation (restitution, paiement des prestations réalisées, etc.).",
+            },
+            {
+                index: 11,
+                name: "Droit applicable et juridiction",
+                format: "text",
+                prompt: "Quel est le droit applicable à ce contrat et quelles juridictions sont compétentes pour trancher les litiges ? Précisez s'il existe une clause compromissoire (arbitrage) ou une clause attributive de juridiction.",
+            },
+        ],
+    },
+
+    // ─── Contrat SaaS (TMT) ───────────────────────────────────────────────────
+    {
+        id: "builtin-fr-saas",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Contrat SaaS — Revue",
+        type: "tabular",
+        practice: "TMT",
+        prompt_md: null,
+        columns_config: [
+            {
+                index: 0,
+                name: "Parties",
+                format: "bulleted_list",
+                prompt: "Identifiez toutes les parties à ce contrat SaaS. Pour chacune, indiquez la dénomination sociale complète, la forme juridique, le numéro SIREN/SIRET si mentionné, et le rôle (éditeur / client).",
+            },
+            {
+                index: 1,
+                name: "Description du service",
+                format: "text",
+                prompt: "Quel est le service SaaS fourni ? Décrivez les fonctionnalités principales, les modules inclus, et toute limitation d'utilisation (nombre d'utilisateurs, volume de données, périmètre géographique).",
+            },
+            {
+                index: 2,
+                name: "Niveaux de service (SLA)",
+                format: "text",
+                prompt: "Quels niveaux de service (SLA) sont garantis ? Précisez le taux de disponibilité garanti, les plages de maintenance, les délais de rétablissement (RTO/RPO si mentionnés), et les pénalités applicables en cas de non-respect.",
+            },
+            {
+                index: 3,
+                name: "Durée et renouvellement",
+                format: "text",
+                prompt: "Quelle est la durée initiale de ce contrat ? Précisez les conditions de renouvellement (tacite ou exprès), le préavis de non-renouvellement, et les conditions de résiliation anticipée.",
+            },
+            {
+                index: 4,
+                name: "Prix et facturation",
+                format: "text",
+                prompt: "Quel est le modèle de prix ? Précisez le montant des abonnements (mensuel/annuel), le mode de calcul (par utilisateur, par volume, forfait), les conditions d'indexation, et les modalités de facturation.",
+            },
+            {
+                index: 5,
+                name: "Données et RGPD",
+                format: "text",
+                prompt: "Quelles stipulations régissent le traitement des données personnelles ? Précisez la qualité de l'éditeur (sous-traitant au sens du RGPD), l'existence d'un DPA, les mesures de sécurité prévues, la localisation des données, et les conditions de restitution ou suppression en fin de contrat.",
+            },
+            {
+                index: 6,
+                name: "Propriété des données",
+                format: "text",
+                prompt: "À qui appartiennent les données du client hébergées sur la plateforme ? L'éditeur peut-il les utiliser à des fins propres (analytics, entraînement de modèles, etc.) ? Précisez les stipulations relatives à la portabilité et à la restitution des données.",
+            },
+            {
+                index: 7,
+                name: "Propriété intellectuelle",
+                format: "text",
+                prompt: "Quelles sont les stipulations relatives à la propriété intellectuelle ? Précisez les droits concédés au client (licence d'utilisation du logiciel), les droits de l'éditeur sur la plateforme et ses évolutions, et le traitement des développements spécifiques réalisés pour le client.",
+            },
+            {
+                index: 8,
+                name: "Sécurité",
+                format: "text",
+                prompt: "Quelles obligations de sécurité l'éditeur assume-t-il ? Précisez les certifications mentionnées (ISO 27001, SOC 2, HDS, etc.), les mesures de sécurité applicables, et les obligations de notification en cas d'incident ou de violation de données.",
+            },
+            {
+                index: 9,
+                name: "Limitation de responsabilité",
+                format: "text",
+                prompt: "Quelles limitations de responsabilité sont stipulées ? Précisez le plafond (montant ou mode de calcul), les exclusions (dommages indirects, perte de données, perte d'exploitation), et les carve-outs éventuels (faute lourde, dol, atteinte aux données personnelles).",
+            },
+            {
+                index: 10,
+                name: "Résiliation et portabilité",
+                format: "text",
+                prompt: "Quelles sont les conditions de résiliation et les droits du client en fin de contrat ? Précisez le préavis, les conditions de récupération des données (format, délai), et les obligations de suppression incombant à l'éditeur.",
+            },
+            {
+                index: 11,
+                name: "Droit applicable et juridiction",
+                format: "text",
+                prompt: "Quel est le droit applicable et quelle est la juridiction compétente ? Précisez s'il existe une clause compromissoire ou une clause attributive de juridiction.",
+            },
+        ],
+    },
+
+    // ─── Mise en conformité RGPD (Data Privacy) ──────────────────────────────
+    {
+        id: "builtin-fr-rgpd-audit",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Audit de conformité RGPD",
+        type: "tabular",
+        practice: "Données personnelles",
+        prompt_md: null,
+        columns_config: [
+            {
+                index: 0,
+                name: "Traitement identifié",
+                format: "text",
+                prompt: "Quel traitement de données personnelles ce document décrit-il ou implique-t-il ? Indiquez la finalité principale du traitement.",
+            },
+            {
+                index: 1,
+                name: "Base légale",
+                format: "tag",
+                tags: ["Consentement", "Contrat", "Obligation légale", "Intérêt vital", "Mission d'intérêt public", "Intérêt légitime", "Non précisée"],
+                prompt: "Quelle est la base légale du traitement au sens de l'article 6 du RGPD ? Identifiez la base légale invoquée ou applicable parmi : consentement, exécution d'un contrat, obligation légale, intérêt vital, mission d'intérêt public, ou intérêts légitimes. Si aucune base légale n'est mentionnée, indiquez 'Non précisée'.",
+            },
+            {
+                index: 2,
+                name: "Catégories de données",
+                format: "bulleted_list",
+                prompt: "Quelles catégories de données personnelles sont traitées ? Précisez s'il s'agit de données ordinaires ou de catégories particulières au sens de l'article 9 du RGPD (données de santé, origine ethnique, opinions politiques, données biométriques, etc.).",
+            },
+            {
+                index: 3,
+                name: "Personnes concernées",
+                format: "bulleted_list",
+                prompt: "Quelles sont les catégories de personnes concernées par ce traitement (ex. : clients, salariés, prospects, mineurs, etc.) ?",
+            },
+            {
+                index: 4,
+                name: "Durée de conservation",
+                format: "text",
+                prompt: "Quelle durée de conservation des données est prévue ? Est-elle justifiée au regard de la finalité du traitement et des obligations légales applicables ? Précisez si une politique de purge ou d'archivage est mentionnée.",
+            },
+            {
+                index: 5,
+                name: "Transferts hors UE",
+                format: "yes_no",
+                prompt: "Des transferts de données personnelles vers des pays tiers à l'UE sont-ils prévus ou impliqués ? Si oui, quel mécanisme de transfert est invoqué (décision d'adéquation, clauses contractuelles types, BCR, etc.) ?",
+            },
+            {
+                index: 6,
+                name: "Sous-traitants identifiés",
+                format: "bulleted_list",
+                prompt: "Des sous-traitants au sens du RGPD sont-ils identifiés dans ce document ? Listez-les et précisez si un contrat de sous-traitance (DPA) conforme à l'article 28 du RGPD est en place ou prévu.",
+            },
+            {
+                index: 7,
+                name: "Droits des personnes",
+                format: "text",
+                prompt: "Le document prévoit-il des mécanismes pour l'exercice des droits des personnes concernées (accès, rectification, effacement, portabilité, opposition, limitation) ? Précisez les procédures prévues et les délais de réponse.",
+            },
+            {
+                index: 8,
+                name: "Risques identifiés",
+                format: "bulleted_list",
+                prompt: "Quels risques de non-conformité RGPD identifiez-vous dans ce document ? Listez chaque risque (ex. : absence de base légale, durée de conservation excessive, absence de DPA, transfert non encadré) et évaluez sa criticité (élevée / modérée / faible).",
+            },
+            {
+                index: 9,
+                name: "Recommandations",
+                format: "bulleted_list",
+                prompt: "Quelles mesures correctives recommandez-vous pour remédier aux risques identifiés ? Pour chaque recommandation, précisez l'action à mener et son degré d'urgence.",
+            },
+        ],
+    },
+
+    // ─── DPA / Contrat de sous-traitance RGPD ─────────────────────────────────
+    {
+        id: "builtin-fr-dpa",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "DPA — Contrat de sous-traitance RGPD",
+        type: "tabular",
+        practice: "Données personnelles",
+        prompt_md: null,
+        columns_config: [
+            {
+                index: 0,
+                name: "Parties",
+                format: "bulleted_list",
+                prompt: "Identifiez le responsable de traitement et le sous-traitant. Pour chacun, indiquez la dénomination sociale complète et le rôle au sens du RGPD.",
+            },
+            {
+                index: 1,
+                name: "Objet et finalités du traitement",
+                format: "text",
+                prompt: "Quel est l'objet du traitement confié au sous-traitant ? Quelles sont les finalités pour lesquelles le sous-traitant traite les données pour le compte du responsable de traitement ?",
+            },
+            {
+                index: 2,
+                name: "Catégories de données et personnes concernées",
+                format: "bulleted_list",
+                prompt: "Quelles catégories de données personnelles sont traitées et quelles sont les catégories de personnes concernées, conformément aux exigences de l'article 28(3) du RGPD ?",
+            },
+            {
+                index: 3,
+                name: "Instructions documentées",
+                format: "yes_no",
+                prompt: "Le DPA prévoit-il que le sous-traitant ne traite les données que sur instruction documentée du responsable de traitement, conformément à l'article 28(3)(a) du RGPD ? Précisez les modalités.",
+            },
+            {
+                index: 4,
+                name: "Obligations de sécurité",
+                format: "text",
+                prompt: "Quelles mesures techniques et organisationnelles de sécurité le sous-traitant s'engage-t-il à mettre en œuvre conformément à l'article 32 du RGPD ? Des certifications sont-elles mentionnées (ISO 27001, HDS, SOC 2, etc.) ?",
+            },
+            {
+                index: 5,
+                name: "Sous-traitants ultérieurs",
+                format: "text",
+                prompt: "Le DPA encadre-t-il le recours à des sous-traitants ultérieurs ? Précisez si une autorisation préalable (générale ou spécifique) est requise, et si une liste des sous-traitants ultérieurs autorisés est fournie.",
+            },
+            {
+                index: 6,
+                name: "Transferts hors UE",
+                format: "text",
+                prompt: "Le DPA encadre-t-il les transferts de données vers des pays tiers ? Quel mécanisme de transfert est prévu (clauses contractuelles types de la Commission européenne, BCR, décision d'adéquation) ? Les garanties appropriées sont-elles documentées ?",
+            },
+            {
+                index: 7,
+                name: "Notification des violations",
+                format: "text",
+                prompt: "Quelles obligations de notification incombent au sous-traitant en cas de violation de données personnelles ? Quel est le délai de notification au responsable de traitement ? Les informations à communiquer sont-elles précisées ?",
+            },
+            {
+                index: 8,
+                name: "Droits d'audit",
+                format: "text",
+                prompt: "Le DPA prévoit-il un droit d'audit du responsable de traitement sur les activités du sous-traitant, conformément à l'article 28(3)(h) du RGPD ? Précisez les modalités (préavis, fréquence, coûts, acceptation de certifications en lieu et place).",
+            },
+            {
+                index: 9,
+                name: "Sort des données en fin de contrat",
+                format: "text",
+                prompt: "Quelles obligations s'appliquent en fin de contrat concernant les données personnelles ? Le sous-traitant doit-il restituer ou supprimer les données ? Dans quel délai et selon quelles modalités ?",
+            },
+            {
+                index: 10,
+                name: "Conformité article 28 RGPD",
+                format: "yes_no",
+                prompt: "Ce DPA contient-il toutes les mentions obligatoires prévues à l'article 28(3) du RGPD ? Identifiez les éventuelles lacunes.",
+            },
+        ],
+    },
+
+    // ─── Analyse de décision de justice (Contentieux) ─────────────────────────
+    {
+        id: "builtin-fr-decision-analyse",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Analyse de décision de justice",
+        type: "tabular",
+        practice: "Contentieux",
+        prompt_md: null,
+        columns_config: [
+            {
+                index: 0,
+                name: "Juridiction",
+                format: "text",
+                prompt: "Quelle est la juridiction ayant rendu cette décision (ex. : Tribunal judiciaire, Cour d'appel, Cour de cassation, Conseil d'État, Cour administrative d'appel, Tribunal administratif) ? Précisez le ressort géographique.",
+            },
+            {
+                index: 1,
+                name: "Date",
+                format: "date",
+                prompt: "Quelle est la date de cette décision ?",
+            },
+            {
+                index: 2,
+                name: "Numéro de pourvoi / RG",
+                format: "text",
+                prompt: "Quel est le numéro de pourvoi, le numéro de rôle général (RG), ou tout autre identifiant de la décision ?",
+            },
+            {
+                index: 3,
+                name: "Parties",
+                format: "bulleted_list",
+                prompt: "Qui sont les parties à cette procédure ? Précisez leur qualité (demandeur / défendeur, appelant / intimé, requérant / résistant, etc.) et, si disponible, leur nature (personne physique, personne morale, administration).",
+            },
+            {
+                index: 4,
+                name: "Faits",
+                format: "text",
+                prompt: "Résumez les faits à l'origine du litige de manière concise et factuelle, en 3 à 5 phrases.",
+            },
+            {
+                index: 5,
+                name: "Prétentions et moyens",
+                format: "bulleted_list",
+                prompt: "Quelles sont les principales prétentions et les moyens soulevés par chacune des parties ?",
+            },
+            {
+                index: 6,
+                name: "Question(s) de droit",
+                format: "bulleted_list",
+                prompt: "Quelles sont les questions de droit que la juridiction devait trancher ? Formulez-les de manière précise.",
+            },
+            {
+                index: 7,
+                name: "Solution",
+                format: "text",
+                prompt: "Quelle est la solution retenue par la juridiction ? Précisez le dispositif (condamnation, rejet, cassation, annulation, renvoi, etc.) et le fondement juridique principal.",
+            },
+            {
+                index: 8,
+                name: "Motifs principaux",
+                format: "bulleted_list",
+                prompt: "Quels sont les principaux motifs retenus par la juridiction pour justifier sa décision ? Citez les articles de loi, textes réglementaires, ou principes jurisprudentiels expressément visés.",
+            },
+            {
+                index: 9,
+                name: "Portée et intérêt",
+                format: "text",
+                prompt: "Quelle est la portée de cette décision ? S'agit-il d'une décision de principe, d'une confirmation de jurisprudence, d'un revirement, ou d'une décision d'espèce ? Identifiez son intérêt pratique pour un praticien.",
+            },
+        ],
+    },
+
+    // ─── Note de synthèse contentieux (Assistant) ─────────────────────────────
+    {
+        id: "builtin-fr-note-contentieux",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Note de synthèse — Analyse du risque contentieux",
+        type: "assistant",
+        practice: "Contentieux",
+        prompt_md:
+            "## Analyse du risque contentieux\n\n" +
+            "Sur la base des documents téléversés, rédigez une note de synthèse structurée analysant le risque contentieux. " +
+            "La note doit couvrir les points suivants :\n\n" +
+            "1. **Contexte factuel** — Résumé des faits pertinents au regard du risque identifié\n" +
+            "2. **Fondements juridiques applicables** — Textes légaux, réglementaires et jurisprudence pertinente (avec références précises)\n" +
+            "3. **Analyse des prétentions** — Forces et faiblesses des positions respectives des parties\n" +
+            "4. **Évaluation du risque** — Probabilité d'une condamnation ou d'un échec procédural (élevée / modérée / faible), avec justification\n" +
+            "5. **Quantification des enjeux** — Montants en jeu (si quantifiables) : principal, intérêts, article 700 CPC, dépens\n" +
+            "6. **Stratégie recommandée** — Options procédurales (négociation, médiation, procédure au fond, référé, etc.) avec avantages et inconvénients de chacune\n" +
+            "7. **Prochaines étapes** — Actions immédiates recommandées, délais procéduraux à surveiller, pièces à réunir\n\n" +
+            "Rédigez la note en français, dans un style juridique clair et rigoureux. Citez les décisions et textes pertinents avec leurs références complètes.",
+        columns_config: null,
+    },
+
+    // ─── Mise en demeure (Contentieux) ────────────────────────────────────────
+    {
+        id: "builtin-fr-mise-en-demeure",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Rédaction de mise en demeure",
+        type: "assistant",
+        practice: "Contentieux",
+        prompt_md:
+            "## Rédaction de mise en demeure\n\n" +
+            "Sur la base des documents et informations fournis, rédigez une mise en demeure en français, conforme aux exigences du droit français.\n\n" +
+            "La mise en demeure doit inclure :\n\n" +
+            "1. **En-tête** — Coordonnées complètes de l'expéditeur et du destinataire, date, objet\n" +
+            "2. **Rappel des faits** — Exposé factuel précis et chronologique des manquements reprochés\n" +
+            "3. **Fondement juridique** — Base légale ou contractuelle de la demande (articles du Code civil, clauses contractuelles, etc.)\n" +
+            "4. **Mise en demeure formelle** — Injonction claire et précise adressée au débiteur, avec indication du délai imparti pour s'exécuter\n" +
+            "5. **Conséquences du défaut d'exécution** — Annonce des suites en cas de non-exécution dans le délai imparti (action en justice, résiliation, etc.)\n" +
+            "6. **Formule de politesse et signature**\n\n" +
+            "Rédigez le document dans un style juridique formel, adapté à un envoi par lettre recommandée avec accusé de réception. " +
+            "Générez le résultat sous forme de document Word téléchargeable.",
+        columns_config: null,
+    },
+
+    // ─── Contrat de cession de droits PI (TMT) ───────────────────────────────
+    {
+        id: "builtin-fr-cession-pi",
+        user_id: null,
+        is_system: true,
+        created_at: "",
+        title: "Contrat de cession de droits de PI",
+        type: "tabular",
+        practice: "TMT",
+        prompt_md: null,
+        columns_config: [
+            {
+                index: 0,
+                name: "Parties",
+                format: "bulleted_list",
+                prompt: "Identifiez le cédant et le cessionnaire. Pour chacun, indiquez la dénomination sociale complète, la forme juridique, et le rôle.",
+            },
+            {
+                index: 1,
+                name: "Droits cédés",
+                format: "bulleted_list",
+                prompt: "Quels droits de propriété intellectuelle sont cédés ? Précisez la nature des droits (droits d'auteur, droits sur logiciel, brevets, marques, dessins et modèles, savoir-faire, etc.), leur périmètre et leur objet.",
+            },
+            {
+                index: 2,
+                name: "Étendue de la cession",
+                format: "text",
+                prompt: "Quelles sont les conditions d'étendue de la cession au sens de l'article L131-3 du CPI ? Précisez : (1) la nature des droits cédés (reproduction, représentation, adaptation, traduction, etc.), (2) le territoire, (3) la durée, et (4) les modes d'exploitation autorisés.",
+            },
+            {
+                index: 3,
+                name: "Exclusivité",
+                format: "yes_no",
+                prompt: "La cession est-elle consentie à titre exclusif ou non exclusif ? Si exclusive, précisez si le cédant se réserve un droit d'exploitation personnel.",
+            },
+            {
+                index: 4,
+                name: "Prix et contrepartie",
+                format: "text",
+                prompt: "Quelle est la contrepartie financière de la cession ? Précisez s'il s'agit d'un prix forfaitaire, de redevances (royalties), ou d'une combinaison des deux. Pour les redevances, indiquez le taux, l'assiette de calcul, et la périodicité.",
+            },
+            {
+                index: 5,
+                name: "Garanties du cédant",
+                format: "bulleted_list",
+                prompt: "Quelles garanties le cédant accorde-t-il ? Précisez notamment les garanties d'originalité, de titularité, d'absence d'éviction, et d'absence de droits de tiers.",
+            },
+            {
+                index: 6,
+                name: "Droits moraux",
+                format: "text",
+                prompt: "Le contrat contient-il des stipulations relatives aux droits moraux de l'auteur (droit de divulgation, droit à la paternité, droit d'intégrité) ? Précisez si des aménagements contractuels sont prévus dans les limites admises par le droit français.",
+            },
+            {
+                index: 7,
+                name: "Droit applicable",
+                format: "text",
+                prompt: "Quel est le droit applicable à ce contrat et quelle est la juridiction compétente ?",
+            },
+        ],
+    },    
 ];
 
 export const BUILT_IN_IDS = new Set(BUILT_IN_WORKFLOWS.map((wf) => wf.id));
