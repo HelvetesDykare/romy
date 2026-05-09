@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "assistant": "Asistente",
+    "projects": "Proyectos",
+    "tabularReview": "Revisión tabular",
+    "workflows": "Workflows",
+    "accountSettings": "Configuración de cuenta",
+    "openSidebar": "Abrir barra lateral",
+    "closeSidebar": "Cerrar barra lateral"
+  },
+  "sidebar": {
+    "assistantHistory": "Historial",
+    "noChats": "Sin conversaciones"
+  },
+  "assistant": {
+    "greeting": "Hola, {username}",
+    "disclaimer": "La IA puede cometer errores. Las respuestas no constituyen asesoramiento jurídico.",
+    "placeholder": "Haz una pregunta jurídica…"
+  },
+  "workflows": {
+    "title": "Workflows",
+    "searchPlaceholder": "Buscar…",
+    "tabs": {
+      "all": "Todos",
+      "builtin": "Integrados",
+      "custom": "Personalizados",
+      "hidden": "Ocultos"
+    },
+    "filterByType": "Filtrar por tipo",
+    "filterByPractice": "Filtrar por área",
+    "allTypes": "Todos los tipos",
+    "allPractices": "Todas las áreas",
+    "actions": "Acciones",
+    "delete": "Eliminar",
+    "unhide": "Mostrar",
+    "hide": "Ocultar",
+    "createNew": "+ Crear",
+    "columns": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "practice": "Área",
+      "source": "Origen"
+    },
+    "types": {
+      "assistant": "Asistente",
+      "tabular": "Tabular"
+    },
+    "sources": {
+      "myself": "Yo",
+      "shared": "Compartido"
+    },
+    "empty": {
+      "custom": {
+        "title": "Workflows personalizados",
+        "description": "Crea prompts reutilizables y plantillas de revisión tabular adaptados a tu práctica."
+      },
+      "hidden": {
+        "title": "Workflows ocultos",
+        "description": "Los workflows integrados que hayas ocultado aparecerán aquí. Puedes mostrarlos en cualquier momento."
+      },
+      "all": {
+        "title": "Workflows",
+        "description": "Automatiza el análisis de documentos con prompts reutilizables y plantillas de revisión tabular."
+      }
+    }
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "signup": "Registrarse",
+    "logout": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "loginButton": "Iniciar sesión",
+    "signupButton": "Crear cuenta"
+  },
+  "account": {
+    "title": "Configuración de cuenta",
+    "displayName": "Nombre de usuario",
+    "organisation": "Organización",
+    "language": "Idioma",
+    "save": "Guardar",
+    "deleteAccount": "Eliminar cuenta"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "error": "Algo salió mal",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "search": "Buscar"
+  }
+}

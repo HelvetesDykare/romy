@@ -19,13 +19,7 @@ import Link from "next/link";
 import { RomyIcon } from "@/components/chat/Romy-icon";
 import { SidebarChatItem } from "@/app/components/shared/SidebarChatItem";
 import { listProjects } from "@/app/lib/emilieApi";
-
-const NAV_ITEMS = [
-    { href: "/assistant", label: "Assistant", icon: MessageSquare },
-    { href: "/projects", label: "Projects", icon: FolderOpen },
-    { href: "/tabular-reviews", label: "Tabular Review", icon: Table2 },
-    { href: "/workflows", label: "Workflows", icon: Library },
-];
+import { useTranslations } from "next-intl";
 
 interface AppSidebarProps {
     isOpen: boolean;
@@ -38,12 +32,18 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
     const { chats, currentChatId, setCurrentChatId } = useChatHistoryContext();
     const router = useRouter();
     const pathname = usePathname();
+    const t = useTranslations();
     const [shouldAnimate, setShouldAnimate] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [historyCollapsed, setHistoryCollapsed] = useState(false);
-    const [projectNames, setProjectNames] = useState<Record<string, string>>(
-        {},
-    );
+    const [projectNames, setProjectNames] = useState<Record<string, string>>({});
+
+    const NAV_ITEMS = [
+        { href: "/assistant", label: t("nav.assistant"), icon: MessageSquare },
+        { href: "/projects", label: t("nav.projects"), icon: FolderOpen },
+        { href: "/tabular-reviews", label: t("nav.tabularReview"), icon: Table2 },
+        { href: "/workflows", label: t("nav.workflows"), icon: Library },
+    ];
 
     useEffect(() => {
         if (!user) return;
@@ -64,8 +64,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
         const handleClickOutside = () => setIsDropdownOpen(false);
         if (isDropdownOpen) {
             document.addEventListener("click", handleClickOutside);
-            return () =>
-                document.removeEventListener("click", handleClickOutside);
+            return () => document.removeEventListener("click", handleClickOutside);
         }
     }, [isDropdownOpen]);
 
@@ -75,7 +74,6 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
             setCurrentChatId(chatId);
             return;
         }
-
         const projectChatMatch = pathname.match(
             /^\/projects\/[^/]+\/assistant\/chat\/([^/]+)/,
         );
@@ -83,15 +81,13 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
             setCurrentChatId(projectChatMatch[1]);
             return;
         }
-
         if (pathname === "/assistant") {
             setCurrentChatId(null);
         }
     }, [pathname, setCurrentChatId]);
 
     const getUserInitials = (email: string) => {
-        if (profile?.displayName)
-            return profile.displayName.charAt(0).toUpperCase();
+        if (profile?.displayName) return profile.displayName.charAt(0).toUpperCase();
         return email.charAt(0).toUpperCase();
     };
 
@@ -141,7 +137,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                 <button
                     onClick={onToggle}
                     className="h-9 w-9 p-2.5 items-center flex hover:bg-gray-100 rounded-md transition-colors"
-                    title={isOpen ? "Close sidebar" : "Open sidebar"}
+                    title={isOpen ? t("nav.closeSidebar") : t("nav.openSidebar")}
                 >
                     <PanelLeft className="h-4 w-4" />
                 </button>
@@ -149,8 +145,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
 
             {/* Nav items */}
             {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-                const isActive =
-                    pathname === href || pathname.startsWith(href + "/");
+                const isActive = pathname === href || pathname.startsWith(href + "/");
                 return (
                     <div key={href} className="py-1 px-2.5">
                         <button
@@ -190,21 +185,16 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                             shouldAnimate ? "sidebar-fade-in" : ""
                         }`}
                     >
-                        <span>Assistant History</span>
+                        <span>{t("sidebar.assistantHistory")}</span>
                         <ChevronDown
                             className={`h-3.5 w-3.5 transition-transform ${historyCollapsed ? "-rotate-90" : ""}`}
                         />
                     </button>
-                    <div
-                        className={`overflow-y-auto flex-1 ${historyCollapsed ? "hidden" : ""}`}
-                    >
+                    <div className={`overflow-y-auto flex-1 ${historyCollapsed ? "hidden" : ""}`}>
                         {!chats ? (
                             <div className="space-y-1 px-2.5">
                                 {[40, 60, 50, 70, 45].map((w, i) => (
-                                    <div
-                                        key={i}
-                                        className="h-9 flex items-center px-3 rounded-md"
-                                    >
+                                    <div key={i} className="h-9 flex items-center px-3 rounded-md">
                                         <div
                                             className="h-3 bg-gray-200 rounded animate-pulse"
                                             style={{ width: `${w}%` }}
@@ -218,7 +208,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                     shouldAnimate ? "sidebar-fade-in-2" : ""
                                 }`}
                             >
-                                No chats yet
+                                {t("sidebar.noChats")}
                             </div>
                         ) : (
                             <div
@@ -299,7 +289,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                     className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2 rounded-md"
                                 >
                                     <User className="h-4 w-4" />
-                                    Account Settings
+                                    {t("nav.accountSettings")}
                                 </button>
                             </div>
                         )}

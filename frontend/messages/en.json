@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "assistant": "Assistant",
+    "projects": "Projects",
+    "tabularReview": "Tabular Review",
+    "workflows": "Workflows",
+    "accountSettings": "Account Settings",
+    "openSidebar": "Open sidebar",
+    "closeSidebar": "Close sidebar"
+  },
+  "sidebar": {
+    "assistantHistory": "Assistant History",
+    "noChats": "No chats yet"
+  },
+  "assistant": {
+    "greeting": "Hi, {username}",
+    "disclaimer": "AI can make mistakes. Answers are not legal advice.",
+    "placeholder": "Ask a legal question…"
+  },
+  "workflows": {
+    "title": "Workflows",
+    "searchPlaceholder": "Search workflows…",
+    "tabs": {
+      "all": "All Workflows",
+      "builtin": "Built-in",
+      "custom": "Custom",
+      "hidden": "Hidden"
+    },
+    "filterByType": "Filter by type",
+    "filterByPractice": "Filter by practice",
+    "allTypes": "All Types",
+    "allPractices": "All Practices",
+    "actions": "Actions",
+    "delete": "Delete",
+    "unhide": "Unhide",
+    "hide": "Hide",
+    "createNew": "+ Create New",
+    "columns": {
+      "name": "Name",
+      "type": "Type",
+      "practice": "Practice",
+      "source": "Source"
+    },
+    "types": {
+      "assistant": "Assistant",
+      "tabular": "Tabular"
+    },
+    "sources": {
+      "myself": "Myself",
+      "shared": "Shared"
+    },
+    "empty": {
+      "custom": {
+        "title": "Custom Workflows",
+        "description": "Build reusable prompts and tabular review templates tailored to your practice."
+      },
+      "hidden": {
+        "title": "Hidden Workflows",
+        "description": "Built-in workflows you've hidden will appear here. You can unhide them at any time."
+      },
+      "all": {
+        "title": "Workflows",
+        "description": "Automate document analysis with reusable prompts and tabular review templates."
+      }
+    }
+  },
+  "auth": {
+    "login": "Log In",
+    "signup": "Sign Up",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Log in",
+    "signupButton": "Sign up"
+  },
+  "account": {
+    "title": "Account Settings",
+    "displayName": "Display Name",
+    "organisation": "Organisation",
+    "language": "Language",
+    "save": "Save",
+    "deleteAccount": "Delete Account"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "search": "Search"
+  }
+}

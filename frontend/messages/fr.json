@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "assistant": "Assistant",
+    "projects": "Projets",
+    "tabularReview": "Revue tabulaire",
+    "workflows": "Workflows",
+    "accountSettings": "Paramètres du compte",
+    "openSidebar": "Ouvrir la barre latérale",
+    "closeSidebar": "Fermer la barre latérale"
+  },
+  "sidebar": {
+    "assistantHistory": "Historique",
+    "noChats": "Aucune conversation"
+  },
+  "assistant": {
+    "greeting": "Bonjour, {username}",
+    "disclaimer": "L'IA peut faire des erreurs. Les réponses ne constituent pas un avis juridique.",
+    "placeholder": "Posez une question juridique…"
+  },
+  "workflows": {
+    "title": "Workflows",
+    "searchPlaceholder": "Rechercher…",
+    "tabs": {
+      "all": "Tous",
+      "builtin": "Intégrés",
+      "custom": "Personnalisés",
+      "hidden": "Masqués"
+    },
+    "filterByType": "Filtrer par type",
+    "filterByPractice": "Filtrer par domaine",
+    "allTypes": "Tous les types",
+    "allPractices": "Tous les domaines",
+    "actions": "Actions",
+    "delete": "Supprimer",
+    "unhide": "Afficher",
+    "hide": "Masquer",
+    "createNew": "+ Créer",
+    "columns": {
+      "name": "Nom",
+      "type": "Type",
+      "practice": "Domaine",
+      "source": "Source"
+    },
+    "types": {
+      "assistant": "Assistant",
+      "tabular": "Tabulaire"
+    },
+    "sources": {
+      "myself": "Moi",
+      "shared": "Partagé"
+    },
+    "empty": {
+      "custom": {
+        "title": "Workflows personnalisés",
+        "description": "Créez des prompts réutilisables et des modèles de revue tabulaire adaptés à votre pratique."
+      },
+      "hidden": {
+        "title": "Workflows masqués",
+        "description": "Les workflows intégrés que vous avez masqués apparaissent ici. Vous pouvez les afficher à tout moment."
+      },
+      "all": {
+        "title": "Workflows",
+        "description": "Automatisez l'analyse de documents avec des prompts réutilisables et des modèles de revue tabulaire."
+      }
+    }
+  },
+  "auth": {
+    "login": "Connexion",
+    "signup": "Inscription",
+    "logout": "Déconnexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "loginButton": "Se connecter",
+    "signupButton": "Créer un compte"
+  },
+  "account": {
+    "title": "Paramètres du compte",
+    "displayName": "Nom d'affichage",
+    "organisation": "Organisation",
+    "language": "Langue",
+    "save": "Enregistrer",
+    "deleteAccount": "Supprimer le compte"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error": "Une erreur est survenue",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "search": "Rechercher"
+  }
+}
