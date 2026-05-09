@@ -663,7 +663,7 @@ export default function HomePage() {
                                 <tr><td>Modèle IA</td><td>Mistral Large <span className="r-badge">🇫🇷 FR</span></td><td>Entreprise française, infrastructure EU, API compatible OpenAI</td></tr>
                                 <tr><td>Jurisprudence</td><td>JusticeLibre MCP <span className="r-badge">🇫🇷 FR</span></td><td>4M+ décisions, gratuit, 30 outils, aucune authentification requise</td></tr>
                                 <tr><td>Législation</td><td>search_legi + get_law_article</td><td>1,5M articles, versioning historique complet</td></tr>
-                                <tr><td>Stockage objet</td><td>OVHcloud / Scaleway <span className="r-badge">🇫🇷 FR</span></td><td>Datacenters français, compatible S3</td></tr>
+                                <tr><td>Stockage objet</td><td>Filesystem local (défaut) ou S3-compatible</td><td>OVHcloud / Scaleway recommandés en production — données sur vos serveurs</td></tr>
                                 <tr><td>Auth</td><td>JWT + bcrypt</td><td>Aucun service tiers, aucune dépendance externe</td></tr>
                                 <tr><td>Base de données</td><td>PostgreSQL auto-hébergé</td><td>Contrôle total, pas de vendor lock-in</td></tr>
                             </tbody>
