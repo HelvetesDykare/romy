@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Romy OSS — L'alternative open source à Harvey et Legora",
+    title: "Romy OSS — L'IA juridique française. Souveraine par conception.",
     description:
-        "IA juridique souveraine. Jurisprudence en temps réel. Modèle Mistral. Zéro donnée hors de France.",
+        "Romy est une plateforme d'IA juridique open source construite sur les données ouvertes françaises. Jurisprudence en temps réel. Modèle Mistral. Zéro donnée hors de France.",
 };
 
 export default function HomePage() {
@@ -18,9 +18,7 @@ export default function HomePage() {
         .romy-root {
           --cobalt:    #1a4fa0;
           --cobalt-mid:#2860c0;
-          --sky:       #3d7ec8;
           --cadmium:   #f5c842;
-          --yellow:    #f0b820;
           --ochre:     #d4882a;
           --burnt:     #b85c1a;
           --cream:     #fdf6e3;
@@ -555,18 +553,18 @@ export default function HomePage() {
                         <div className="r-hero-left">
                             <div className="r-hero-pill">
                                 <span className="r-pill-dot" />
-                                IA juridique · données hébergées en France
+                                Open source · données hébergées en France
                             </div>
                             <h1 className="r-h1">
-                                L&apos;alternative<br />
-                                <span className="r-blue">open source</span><br />
-                                à <span className="r-gold">Harvey</span> et<br />
-                                <span className="r-gold">Legora.</span>
+                                L&apos;IA juridique<br />
+                                <span className="r-gold">française.</span><br />
+                                <span className="r-blue">Souveraine</span><br />
+                                par conception.
                             </h1>
                             <p className="r-sub">
-                                Toutes les fonctionnalités, sans contrat entreprise.
-                                Modèle Mistral. Jurisprudence en temps réel.
-                                Zéro donnée transmise hors de France.
+                                Construite sur les données ouvertes que la France a déjà rendues publiques.
+                                Jurisprudence en temps réel. Modèle Mistral.
+                                Aucune donnée ne quitte le territoire français.
                             </p>
                             <div className="r-actions">
                                 <Link href="/signup" className="r-btn-primary">Essayer gratuitement</Link>
@@ -676,8 +674,11 @@ export default function HomePage() {
                 {/* CTA */}
                 <section className="r-cta">
                     <div className="r-cta-inner">
-                        <h2 className="r-cta-h2">L&apos;accès au droit ne devrait pas coûter <em>200 € par mois.</em></h2>
-                        <p className="r-cta-p">Open source. AGPL-3.0. Déployez vous-même sur vos serveurs<br />ou utilisez notre instance hébergée en France.</p>
+                        <h2 className="r-cta-h2">L&apos;accès au droit est <em>un bien commun.</em></h2>
+                        <p className="r-cta-p">
+                            La France a rendu ses données juridiques publiques et gratuites.<br />
+                            Romy les assemble. Open source. AGPL-3.0. Hébergé en France.
+                        </p>
                         <div className="r-cta-actions">
                             <Link href="/signup" className="r-btn-primary">Créer un compte</Link>
                             <a href="https://github.com/HelvetesDykare/romy" className="r-btn-secondary" target="_blank" rel="noopener noreferrer">Lire le code source</a>
