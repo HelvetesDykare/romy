@@ -46,11 +46,11 @@ Sovereignty is not a feature. It is the architecture.
 | AI Model | [Mistral Large](https://mistral.ai) | French company, EU infrastructure, OpenAI-compatible API |
 | Case law | [JusticeLibre](https://justicelibre.org) | 4M+ decisions, free, 30-tool MCP server, no auth required |
 | Legislation | JusticeLibre `search_legi` + `get_law_article` | 1.5M articles, historical versioning |
-| Object storage | OVHcloud / Scaleway | French data centers, S3-compatible |
+| Object storage | Local filesystem (default) or S3-compatible | OVHcloud / Scaleway recommended for production |
 | Auth | Custom JWT + bcrypt | No third-party auth service |
 | Database | PostgreSQL | Self-hosted, no external dependency |
 
-No query leaves France. No document touches a non-French server.
+
 
 ---
 
@@ -69,7 +69,7 @@ Backend (Express / TypeScript)
     │     ├── get_law_article (historical versioning)
     │     └── 26 more tools...
     ├── Language injection (FR/EN/ES per user)
-    └── PostgreSQL + OVHcloud Object Storage
+    └── PostgreSQL + local filesystem (or S3-compatible storage)
 ```
 
 The MCP client connects to JusticeLibre at startup and pre-loads all 30 tools so they're available on the first query without delay.
