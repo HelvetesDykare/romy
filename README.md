@@ -211,13 +211,12 @@ No data leaves France.
 
 ## Roadmap
 
-- [ ] Full UI translation (FR/EN/ES) — labels, buttons, placeholders
-- [ ] Légifrance API direct integration (PISTE credentials → legislation search)
-- [ ] OVHcloud production deployment guide
-- [ ] French legal prompt library (workflows for TMT/data privacy/disputes)
-- [ ] Swedish fork (Riksdagen API — open, well-structured)
-- [ ] Spanish fork (BOE-MCP already exists)
-- [ ] Dominican Republic fork (requires building legal corpus from scratch)
+- [x] Mistral Large as sovereign AI model
+- [x] French legal data via JusticeLibre MCP (30 tools)
+- [x] Multilingual UI (FR/EN/ES) via next-intl
+- [x] French legal prompt library (TMT, données personnelles, contentieux)
+- [x] Légifrance + Judilibre direct integration via PISTE OAuth2 (5 native tools)
+- [ ] Production deployment guide (OVHcloud VPS + Nginx + Let's Encrypt)
 
 ---
 
