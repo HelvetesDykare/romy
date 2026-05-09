@@ -1,8 +1,8 @@
-# Romy — Sovereign French Legal AI
+# Romy OSS — French Legal AI, Sovereign by Design
 
 > *"No data leaving France."*
 
-Romy is an open-source French legal AI platform built as a fork of [Emilie](https://github.com/veronica-builds/emilie) (itself a fork of [MikeOSS](https://github.com/willchen96/mike)), extended for French law and deployed on French sovereign infrastructure.
+Romy is an open-source French legal AI platform built on France's own public legal data infrastructure. It assembles the richest open legal dataset in Europe into a working, sovereign AI tool — deployable on French servers, powered by a French model, at a fraction of the cost of proprietary alternatives.
 
 Built by **Andres** (TMT, Data Privacy & Disputes lawyer, Panthéon-Assas and UVSQ alumnus — as a hands-on exercise in Legal AI Engineering and a contribution to the French open legal tech community) and **Romy Descours-Karmitz**.
 
@@ -10,14 +10,16 @@ Built by **Andres** (TMT, Data Privacy & Disputes lawyer, Panthéon-Assas and UV
 
 ## Why Romy?
 
-Harvey AI raised $100M. Legora is valued at $5.6B. Both are closed, US-hosted, and expensive.
+France has one of the richest open legal data ecosystems in Europe — built and maintained at public expense, freely available to anyone. Most legal AI platforms ignore it, routing French law queries through US-hosted models trained on proprietary data.
 
-France has one of the richest open legal data ecosystems in Europe:
+Romy takes a different approach: it is built entirely on what France has already made public.
+
 - **JusticeLibre** — 4M+ decisions (CE, CAA, TA, Cour de cassation, CEDH, CJUE) + 1.5M law articles, free, no auth, with a native MCP server and 30 legal tools
 - **Légifrance API** — all French legislation, codes, regulations (via PISTE)
 - **Judilibre (PISTE)** — official Cour de cassation case law API
+- **Mistral Large** — a French model, on French infrastructure
 
-Romy assembles these pieces into a working sovereign legal AI that costs less per month than a single hour of BigLaw associate time.
+Sovereignty is not a feature. It is the architecture.
 
 ---
 
@@ -42,10 +44,10 @@ Romy assembles these pieces into a working sovereign legal AI that costs less pe
 | Case law | [JusticeLibre](https://justicelibre.org) | 4M+ decisions, free, 30-tool MCP server, no auth required |
 | Legislation | JusticeLibre `search_legi` + `get_law_article` | 1.5M articles, historical versioning |
 | Object storage | OVHcloud / Scaleway | French data centers, S3-compatible |
-| Auth | Custom JWT + bcrypt | No Supabase, no third-party auth service |
+| Auth | Custom JWT + bcrypt | No third-party auth service |
 | Database | PostgreSQL | Self-hosted, no external dependency |
 
-No query leaves France. No document touches a US server.
+No query leaves France. No document touches a non-French server.
 
 ---
 
@@ -67,11 +69,22 @@ Backend (Express / TypeScript)
     └── PostgreSQL + OVHcloud Object Storage
 ```
 
-The MCP client connects to JusticeLibre at startup and pre-loads all 30 tools so they're available on the first query.
+The MCP client connects to JusticeLibre at startup and pre-loads all 30 tools so they're available on the first query without delay.
 
 ---
 
-## Changes from Emilie
+## Lineage
+
+Romy is a fork of [Emilie](https://github.com/veronica-builds/emilie) (itself a fork of [MikeOSS](https://github.com/willchen96/mike)), extended for French law and French sovereign infrastructure.
+
+```
+MikeOSS (Will Chen) ──► Emilie (veronica-builds) ──► Romy (this repo)
+General legal AI        Swiss sovereignty           French sovereignty
+                        Mistral + Apertus           Mistral + JusticeLibre
+                        Swiss legal data            French legal data (4M+ decisions)
+```
+
+### Changes from Emilie
 
 Emilie made three changes from MikeOSS for Swiss sovereignty. Romy makes five more for France:
 
@@ -181,8 +194,6 @@ Supported languages:
 - 🇫🇷 Français
 - 🇪🇸 Español
 
-The language preference is stored in the user's profile and injected into every system prompt.
-
 ---
 
 ## Sovereign Deployment (OVHcloud)
@@ -198,19 +209,6 @@ No data leaves France.
 
 ---
 
-## Lineage
-
-```
-MikeOSS (Will Chen) ──► Emilie (veronica-builds) ──► Romy (this repo)
-Harvey alternative      Swiss sovereignty           French sovereignty
-                        Mistral + Apertus           Mistral + JusticeLibre
-                        Swiss legal data            French legal data (4M+ decisions)
-```
-
-This project stands on the shoulders of Will Chen's insight that Harvey's core platform can be replicated in two weeks, and the Swiss legal engineer who showed what sovereign deployment looks like in practice.
-
----
-
 ## Roadmap
 
 - [ ] Full UI translation (FR/EN/ES) — labels, buttons, placeholders
@@ -219,6 +217,7 @@ This project stands on the shoulders of Will Chen's insight that Harvey's core p
 - [ ] French legal prompt library (workflows for TMT/data privacy/disputes)
 - [ ] Swedish fork (Riksdagen API — open, well-structured)
 - [ ] Spanish fork (BOE-MCP already exists)
+- [ ] Dominican Republic fork (requires building legal corpus from scratch)
 
 ---
 
@@ -234,4 +233,4 @@ Issues and PRs welcome. If you're building a sovereign legal AI for another juri
 
 ---
 
-*Built with the conviction that access to legal knowledge should not cost €200/month per lawyer.*
+*Built with the conviction that access to legal knowledge is a public good.*
