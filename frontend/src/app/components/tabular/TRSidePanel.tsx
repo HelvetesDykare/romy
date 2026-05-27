@@ -12,7 +12,7 @@ import {
     RefreshCw,
     X,
 } from "lucide-react";
-import type { ColumnConfig, EmilieDocument, TabularCell } from "../shared/types";
+import type { ColumnConfig, RomyDocument, TabularCell } from "../shared/types";
 import { preprocessCitations, type ParsedCitation } from "./citation-utils";
 import { getPillClass } from "./pillUtils";
 import { DocView } from "../shared/DocView";
@@ -30,7 +30,7 @@ function isDocxDocument(d: {
 
 interface Props {
     cell: TabularCell;
-    document: EmilieDocument;
+    document: RomyDocument;
     column: ColumnConfig;
     columns: ColumnConfig[];
     onClose: () => void;

@@ -10,12 +10,12 @@ import {
 import { useDirectoryData } from "../shared/useDirectoryData";
 import { FileDirectory } from "../shared/FileDirectory";
 import { EmailPillInput } from "../shared/EmailPillInput";
-import type { EmilieProject } from "../shared/types";
+import type { RomyProject } from "../shared/types";
 
 interface Props {
     open: boolean;
     onClose: () => void;
-    onCreated: (project: EmilieProject) => void;
+    onCreated: (project: RomyProject) => void;
 }
 
 export function NewProjectModal({ open, onClose, onCreated }: Props) {

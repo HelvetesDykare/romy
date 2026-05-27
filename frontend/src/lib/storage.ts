@@ -28,7 +28,7 @@ function getClient(): S3Client {
     });
 }
 
-const BUCKET = process.env.R2_BUCKET_NAME ?? "emilie";
+const BUCKET = process.env.R2_BUCKET_NAME ?? "romy";
 
 export const storageEnabled = Boolean(
     process.env.R2_ENDPOINT_URL &&

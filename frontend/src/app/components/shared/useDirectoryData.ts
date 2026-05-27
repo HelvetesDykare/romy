@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { getProject, listProjects, listStandaloneDocuments } from "@/app/lib/emilieApi";
-import type { EmilieDocument, EmilieProject } from "./types";
+import type { RomyDocument, RomyProject } from "./types";
 
 const CACHE_TTL_MS = 30_000;
 
 interface DirectoryCache {
-    standaloneDocuments: EmilieDocument[];
-    projects: EmilieProject[];
+    standaloneDocuments: RomyDocument[];
+    projects: RomyProject[];
     fetchedAt: number;
 }
 
@@ -20,8 +20,8 @@ export function invalidateDirectoryCache() {
 
 export function useDirectoryData(enabled: boolean) {
     const [loading, setLoading] = useState(true);
-    const [standaloneDocuments, setStandaloneDocuments] = useState<EmilieDocument[]>([]);
-    const [projects, setProjects] = useState<EmilieProject[]>([]);
+    const [standaloneDocuments, setStandaloneDocuments] = useState<RomyDocument[]>([]);
+    const [projects, setProjects] = useState<RomyProject[]>([]);
 
     useEffect(() => {
         if (!enabled) return;

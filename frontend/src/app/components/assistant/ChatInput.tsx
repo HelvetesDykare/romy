@@ -31,14 +31,14 @@ import {
     isModelAvailable,
     type ModelProvider,
 } from "@/app/lib/modelAvailability";
-import type { EmilieDocument, EmilieMessage } from "../shared/types";
+import type { RomyDocument, RomyMessage } from "../shared/types";
 
 export interface ChatInputHandle {
-    addDoc: (doc: EmilieDocument) => void;
+    addDoc: (doc: RomyDocument) => void;
 }
 
 interface Props {
-    onSubmit: (message: EmilieMessage) => void;
+    onSubmit: (message: RomyMessage) => void;
     onCancel: () => void;
     isLoading: boolean;
     hideAddDocButton?: boolean;
@@ -62,7 +62,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
     ref,
 ) {
     const [value, setValue] = useState("");
-    const [attachedDocs, setAttachedDocs] = useState<EmilieDocument[]>([]);
+    const [attachedDocs, setAttachedDocs] = useState<RomyDocument[]>([]);
     const [selectedWorkflow, setSelectedWorkflow] = useState<{
         id: string;
         title: string;
@@ -81,7 +81,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
         useState<ModelProvider | null>(null);
 
     useImperativeHandle(ref, () => ({
-        addDoc: (doc: EmilieDocument) => {
+        addDoc: (doc: RomyDocument) => {
             setAttachedDocs((prev) => {
                 if (prev.some((d) => d.id === doc.id)) return prev;
                 return [...prev, doc];
@@ -89,7 +89,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
         },
     }));
 
-    const handleAddDocFromProject = useCallback((doc: EmilieDocument) => {
+    const handleAddDocFromProject = useCallback((doc: RomyDocument) => {
         setAttachedDocs((prev) => {
             if (prev.some((d) => d.id === doc.id)) return prev;
             return [...prev, doc];
@@ -97,7 +97,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
     }, []);
 
     const handleAddDocsFromSelector = useCallback(
-        (selectedDocs: EmilieDocument[]) => {
+        (selectedDocs: RomyDocument[]) => {
             setAttachedDocs((prev) => {
                 const existing = new Set(prev.map((d) => d.id));
                 return [

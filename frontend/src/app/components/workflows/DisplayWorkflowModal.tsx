@@ -12,18 +12,18 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import type { EmilieDocument, EmilieWorkflow } from "../shared/types";
+import type { RomyDocument, RomyWorkflow } from "../shared/types";
 import { createTabularReview } from "@/app/lib/emilieApi";
 import { useRouter } from "next/navigation";
 import { formatIcon, formatLabel } from "../tabular/columnFormat";
 import { useDirectoryData } from "../shared/useDirectoryData";
 import { FileDirectory } from "../shared/FileDirectory";
-import type { EmilieProject } from "../shared/types";
+import type { RomyProject } from "../shared/types";
 import { useChatHistoryContext } from "@/app/contexts/ChatHistoryContext";
 
 interface Props {
-    workflows: EmilieWorkflow[];
-    workflow: EmilieWorkflow | null;
+    workflows: RomyWorkflow[];
+    workflow: RomyWorkflow | null;
     onClose: () => void;
 }
 
@@ -52,7 +52,7 @@ function SimpleProjectPicker({
     selectedId,
     onSelect,
 }: {
-    projects: EmilieProject[];
+    projects: RomyProject[];
     selectedId: string | null;
     onSelect: (id: string | null) => void;
 }) {
@@ -172,7 +172,7 @@ function MarkdownBody({ content }: { content: string }) {
 // ---------------------------------------------------------------------------
 // Right panel for assistant workflows (select screen)
 // ---------------------------------------------------------------------------
-function AssistantPanel({ workflow }: { workflow: EmilieWorkflow }) {
+function AssistantPanel({ workflow }: { workflow: RomyWorkflow }) {
     return (
         <div className="flex-1 border-l border-t border-gray-200 flex flex-col overflow-hidden px-3 pb-3">
             <div className="py-3 shrink-0">
@@ -192,7 +192,7 @@ function AssistantPanel({ workflow }: { workflow: EmilieWorkflow }) {
 // ---------------------------------------------------------------------------
 // Right panel for tabular workflows — accordion column list (select screen)
 // ---------------------------------------------------------------------------
-function TabularPanel({ workflow }: { workflow: EmilieWorkflow }) {
+function TabularPanel({ workflow }: { workflow: RomyWorkflow }) {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
     const columns = (workflow.columns_config ?? []).sort(
         (a, b) => a.index - b.index,
@@ -283,7 +283,7 @@ function TabularPanel({ workflow }: { workflow: EmilieWorkflow }) {
 // ---------------------------------------------------------------------------
 export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
     const [screen, setScreen] = useState<"select" | "configure">("select");
-    const [selected, setSelected] = useState<EmilieWorkflow | null>(workflow);
+    const [selected, setSelected] = useState<RomyWorkflow | null>(workflow);
     const [listSearch, setListSearch] = useState("");
     const selectedRowRef = useRef<HTMLButtonElement>(null);
 
@@ -352,7 +352,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
             const projectId = inProject ? selectedProjectId! : undefined;
             const chatId = await saveChat(projectId);
             if (!chatId) return;
-            const allDocs: EmilieDocument[] = [
+            const allDocs: RomyDocument[] = [
                 ...standaloneDocuments,
                 ...projects.flatMap((p) => p.documents || []),
             ];
@@ -381,7 +381,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
     }
 
     async function handleCreateReview() {
-        const allDocs: EmilieDocument[] = [
+        const allDocs: RomyDocument[] = [
             ...standaloneDocuments,
             ...projects.flatMap((p) => p.documents || []),
         ];

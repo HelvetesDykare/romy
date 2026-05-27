@@ -16,17 +16,17 @@ import {
     listChats,
     renameChat,
 } from "@/app/lib/emilieApi";
-import type { EmilieChat, EmilieMessage } from "@/app/components/shared/types";
+import type { RomyChat, RomyMessage } from "@/app/components/shared/types";
 
 interface ChatHistoryContextType {
-    chats: EmilieChat[] | null;
+    chats: RomyChat[] | null;
     currentChatId: string | null;
     setCurrentChatId: (chatId: string | null) => void;
     loadChats: () => Promise<void>;
     saveChat: (projectId?: string) => Promise<string | null>;
     renameChat: (chatId: string, title: string) => Promise<void>;
-    newChatMessages: EmilieMessage[] | null;
-    setNewChatMessages: (messages: EmilieMessage[] | null) => void;
+    newChatMessages: RomyMessage[] | null;
+    setNewChatMessages: (messages: RomyMessage[] | null) => void;
     replaceChatId: (
         oldChatId: string,
         newChatId: string,
@@ -41,10 +41,10 @@ const ChatHistoryContext = createContext<ChatHistoryContextType | undefined>(
 
 export function ChatHistoryProvider({ children }: { children: ReactNode }) {
     const { user } = useAuth();
-    const [chats, setChats] = useState<EmilieChat[] | null>(null);
+    const [chats, setChats] = useState<RomyChat[] | null>(null);
     const [currentChatId, setCurrentChatId] = useState<string | null>(null);
     const [newChatMessages, setNewChatMessages] = useState<
-        EmilieMessage[] | null
+        RomyMessage[] | null
     >(null);
 
     const loadChats = useCallback(async () => {
@@ -106,7 +106,7 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
                     projectId ? { project_id: projectId } : undefined,
                 );
                 const now = new Date().toISOString();
-                const newChat: EmilieChat = {
+                const newChat: RomyChat = {
                     id,
                     project_id: projectId ?? null,
                     user_id: user?.id ?? "",

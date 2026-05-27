@@ -6,14 +6,14 @@
 import { getToken } from "@/lib/tokenStore";
 import type {
     AssistantEvent,
-    EmilieChat,
-    EmilieChatDetailOut,
-    EmilieCitationAnnotation,
-    EmilieDocument,
-    EmilieFolder,
-    EmilieMessage,
-    EmilieProject,
-    EmilieWorkflow,
+    RomyChat,
+    RomyChatDetailOut,
+    RomyCitationAnnotation,
+    RomyDocument,
+    RomyFolder,
+    RomyMessage,
+    RomyProject,
+    RomyWorkflow,
     TabularReview,
     TabularReviewDetailOut,
 } from "@/app/components/shared/types";
@@ -26,11 +26,11 @@ interface ServerMessage {
     content: string | AssistantEvent[] | null;
     files?: { filename: string; document_id?: string }[] | null;
     workflow?: { id: string; title: string } | null;
-    annotations?: EmilieCitationAnnotation[] | null;
+    annotations?: RomyCitationAnnotation[] | null;
     created_at: string;
 }
 interface ServerChatDetailOut {
-    chat: EmilieChat;
+    chat: RomyChat;
     messages: ServerMessage[];
 }
 
@@ -75,16 +75,16 @@ async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
 // Projects
 // ---------------------------------------------------------------------------
 
-export async function listProjects(): Promise<EmilieProject[]> {
-    return apiRequest<EmilieProject[]>("/projects");
+export async function listProjects(): Promise<RomyProject[]> {
+    return apiRequest<RomyProject[]>("/projects");
 }
 
 export async function createProject(
     name: string,
     cm_number?: string,
     shared_with?: string[],
-): Promise<EmilieProject> {
-    return apiRequest<EmilieProject>("/projects", {
+): Promise<RomyProject> {
+    return apiRequest<RomyProject>("/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, cm_number, shared_with }),
@@ -95,8 +95,8 @@ export async function deleteAccount(): Promise<void> {
     return apiRequest<void>("/user/account", { method: "DELETE" });
 }
 
-export async function getProject(projectId: string): Promise<EmilieProject> {
-    return apiRequest<EmilieProject>(`/projects/${projectId}`);
+export async function getProject(projectId: string): Promise<RomyProject> {
+    return apiRequest<RomyProject>(`/projects/${projectId}`);
 }
 
 export async function updateProject(
@@ -106,8 +106,8 @@ export async function updateProject(
         cm_number?: string;
         shared_with?: string[];
     },
-): Promise<EmilieProject> {
-    return apiRequest<EmilieProject>(`/projects/${projectId}`, {
+): Promise<RomyProject> {
+    return apiRequest<RomyProject>(`/projects/${projectId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -145,8 +145,8 @@ export async function createProjectFolder(
     projectId: string,
     name: string,
     parentFolderId?: string | null,
-): Promise<EmilieFolder> {
-    return apiRequest<EmilieFolder>(`/projects/${projectId}/folders`, {
+): Promise<RomyFolder> {
+    return apiRequest<RomyFolder>(`/projects/${projectId}/folders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -160,8 +160,8 @@ export async function renameProjectFolder(
     projectId: string,
     folderId: string,
     name: string,
-): Promise<EmilieFolder> {
-    return apiRequest<EmilieFolder>(
+): Promise<RomyFolder> {
+    return apiRequest<RomyFolder>(
         `/projects/${projectId}/folders/${folderId}`,
         {
             method: "PATCH",
@@ -184,8 +184,8 @@ export async function moveSubfolderToFolder(
     projectId: string,
     folderId: string,
     parentFolderId: string | null,
-): Promise<EmilieFolder> {
-    return apiRequest<EmilieFolder>(
+): Promise<RomyFolder> {
+    return apiRequest<RomyFolder>(
         `/projects/${projectId}/folders/${folderId}`,
         {
             method: "PATCH",
@@ -199,8 +199,8 @@ export async function moveDocumentToFolder(
     projectId: string,
     documentId: string,
     folderId: string | null,
-): Promise<EmilieDocument> {
-    return apiRequest<EmilieDocument>(
+): Promise<RomyDocument> {
+    return apiRequest<RomyDocument>(
         `/projects/${projectId}/documents/${documentId}/folder`,
         {
             method: "PATCH",
@@ -213,14 +213,14 @@ export async function moveDocumentToFolder(
 export async function addDocumentToProject(
     projectId: string,
     documentId: string,
-): Promise<EmilieDocument> {
-    return apiRequest<EmilieDocument>(
+): Promise<RomyDocument> {
+    return apiRequest<RomyDocument>(
         `/projects/${projectId}/documents/${documentId}`,
         { method: "POST" },
     );
 }
 
-export interface EmilieDocumentVersion {
+export interface RomyDocumentVersion {
     id: string;
     version_number: number | null;
     source: string;
@@ -232,7 +232,7 @@ export async function listDocumentVersions(
     documentId: string,
 ): Promise<{
     current_version_id: string | null;
-    versions: EmilieDocumentVersion[];
+    versions: RomyDocumentVersion[];
 }> {
     return apiRequest(`/single-documents/${documentId}/versions`);
 }
@@ -241,7 +241,7 @@ export async function uploadDocumentVersion(
     documentId: string,
     file: File,
     displayName?: string,
-): Promise<EmilieDocumentVersion> {
+): Promise<RomyDocumentVersion> {
     const authHeaders = await getAuthHeader();
     const form = new FormData();
     form.append("file", file);
@@ -255,15 +255,15 @@ export async function uploadDocumentVersion(
         },
     );
     if (!response.ok) throw new Error(await response.text());
-    return response.json() as Promise<EmilieDocumentVersion>;
+    return response.json() as Promise<RomyDocumentVersion>;
 }
 
 export async function renameDocumentVersion(
     documentId: string,
     versionId: string,
     displayName: string | null,
-): Promise<EmilieDocumentVersion> {
-    return apiRequest<EmilieDocumentVersion>(
+): Promise<RomyDocumentVersion> {
+    return apiRequest<RomyDocumentVersion>(
         `/single-documents/${documentId}/versions/${versionId}`,
         {
             method: "PATCH",
@@ -276,7 +276,7 @@ export async function renameDocumentVersion(
 export async function uploadProjectDocument(
     projectId: string,
     file: File,
-): Promise<EmilieDocument> {
+): Promise<RomyDocument> {
     const authHeaders = await getAuthHeader();
     const form = new FormData();
     form.append("file", file);
@@ -289,12 +289,12 @@ export async function uploadProjectDocument(
         },
     );
     if (!response.ok) throw new Error(await response.text());
-    return response.json() as Promise<EmilieDocument>;
+    return response.json() as Promise<RomyDocument>;
 }
 
 export async function uploadStandaloneDocument(
     file: File,
-): Promise<EmilieDocument> {
+): Promise<RomyDocument> {
     const authHeaders = await getAuthHeader();
     const form = new FormData();
     form.append("file", file);
@@ -304,11 +304,11 @@ export async function uploadStandaloneDocument(
         body: form,
     });
     if (!response.ok) throw new Error(await response.text());
-    return response.json() as Promise<EmilieDocument>;
+    return response.json() as Promise<RomyDocument>;
 }
 
-export async function listStandaloneDocuments(): Promise<EmilieDocument[]> {
-    return apiRequest<EmilieDocument[]>("/single-documents");
+export async function listStandaloneDocuments(): Promise<RomyDocument[]> {
+    return apiRequest<RomyDocument[]>("/single-documents");
 }
 
 export async function deleteDocument(documentId: string): Promise<void> {
@@ -359,17 +359,17 @@ export async function createChat(payload?: {
     });
 }
 
-export async function listChats(): Promise<EmilieChat[]> {
-    return apiRequest<EmilieChat[]>("/chat");
+export async function listChats(): Promise<RomyChat[]> {
+    return apiRequest<RomyChat[]>("/chat");
 }
 
-export async function listProjectChats(projectId: string): Promise<EmilieChat[]> {
-    return apiRequest<EmilieChat[]>(`/projects/${projectId}/chats`);
+export async function listProjectChats(projectId: string): Promise<RomyChat[]> {
+    return apiRequest<RomyChat[]>(`/projects/${projectId}/chats`);
 }
 
-export async function getChat(chatId: string): Promise<EmilieChatDetailOut> {
+export async function getChat(chatId: string): Promise<RomyChatDetailOut> {
     const raw = await apiRequest<ServerChatDetailOut>(`/chat/${chatId}`);
-    const messages: EmilieMessage[] = raw.messages.map((m) => {
+    const messages: RomyMessage[] = raw.messages.map((m) => {
         if (m.role === "user") {
             return {
                 role: "user",
@@ -557,7 +557,7 @@ export async function uploadReviewDocument(
         documentIds?: string[];
         columnsConfig?: { index: number; name: string; prompt: string }[];
     },
-): Promise<EmilieDocument> {
+): Promise<RomyDocument> {
     const uploaded = options?.projectId
         ? await uploadProjectDocument(options.projectId, file)
         : await uploadStandaloneDocument(file);
@@ -719,16 +719,16 @@ export async function clearTabularCells(
 // Workflows
 // ---------------------------------------------------------------------------
 
-type WorkflowType = EmilieWorkflow["type"];
+type WorkflowType = RomyWorkflow["type"];
 
 export async function listWorkflows(
     type: WorkflowType,
-): Promise<EmilieWorkflow[]> {
-    return apiRequest<EmilieWorkflow[]>(`/workflows?type=${type}`);
+): Promise<RomyWorkflow[]> {
+    return apiRequest<RomyWorkflow[]>(`/workflows?type=${type}`);
 }
 
-export async function getWorkflow(workflowId: string): Promise<EmilieWorkflow> {
-    return apiRequest<EmilieWorkflow>(`/workflows/${workflowId}`);
+export async function getWorkflow(workflowId: string): Promise<RomyWorkflow> {
+    return apiRequest<RomyWorkflow>(`/workflows/${workflowId}`);
 }
 
 export async function createWorkflow(payload: {
@@ -737,8 +737,8 @@ export async function createWorkflow(payload: {
     prompt_md?: string;
     columns_config?: { index: number; name: string; prompt: string }[];
     practice?: string | null;
-}): Promise<EmilieWorkflow> {
-    return apiRequest<EmilieWorkflow>("/workflows", {
+}): Promise<RomyWorkflow> {
+    return apiRequest<RomyWorkflow>("/workflows", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -753,8 +753,8 @@ export async function updateWorkflow(
         columns_config?: { index: number; name: string; prompt: string }[];
         practice?: string | null;
     },
-): Promise<EmilieWorkflow> {
-    return apiRequest<EmilieWorkflow>(`/workflows/${workflowId}`, {
+): Promise<RomyWorkflow> {
+    return apiRequest<RomyWorkflow>(`/workflows/${workflowId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

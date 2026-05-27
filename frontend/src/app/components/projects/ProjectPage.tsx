@@ -43,13 +43,13 @@ import {
     uploadDocumentVersion,
     renameDocumentVersion,
     getProjectPeople,
-    type EmilieDocumentVersion,
+    type RomyDocumentVersion,
 } from "@/app/lib/emilieApi";
 import type {
-    EmilieDocument,
-    EmilieFolder,
-    EmilieProject,
-    EmilieChat,
+    RomyDocument,
+    RomyFolder,
+    RomyProject,
+    RomyChat,
     TabularReview,
 } from "@/app/components/shared/types";
 import { ToolbarTabs } from "@/app/components/shared/ToolbarTabs";
@@ -119,7 +119,7 @@ function DocVersionHistory({
     docId: string;
     filename: string;
     loading: boolean;
-    versions: EmilieDocumentVersion[];
+    versions: RomyDocumentVersion[];
     onDownloadVersion: (
         docId: string,
         versionId: string,
@@ -272,9 +272,9 @@ function DocVersionHistory({
 }
 
 export function ProjectPage({ projectId }: Props) {
-    const [project, setProject] = useState<EmilieProject | null>(null);
-    const [folders, setFolders] = useState<EmilieFolder[]>([]);
-    const [chats, setChats] = useState<EmilieChat[]>([]);
+    const [project, setProject] = useState<RomyProject | null>(null);
+    const [folders, setFolders] = useState<RomyFolder[]>([]);
+    const [chats, setChats] = useState<RomyChat[]>([]);
     const [projectReviews, setProjectReviews] = useState<TabularReview[]>([]);
     const [loading, setLoading] = useState(true);
     const searchParams = useSearchParams();
@@ -288,8 +288,8 @@ export function ProjectPage({ projectId }: Props) {
     const [ownerOnlyAction, setOwnerOnlyAction] = useState<string | null>(null);
     const { user } = useAuth();
     const [uploadVersionDoc, setUploadVersionDoc] =
-        useState<EmilieDocument | null>(null);
-    const [viewingDoc, setViewingDoc] = useState<EmilieDocument | null>(null);
+        useState<RomyDocument | null>(null);
+    const [viewingDoc, setViewingDoc] = useState<RomyDocument | null>(null);
     const [viewingDocVersion, setViewingDocVersion] = useState<{
         id: string;
         label: string;
@@ -311,7 +311,7 @@ export function ProjectPage({ projectId }: Props) {
         Set<string>
     >(() => new Set());
     const [versionsByDocId, setVersionsByDocId] = useState<
-        Map<string, EmilieDocumentVersion[]>
+        Map<string, RomyDocumentVersion[]>
     >(() => new Map());
     const [loadingVersionDocIds, setLoadingVersionDocIds] = useState<
         Set<string>
@@ -374,12 +374,12 @@ export function ProjectPage({ projectId }: Props) {
      * latest_version_number) and re-fetch the version list so the history
      * panel shows the new row.
      */
-    function handleUploadNewVersion(doc: EmilieDocument) {
+    function handleUploadNewVersion(doc: RomyDocument) {
         setUploadVersionDoc(doc);
     }
 
     async function submitNewVersion(
-        doc: EmilieDocument,
+        doc: RomyDocument,
         file: File,
         displayName: string,
     ) {
@@ -472,7 +472,7 @@ export function ProjectPage({ projectId }: Props) {
     useEffect(() => {
         Promise.all([
             getProject(projectId),
-            listProjectChats(projectId).catch(() => [] as EmilieChat[]),
+            listProjectChats(projectId).catch(() => [] as RomyChat[]),
             listTabularReviews(projectId).catch(() => []),
         ])
             .then(([proj, projectChats, projectReviews]) => {
@@ -550,7 +550,7 @@ export function ProjectPage({ projectId }: Props) {
         // Immediately hide the input and show an optimistic folder row
         setCreatingFolderIn(undefined);
         const tempId = `temp-${Date.now()}`;
-        const optimistic: EmilieFolder = {
+        const optimistic: RomyFolder = {
             id: tempId,
             project_id: projectId,
             user_id: "",
@@ -605,7 +605,7 @@ export function ProjectPage({ projectId }: Props) {
 
     // ── Doc/chat/review handlers ──────────────────────────────────────────────
 
-    function handleDocsSelected(newDocs: EmilieDocument[]) {
+    function handleDocsSelected(newDocs: RomyDocument[]) {
         setProject((prev) =>
             prev ? {
                 ...prev,
@@ -810,7 +810,7 @@ export function ProjectPage({ projectId }: Props) {
 
     function wouldCreateCycle(movingId: string, targetId: string): boolean {
         // Returns true if targetId is movingId or a descendant of it
-        let cur: EmilieFolder | undefined = folders.find((f) => f.id === targetId);
+        let cur: RomyFolder | undefined = folders.find((f) => f.id === targetId);
         while (cur) {
             if (cur.id === movingId) return true;
             if (!cur.parent_folder_id) break;

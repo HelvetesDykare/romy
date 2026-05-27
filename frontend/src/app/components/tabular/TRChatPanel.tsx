@@ -26,7 +26,7 @@ import {
 import type {
     AssistantEvent,
     ColumnConfig,
-    EmilieDocument,
+    RomyDocument,
 } from "../shared/types";
 import { ModelToggle } from "../assistant/ModelToggle";
 import { ApiKeyMissingModal } from "../shared/ApiKeyMissingModal";
@@ -55,7 +55,7 @@ interface Props {
     reviewTitle?: string | null;
     projectName?: string | null;
     columns: ColumnConfig[];
-    documents: EmilieDocument[];
+    documents: RomyDocument[];
     onCitationClick: (colIdx: number, rowIdx: number) => void;
     onClose: () => void;
     initialChatId?: string | null;

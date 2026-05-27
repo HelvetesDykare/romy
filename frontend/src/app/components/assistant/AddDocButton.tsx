@@ -9,10 +9,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { uploadStandaloneDocument } from "@/app/lib/emilieApi";
-import type { EmilieDocument } from "../shared/types";
+import type { RomyDocument } from "../shared/types";
 
 interface Props {
-    onSelectDoc: (doc: EmilieDocument) => void;
+    onSelectDoc: (doc: RomyDocument) => void;
     onBrowseAll: () => void;
     selectedDocIds?: string[];
 }

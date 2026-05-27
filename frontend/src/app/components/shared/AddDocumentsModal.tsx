@@ -9,7 +9,7 @@ import {
     addDocumentToProject,
     deleteDocument,
 } from "@/app/lib/emilieApi";
-import type { EmilieDocument } from "./types";
+import type { RomyDocument } from "./types";
 import { FileDirectory } from "./FileDirectory";
 import { useDirectoryData, invalidateDirectoryCache } from "./useDirectoryData";
 import { OwnerOnlyModal } from "./OwnerOnlyModal";
@@ -20,7 +20,7 @@ export { invalidateDirectoryCache };
 interface Props {
     open: boolean;
     onClose: () => void;
-    onSelect: (documents: EmilieDocument[], projectId?: string) => void;
+    onSelect: (documents: RomyDocument[], projectId?: string) => void;
     breadcrumb: string[];
     allowMultiple?: boolean;
     projectId?: string;
@@ -39,7 +39,7 @@ export function AddDocumentsModal({
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
     const [uploading, setUploading] = useState(false);
     const [search, setSearch] = useState("");
-    const [extraUploadedDocs, setExtraUploadedDocs] = useState<EmilieDocument[]>([]);
+    const [extraUploadedDocs, setExtraUploadedDocs] = useState<RomyDocument[]>([]);
     // IDs deleted in this session — hidden locally since `useDirectoryData`'s
     // cached state won't re-fetch until the modal reopens.
     const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set());
@@ -132,7 +132,7 @@ export function AddDocumentsModal({
     async function handleDelete(ids: string[]) {
         // Server only allows the doc creator to delete. Filter to owned
         // and warn for the rest.
-        const docsById = new Map<string, EmilieDocument>();
+        const docsById = new Map<string, RomyDocument>();
         for (const d of [
             ...standaloneDocuments,
             ...extraUploadedDocs,

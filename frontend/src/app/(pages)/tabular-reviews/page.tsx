@@ -12,7 +12,7 @@ import {
     listProjects,
     updateTabularReview,
 } from "@/app/lib/emilieApi";
-import type { TabularReview, EmilieProject } from "@/app/components/shared/types";
+import type { TabularReview, RomyProject } from "@/app/components/shared/types";
 import { ToolbarTabs } from "@/app/components/shared/ToolbarTabs";
 import { AddNewTRModal } from "@/app/components/tabular/AddNewTRModal";
 import { OwnerOnlyModal } from "@/app/components/shared/OwnerOnlyModal";
@@ -39,7 +39,7 @@ function formatDate(iso: string) {
 
 export default function TabularReviewsPage() {
     const [reviews, setReviews] = useState<TabularReview[]>([]);
-    const [projects, setProjects] = useState<EmilieProject[]>([]);
+    const [projects, setProjects] = useState<RomyProject[]>([]);
     const [loading, setLoading] = useState(true);
     const [creating, setCreating] = useState(false);
     const [newTROpen, setNewTROpen] = useState(false);

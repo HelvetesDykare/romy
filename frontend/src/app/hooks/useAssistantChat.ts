@@ -7,12 +7,12 @@ import { useChatHistoryContext } from "@/app/contexts/ChatHistoryContext";
 import { useGenerateChatTitle } from "./useGenerateChatTitle";
 import type {
     AssistantEvent,
-    EmilieCitationAnnotation,
-    EmilieMessage,
+    RomyCitationAnnotation,
+    RomyMessage,
 } from "@/app/components/shared/types";
 
 interface UseAssistantChatOptions {
-    initialMessages?: EmilieMessage[];
+    initialMessages?: RomyMessage[];
     chatId?: string;
     projectId?: string;
 }
@@ -39,7 +39,7 @@ export function useAssistantChat({
     } = useChatHistoryContext();
     const { generate: generateTitle } = useGenerateChatTitle();
 
-    const [messages, setMessages] = useState<EmilieMessage[]>(initialMessages);
+    const [messages, setMessages] = useState<RomyMessage[]>(initialMessages);
     const [isResponseLoading, setIsResponseLoading] = useState(false);
     const [isLoadingCitations, setIsLoadingCitations] = useState(false);
     const [chatId, setChatId] = useState<string | undefined>(initialChatId);
@@ -60,10 +60,10 @@ export function useAssistantChat({
     };
 
     const updateLastContentEvent = (
-        prev: EmilieMessage[],
+        prev: RomyMessage[],
         text: string,
         isStreaming?: boolean,
-    ): EmilieMessage[] => {
+    ): RomyMessage[] => {
         const updated = [...prev];
         const last = updated[updated.length - 1];
         if (last?.role !== "assistant") return prev;
@@ -273,7 +273,7 @@ export function useAssistantChat({
     };
 
     const handleChat = async (
-        message: EmilieMessage,
+        message: RomyMessage,
         opts?: {
             displayedDoc?: { filename: string; documentId: string } | null;
         },
@@ -288,7 +288,7 @@ export function useAssistantChat({
             lastMessage.role === "user" &&
             lastMessage.content === message.content;
 
-        const newMessages: EmilieMessage[] = isMessageAlreadyAdded
+        const newMessages: RomyMessage[] = isMessageAlreadyAdded
             ? messages
             : [...messages, message];
 
@@ -743,7 +743,7 @@ export function useAssistantChat({
                                     download_url:
                                         (data.download_url as string) ?? "",
                                     annotations: Array.isArray(data.annotations)
-                                        ? (data.annotations as import("@/app/components/shared/types").EmilieEditAnnotation[])
+                                        ? (data.annotations as import("@/app/components/shared/types").RomyEditAnnotation[])
                                         : [],
                                     error:
                                         typeof data.error === "string"
@@ -762,7 +762,7 @@ export function useAssistantChat({
                             // finalised message.
                             clearStreamingPlaceholders();
                             const incoming = (data.citations ??
-                                []) as EmilieCitationAnnotation[];
+                                []) as RomyCitationAnnotation[];
                             setMessages((prev) => {
                                 const updated = [...prev];
                                 const last = updated[updated.length - 1];
@@ -906,7 +906,7 @@ export function useAssistantChat({
     };
 
     const handleNewChat = async (
-        message: EmilieMessage,
+        message: RomyMessage,
         projectId?: string,
     ): Promise<string | null> => {
         if (!message.content.trim()) return null;

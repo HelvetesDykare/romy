@@ -48,11 +48,11 @@ import { useUserProfile } from "@/contexts/UserProfileContext";
 import { useSidebar } from "@/app/contexts/SidebarContext";
 import type {
     CitationQuote,
-    EmilieCitationAnnotation,
-    EmilieDocument,
-    EmilieEditAnnotation,
-    EmilieMessage,
-    EmilieProject,
+    RomyCitationAnnotation,
+    RomyDocument,
+    RomyEditAnnotation,
+    RomyMessage,
+    RomyProject,
 } from "@/app/components/shared/types";
 import { expandCitationToEntries } from "@/app/components/shared/types";
 
@@ -205,7 +205,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
     const username =
         profile?.displayName?.trim() || user?.email?.split("@")[0] || "there";
 
-    const [project, setProject] = useState<EmilieProject | null>(null);
+    const [project, setProject] = useState<RomyProject | null>(null);
     const [chatTitle, setChatTitle] = useState<string | null>(null);
     const [chatOwnerId, setChatOwnerId] = useState<string | null>(null);
     const [ownerOnlyAction, setOwnerOnlyAction] = useState<string | null>(null);
@@ -253,7 +253,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
         chats,
         saveChat,
     } = useChatHistoryContext();
-    const [initialMessages] = useState<EmilieMessage[]>(newChatMessages ?? []);
+    const [initialMessages] = useState<RomyMessage[]>(newChatMessages ?? []);
     const { messages, isResponseLoading, handleChat, setMessages, cancel } =
         useAssistantChat({ initialMessages, chatId, projectId });
 
@@ -469,7 +469,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
 
     // ── Handlers ──────────────────────────────────────────────────────────────
     const handleSubmit = useCallback(
-        (message: EmilieMessage) => {
+        (message: RomyMessage) => {
             if (!activeTab) return handleChat(message);
             return handleChat(message, {
                 displayedDoc: {
@@ -481,11 +481,11 @@ export default function ProjectAssistantChatPage({ params }: Props) {
         [activeTab, handleChat],
     );
 
-    const handleDocClick = (doc: EmilieDocument) => {
+    const handleDocClick = (doc: RomyDocument) => {
         openTab(doc.id, doc.filename);
     };
 
-    const handleCitationClick = (citation: EmilieCitationAnnotation) => {
+    const handleCitationClick = (citation: RomyCitationAnnotation) => {
         openTab(
             citation.document_id,
             citation.filename,
@@ -502,7 +502,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
         openTab(args.documentId, args.filename, undefined, args.versionId);
     };
 
-    const handleEditViewClick = (ann: EmilieEditAnnotation, filename: string) => {
+    const handleEditViewClick = (ann: RomyEditAnnotation, filename: string) => {
         openTab(ann.document_id, filename, undefined, ann.version_id ?? null);
         setEditScrollTarget({
             key: `${ann.edit_id}-${Date.now()}`,

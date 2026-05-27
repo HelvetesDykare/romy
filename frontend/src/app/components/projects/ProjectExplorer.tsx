@@ -11,15 +11,15 @@ import {
     FolderPlus,
     Trash2,
 } from "lucide-react";
-import type { EmilieDocument, EmilieFolder } from "@/app/components/shared/types";
+import type { RomyDocument, RomyFolder } from "@/app/components/shared/types";
 import { VersionChip } from "@/app/components/shared/VersionChip";
 
 interface Props {
     projectName?: string | null;
-    documents: EmilieDocument[];
-    folders?: EmilieFolder[];
+    documents: RomyDocument[];
+    folders?: RomyFolder[];
     selectedDocId?: string | null;
-    onDocClick: (doc: EmilieDocument) => void;
+    onDocClick: (doc: RomyDocument) => void;
     onCreateFolder?: (parentFolderId: string | null, name: string) => Promise<void>;
     onRenameFolder?: (folderId: string, name: string) => Promise<void>;
     onDeleteFolder?: (folderId: string) => Promise<void>;
@@ -131,7 +131,7 @@ export function ProjectExplorer({
     }
 
     function wouldCreateCycle(movingId: string, targetId: string): boolean {
-        let cur: EmilieFolder | undefined = folders.find((f) => f.id === targetId);
+        let cur: RomyFolder | undefined = folders.find((f) => f.id === targetId);
         while (cur) {
             if (cur.id === movingId) return true;
             if (!cur.parent_folder_id) break;

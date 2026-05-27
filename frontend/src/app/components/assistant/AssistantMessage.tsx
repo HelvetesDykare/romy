@@ -11,8 +11,8 @@ import { RomyIcon } from "@/components/chat/Romy-icon";
 import { displayCitationQuote, formatCitationPage } from "../shared/types";
 import type {
     AssistantEvent,
-    EmilieCitationAnnotation,
-    EmilieEditAnnotation,
+    RomyCitationAnnotation,
+    RomyEditAnnotation,
 } from "../shared/types";
 import { EditCard, applyOptimisticResolution } from "./EditCard";
 import { PreResponseWrapper } from "../shared/PreResponseWrapper";
@@ -38,11 +38,11 @@ function BulkEditActions({
     onError,
 }: {
     pending: {
-        annotation: EmilieEditAnnotation;
+        annotation: RomyEditAnnotation;
         filename: string;
     }[];
     filenameByDocId: Map<string, string>;
-    onViewClick?: (ann: EmilieEditAnnotation, filename: string) => void;
+    onViewClick?: (ann: RomyEditAnnotation, filename: string) => void;
     onResolveStart?: (args: {
         editId: string;
         documentId: string;
@@ -217,13 +217,13 @@ function EditCardsSection({
     onError,
 }: {
     pending: {
-        annotation: EmilieEditAnnotation;
+        annotation: RomyEditAnnotation;
         filename: string;
     }[];
     filenameByDocId: Map<string, string>;
     cards: React.ReactNode[];
     resolvedCount: number;
-    onViewClick?: (ann: EmilieEditAnnotation, filename: string) => void;
+    onViewClick?: (ann: RomyEditAnnotation, filename: string) => void;
     onResolveStart?: (args: {
         editId: string;
         documentId: string;
@@ -786,8 +786,8 @@ function DocEditedBlock({
 
 function preprocessCitations(
     text: string,
-    annotations: EmilieCitationAnnotation[],
-    citationsList: EmilieCitationAnnotation[],
+    annotations: RomyCitationAnnotation[],
+    citationsList: RomyCitationAnnotation[],
 ): string {
     // Replace [N] or [N, M, ...] inline markers with internal §idx§ tokens backed by annotations
     return text.replace(/\[(\d+(?:,\s*\d+)*)\]/g, (full, refsStr) => {
@@ -816,8 +816,8 @@ function MarkdownContent({
     divRef,
 }: {
     text: string;
-    citationsList: EmilieCitationAnnotation[];
-    onCitationClick?: (c: EmilieCitationAnnotation) => void;
+    citationsList: RomyCitationAnnotation[];
+    onCitationClick?: (c: RomyCitationAnnotation) => void;
     divRef?: React.RefObject<HTMLDivElement | null>;
 }) {
     return (
@@ -992,11 +992,11 @@ interface Props {
     isError?: boolean;
     /** Human-readable error text rendered alongside the red Emilie icon. */
     errorMessage?: string;
-    annotations?: EmilieCitationAnnotation[];
-    onCitationClick?: (citation: EmilieCitationAnnotation) => void;
+    annotations?: RomyCitationAnnotation[];
+    onCitationClick?: (citation: RomyCitationAnnotation) => void;
     minHeight?: string;
     onWorkflowClick?: (workflowId: string) => void;
-    onEditViewClick?: (ann: EmilieEditAnnotation, filename: string) => void;
+    onEditViewClick?: (ann: RomyEditAnnotation, filename: string) => void;
     /**
      * Opens the editor panel for a document without auto-highlighting any
      * specific edit. Used by the download card click — opening a doc to
@@ -1102,7 +1102,7 @@ export function AssistantMessage({
     // Pre-process citations for all content events. Each [N] marker resolves
     // to exactly one annotation (models are instructed to use shared refs
     // only for cross-page continuations via the [[PAGE_BREAK]] sentinel).
-    const citationsList: EmilieCitationAnnotation[] = [];
+    const citationsList: RomyCitationAnnotation[] = [];
     const processedTexts: string[] = [];
     if (events) {
         for (const event of events) {
@@ -1396,7 +1396,7 @@ export function AssistantMessage({
                                     { type: "doc_edited" }
                                 >[];
                                 const pending: {
-                                    annotation: EmilieEditAnnotation;
+                                    annotation: RomyEditAnnotation;
                                     filename: string;
                                 }[] = [];
                                 const filenameByDocId = new Map<
@@ -1404,7 +1404,7 @@ export function AssistantMessage({
                                     string
                                 >();
                                 // Effective status = external override if any, else the annotation's DB status.
-                                const statusOf = (ann: EmilieEditAnnotation) =>
+                                const statusOf = (ann: RomyEditAnnotation) =>
                                     resolvedEditStatuses?.[ann.edit_id] ??
                                     ann.status;
                                 for (const e of editedEvents) {

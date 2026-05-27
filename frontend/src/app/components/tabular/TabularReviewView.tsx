@@ -16,8 +16,8 @@ import {
 } from "@/app/lib/emilieApi";
 import type {
     ColumnConfig,
-    EmilieDocument,
-    EmilieProject,
+    RomyDocument,
+    RomyProject,
     TabularCell,
     TabularReview,
 } from "../shared/types";
@@ -50,9 +50,9 @@ interface Props {
 export function TRView({ reviewId, projectId }: Props) {
     const { setSidebarOpen } = useSidebar();
     const [review, setReview] = useState<TabularReview | null>(null);
-    const [project, setProject] = useState<EmilieProject | null>(null);
+    const [project, setProject] = useState<RomyProject | null>(null);
     const [cells, setCells] = useState<TabularCell[]>([]);
-    const [documents, setDocuments] = useState<EmilieDocument[]>([]);
+    const [documents, setDocuments] = useState<RomyDocument[]>([]);
     const [columns, setColumns] = useState<ColumnConfig[]>([]);
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
@@ -158,7 +158,7 @@ export function TRView({ reviewId, projectId }: Props) {
         }
     }
 
-    async function handleAddDocuments(newDocs: EmilieDocument[]) {
+    async function handleAddDocuments(newDocs: RomyDocument[]) {
         const toAdd = newDocs.filter(
             (d) => !documents.some((existing) => existing.id === d.id),
         );
@@ -773,7 +773,7 @@ export function TRView({ reviewId, projectId }: Props) {
                 <AddProjectDocsModal
                     open={addDocsOpen}
                     onClose={() => setAddDocsOpen(false)}
-                    onSelect={(docs: EmilieDocument[]) =>
+                    onSelect={(docs: RomyDocument[]) =>
                         handleAddDocuments(docs)
                     }
                     breadcrumb={[
@@ -793,7 +793,7 @@ export function TRView({ reviewId, projectId }: Props) {
                 <AddDocumentsModal
                     open={addDocsOpen}
                     onClose={() => setAddDocsOpen(false)}
-                    onSelect={(docs: EmilieDocument[]) =>
+                    onSelect={(docs: RomyDocument[]) =>
                         handleAddDocuments(docs)
                     }
                     breadcrumb={[

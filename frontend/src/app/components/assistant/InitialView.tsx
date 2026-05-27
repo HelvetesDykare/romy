@@ -6,11 +6,11 @@ import { useUserProfile } from "@/contexts/UserProfileContext";
 import { RomyIcon } from "@/components/chat/Romy-icon";
 import { ChatInput } from "./ChatInput";
 import { SelectAssistantProjectModal } from "./SelectAssistantProjectModal";
-import type { EmilieMessage } from "../shared/types";
+import type { RomyMessage } from "../shared/types";
 import { useTranslations } from "next-intl";
 
 interface InitialViewProps {
-    onSubmit: (message: EmilieMessage) => void;
+    onSubmit: (message: RomyMessage) => void;
 }
 
 const ICON_SIZE = 35;

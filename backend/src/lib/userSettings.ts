@@ -1,5 +1,5 @@
 import { pool } from "./db";
-import { resolveModel, DEFAULT_TITLE_MODEL, DEFAULT_TABULAR_MODEL, type UserApiKeys } from "./llm";
+import { LOCAL_MODELS, DEFAULT_TITLE_MODEL, type UserApiKeys } from "./llm";
 
 export type UserModelSettings = {
     title_model: string;
@@ -11,6 +11,11 @@ function resolveTitleModel(apiKeys: UserApiKeys): string {
     if (apiKeys.gemini?.trim()) return DEFAULT_TITLE_MODEL;
     if (apiKeys.claude?.trim()) return "claude-haiku-4-5";
     return process.env.VLLM_LIGHT_MODEL ?? "localllm-light";
+}
+
+function resolveTabularModel(storedModel: string | null | undefined): string {
+    if (storedModel && (LOCAL_MODELS as readonly string[]).includes(storedModel)) return storedModel;
+    return process.env.VLLM_MAIN_MODEL ?? process.env.VLLM_LIGHT_MODEL ?? "localllm-main";
 }
 
 export async function getUserModelSettings(userId: string): Promise<UserModelSettings> {
@@ -29,7 +34,7 @@ export async function getUserModelSettings(userId: string): Promise<UserModelSet
     };
     return {
         title_model: resolveTitleModel(api_keys),
-        tabular_model: resolveModel(data?.tabular_model, DEFAULT_TABULAR_MODEL),
+        tabular_model: resolveTabularModel(data?.tabular_model),
         api_keys,
     };
 }

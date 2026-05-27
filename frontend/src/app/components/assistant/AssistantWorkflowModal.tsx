@@ -5,14 +5,14 @@ import { createPortal } from "react-dom";
 import { ChevronLeft, Search, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import type { EmilieWorkflow } from "../shared/types";
+import type { RomyWorkflow } from "../shared/types";
 import { listWorkflows } from "@/app/lib/emilieApi";
 import { BUILT_IN_WORKFLOWS } from "../workflows/builtinWorkflows";
 
 interface Props {
     open: boolean;
     onClose: () => void;
-    onSelect: (workflow: EmilieWorkflow) => void;
+    onSelect: (workflow: RomyWorkflow) => void;
     projectName?: string;
     projectCmNumber?: string | null;
     initialWorkflowId?: string;
@@ -26,9 +26,9 @@ export function AssistantWorkflowModal({
     projectCmNumber,
     initialWorkflowId,
 }: Props) {
-    const [workflows, setWorkflows] = useState<EmilieWorkflow[]>([]);
+    const [workflows, setWorkflows] = useState<RomyWorkflow[]>([]);
     const [loading, setLoading] = useState(false);
-    const [selected, setSelected] = useState<EmilieWorkflow | null>(null);
+    const [selected, setSelected] = useState<RomyWorkflow | null>(null);
     const [search, setSearch] = useState("");
     const [rightVisible, setRightVisible] = useState(false);
 

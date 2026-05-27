@@ -10,7 +10,7 @@ import {
     Folder,
     Trash2,
 } from "lucide-react";
-import type { EmilieDocument, EmilieProject } from "./types";
+import type { RomyDocument, RomyProject } from "./types";
 import { VersionChip } from "./VersionChip";
 
 function formatDate(iso: string | null) {
@@ -29,8 +29,8 @@ export function DocFileIcon({ fileType }: { fileType: string | null }) {
 }
 
 interface FileDirectoryProps {
-    standaloneDocs: EmilieDocument[];
-    directoryProjects: EmilieProject[];
+    standaloneDocs: RomyDocument[];
+    directoryProjects: RomyProject[];
     loading: boolean;
     selectedIds: Set<string>;
     onChange: (ids: Set<string>) => void;

@@ -2,7 +2,7 @@
 
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { Plus, Table2 } from "lucide-react";
-import type { ColumnConfig, EmilieDocument, TabularCell } from "../shared/types";
+import type { ColumnConfig, RomyDocument, TabularCell } from "../shared/types";
 import { TabularCell as TabularCellComponent } from "./TabularCell";
 import { TREditColumnMenu } from "./TREditColumnMenu";
 
@@ -25,7 +25,7 @@ export interface TRTableHandle {
 interface Props {
     loading: boolean;
     columns: ColumnConfig[];
-    documents: EmilieDocument[];
+    documents: RomyDocument[];
     cells: TabularCell[];
     savingColumn: boolean;
     savingColumnsConfig: boolean;

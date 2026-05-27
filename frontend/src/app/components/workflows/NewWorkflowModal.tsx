@@ -3,15 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { X, MessageSquare, Table2 } from "lucide-react";
 import { createWorkflow, updateWorkflow } from "@/app/lib/emilieApi";
-import type { EmilieWorkflow } from "../shared/types";
+import type { RomyWorkflow } from "../shared/types";
 import { PRACTICE_OPTIONS } from "./practices";
 
 interface Props {
     open: boolean;
     onClose: () => void;
-    onCreated: (workflow: EmilieWorkflow) => void;
-    editWorkflow?: EmilieWorkflow;
-    onUpdated?: (workflow: EmilieWorkflow) => void;
+    onCreated: (workflow: RomyWorkflow) => void;
+    editWorkflow?: RomyWorkflow;
+    onUpdated?: (workflow: RomyWorkflow) => void;
 }
 
 export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpdated }: Props) {

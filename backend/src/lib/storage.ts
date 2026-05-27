@@ -31,7 +31,7 @@ function getClient(): S3Client {
   });
 }
 
-const BUCKET = process.env.STORAGE_BUCKET_NAME ?? "emilie";
+const BUCKET = process.env.STORAGE_BUCKET_NAME ?? "romy";
 
 // ---------------------------------------------------------------------------
 // Local filesystem

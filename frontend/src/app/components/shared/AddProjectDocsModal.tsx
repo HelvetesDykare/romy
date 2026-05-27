@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Check, Loader2, Search, Upload, X } from "lucide-react";
 import { getProject, uploadProjectDocument } from "@/app/lib/emilieApi";
-import type { EmilieDocument } from "./types";
+import type { RomyDocument } from "./types";
 import { DocFileIcon } from "./FileDirectory";
 import { VersionChip } from "./VersionChip";
 
 interface Props {
     open: boolean;
     onClose: () => void;
-    onSelect: (documents: EmilieDocument[]) => void;
+    onSelect: (documents: RomyDocument[]) => void;
     breadcrumb: string[];
     projectId: string;
     /** Docs already in the target list — rendered checked + disabled. */
@@ -37,7 +37,7 @@ export function AddProjectDocsModal({
     excludeDocIds,
     allowMultiple = true,
 }: Props) {
-    const [docs, setDocs] = useState<EmilieDocument[]>([]);
+    const [docs, setDocs] = useState<RomyDocument[]>([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());

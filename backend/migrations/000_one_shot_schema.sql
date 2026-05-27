@@ -31,9 +31,10 @@ create table if not exists public.user_profiles (
   tier text not null default 'Free',
   message_credits_used integer not null default 0,
   credits_reset_date timestamptz not null default (now() + interval '30 days'),
-  tabular_model text not null default 'gemini-3-flash-preview',
+  tabular_model text not null default 'mistral-large-latest',
   claude_api_key text,
   gemini_api_key text,
+  language varchar(10) not null default 'en',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -297,3 +298,10 @@ create table if not exists public.tabular_review_chat_messages (
 
 create index if not exists tabular_review_chat_messages_chat_idx
   on public.tabular_review_chat_messages(chat_id, created_at);
+
+-- ---------------------------------------------------------------------------
+-- Romy additions — idempotent, safe to run on existing Emilie/Romy installs
+-- ---------------------------------------------------------------------------
+
+alter table public.user_profiles
+  add column if not exists language varchar(10) not null default 'en';

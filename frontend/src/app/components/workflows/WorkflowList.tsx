@@ -19,7 +19,7 @@ import {
     hideWorkflow,
     unhideWorkflow,
 } from "@/app/lib/emilieApi";
-import type { EmilieWorkflow } from "../shared/types";
+import type { RomyWorkflow } from "../shared/types";
 import { BUILT_IN_WORKFLOWS, BUILT_IN_IDS } from "./builtinWorkflows";
 import { DisplayWorkflowModal } from "./DisplayWorkflowModal";
 import { NewWorkflowModal } from "./NewWorkflowModal";
@@ -43,9 +43,9 @@ const TABS: { id: Tab; label: string }[] = [
 export function WorkflowList() {
     const router = useRouter();
     const { user } = useAuth();
-    const [custom, setCustom] = useState<EmilieWorkflow[]>([]);
+    const [custom, setCustom] = useState<RomyWorkflow[]>([]);
     const [loading, setLoading] = useState(true);
-    const [selected, setSelected] = useState<EmilieWorkflow | null>(null);
+    const [selected, setSelected] = useState<RomyWorkflow | null>(null);
     const [activeTab, setActiveTab] = useState<Tab>("all");
     const [newModalOpen, setNewModalOpen] = useState(false);
     const [hiddenBuiltinIds, setHiddenBuiltinIds] = useState<string[]>([]);
@@ -53,7 +53,7 @@ export function WorkflowList() {
     const [actionsOpen, setActionsOpen] = useState(false);
     const [practiceFilter, setPracticeFilter] = useState<string | null>(null);
     const [practiceFilterOpen, setPracticeFilterOpen] = useState(false);
-    const [typeFilter, setTypeFilter] = useState<EmilieWorkflow["type"] | null>(
+    const [typeFilter, setTypeFilter] = useState<RomyWorkflow["type"] | null>(
         null,
     );
     const [typeFilterOpen, setTypeFilterOpen] = useState(false);
@@ -199,7 +199,7 @@ export function WorkflowList() {
         await Promise.all(ids.map((id) => unhideWorkflow(id).catch(() => {})));
     }
 
-    const getTypeMeta = (type: EmilieWorkflow["type"]) =>
+    const getTypeMeta = (type: RomyWorkflow["type"]) =>
         type === "tabular"
             ? { label: "Tabular", Icon: Table2, className: "text-violet-700" }
             : {
@@ -536,7 +536,7 @@ export function WorkflowList() {
                                     {wf.is_system ? (
                                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600">
                                             <RomyIcon size={14} />
-                                            Emilie
+                                            Romy
                                         </span>
                                     ) : wf.user_id === user?.id ? (
                                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600">

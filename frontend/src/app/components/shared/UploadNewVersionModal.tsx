@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X, Upload } from "lucide-react";
 import { listDocumentVersions } from "@/app/lib/emilieApi";
-import type { EmilieDocument } from "./types";
+import type { RomyDocument } from "./types";
 
 interface Props {
     open: boolean;
     onClose: () => void;
-    doc: EmilieDocument | null;
+    doc: RomyDocument | null;
     onSubmit: (file: File, displayName: string) => Promise<void>;
 }
 

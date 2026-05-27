@@ -1,6 +1,6 @@
 // Shared TypeScript types for Emilie AI legal assistant
 
-export interface EmilieFolder {
+export interface RomyFolder {
   id: string;
   project_id: string;
   user_id: string;
@@ -10,7 +10,7 @@ export interface EmilieFolder {
   updated_at: string;
 }
 
-export interface EmilieProject {
+export interface RomyProject {
   id: string;
   user_id: string;
   is_owner?: boolean;
@@ -19,14 +19,14 @@ export interface EmilieProject {
   shared_with: string[];
   created_at: string;
   updated_at: string;
-  documents?: EmilieDocument[];
-  folders?: EmilieFolder[];
+  documents?: RomyDocument[];
+  folders?: RomyFolder[];
   document_count?: number;
   chat_count?: number;
   review_count?: number;
 }
 
-export interface EmilieDocument {
+export interface RomyDocument {
   id: string;
   user_id?: string;
   project_id: string | null;
@@ -53,7 +53,7 @@ export interface StructureNode {
   children: StructureNode[];
 }
 
-export interface EmilieChat {
+export interface RomyChat {
   id: string;
   project_id: string | null;
   user_id: string;
@@ -61,7 +61,7 @@ export interface EmilieChat {
   created_at: string;
 }
 
-export interface EmilieEditAnnotation {
+export interface RomyEditAnnotation {
   type?: "edit_data";
   kind?: "edit";
   edit_id: string;
@@ -136,19 +136,19 @@ export type AssistantEvent =
         /** Per-document monotonic Vn written at emit time. */
         version_number?: number | null;
         download_url: string;
-        annotations: EmilieEditAnnotation[];
+        annotations: RomyEditAnnotation[];
         error?: string;
         isStreaming?: boolean;
     }
   | { type: "content"; text: string; isStreaming?: boolean };
 
-export interface EmilieMessage {
+export interface RomyMessage {
   role: "user" | "assistant";
   content: string;
   files?: { filename: string; document_id?: string }[];
   workflow?: { id: string; title: string };
   model?: string;
-  annotations?: EmilieCitationAnnotation[];
+  annotations?: RomyCitationAnnotation[];
   events?: AssistantEvent[];
   /** Set when streaming failed; rendered as a red error block. */
   error?: string;
@@ -166,7 +166,7 @@ export interface CitationQuote {
  * like "41-42" and a `quote` containing the `[[PAGE_BREAK]]` sentinel at the
  * break point (text before is on page 41, text after is on page 42).
  */
-export interface EmilieCitationAnnotation {
+export interface RomyCitationAnnotation {
   type: "citation_data";
   ref: number;
   doc_id: string;
@@ -186,7 +186,7 @@ const PAGE_BREAK_SENTINEL = "[[PAGE_BREAK]]";
  * cross-page citation with page "N-M" and a `[[PAGE_BREAK]]` split yields two.
  */
 export function expandCitationToEntries(
-  a: EmilieCitationAnnotation,
+  a: RomyCitationAnnotation,
 ): CitationQuote[] {
   const rangeMatch =
     typeof a.page === "string"
@@ -208,13 +208,13 @@ export function expandCitationToEntries(
 }
 
 /** Format the page(s) of a citation for display, e.g. "Page 3" or "Page 41-42". */
-export function formatCitationPage(a: EmilieCitationAnnotation): string {
+export function formatCitationPage(a: RomyCitationAnnotation): string {
   if (typeof a.page === "string") return `Page ${a.page}`;
   return `Page ${a.page}`;
 }
 
 /** Produce a reader-friendly version of the quote (replaces [[PAGE_BREAK]] with "..."). */
-export function displayCitationQuote(a: EmilieCitationAnnotation): string {
+export function displayCitationQuote(a: RomyCitationAnnotation): string {
   return a.quote.replaceAll(PAGE_BREAK_SENTINEL, "...");
 }
 
@@ -272,7 +272,7 @@ export interface TabularCell {
 
 // Workflows
 
-export interface EmilieWorkflow {
+export interface RomyWorkflow {
   id: string;
   user_id: string | null;
   title: string;
@@ -289,13 +289,13 @@ export interface EmilieWorkflow {
 
 // API helpers
 
-export interface EmilieChatDetailOut {
-  chat: EmilieChat;
-  messages: EmilieMessage[];
+export interface RomyChatDetailOut {
+  chat: RomyChat;
+  messages: RomyMessage[];
 }
 
 export interface TabularReviewDetailOut {
   review: TabularReview;
   cells: TabularCell[];
-  documents: EmilieDocument[];
+  documents: RomyDocument[];
 }

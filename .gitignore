@@ -16,3 +16,6 @@ next-env.d.ts
 .DS_Store
 .vercel
 coverage
+
+# Local file storage (dev uploads — use S3-compatible storage in production)
+backend/uploads/

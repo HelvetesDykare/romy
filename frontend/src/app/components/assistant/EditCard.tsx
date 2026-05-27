@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { getToken } from "@/lib/tokenStore";
-import type { EmilieEditAnnotation } from "../shared/types";
+import type { RomyEditAnnotation } from "../shared/types";
 
 function normalizeText(s: string) {
     return s.replace(/\s+/g, " ").trim();
@@ -63,7 +63,7 @@ function findMatch(
  * so if the backend call later fails we can restore the original look.
  */
 export function applyOptimisticResolution(
-    annotation: EmilieEditAnnotation,
+    annotation: RomyEditAnnotation,
     verb: "accept" | "reject",
 ): () => void {
     const reverts: (() => void)[] = [];
@@ -150,7 +150,7 @@ export function applyOptimisticResolution(
 }
 
 interface Props {
-    annotation: EmilieEditAnnotation;
+    annotation: RomyEditAnnotation;
     /**
      * External override for this edit's status. When set, takes
      * precedence over the annotation's DB status and the card's own
@@ -164,7 +164,7 @@ interface Props {
      * Accept/Reject buttons disable so the user can't race resolutions.
      */
     isReloading?: boolean;
-    onViewClick?: (ann: EmilieEditAnnotation) => void;
+    onViewClick?: (ann: RomyEditAnnotation) => void;
     /**
      * Fires immediately when the user clicks Accept or Reject, before the
      * backend round-trip. Parents use this to show an in-progress spinner

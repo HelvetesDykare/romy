@@ -53,7 +53,7 @@ app.get("/local-storage/*", (req, res) => {
 });
 
 app.listen(PORT, async () => {
-    console.log(`Emilie backend running on port ${PORT}`);
+    console.log(`Romy backend running on port ${PORT}`);
     await initMCPConnections();
     console.log(`[mcp] Connections initialized`);
 });
