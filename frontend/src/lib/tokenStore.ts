@@ -1,5 +1,5 @@
 const STORE_KEY = "romy_auth";
-const LEGACY_KEY = "emilie_auth"; // migrated on first read
+const LEGACY_KEY = "emilie_auth"; // kept for backwards-compat: migrates existing sessions on first read, then removes the old key
 
 interface StoredAuth {
     token: string;

@@ -92,18 +92,15 @@ export function RomyIcon({
     spin = false,
     done = false,
     error = false,
-    Romy = false,
     size = 24,
     style,
 }: {
     spin?: boolean;
     done?: boolean;
     error?: boolean;
-    Romy?: boolean;
     size?: number;
     style?: React.CSSProperties;
 }) {
-    void Romy;
     const id = useId().replace(/:/g, "");
     const palette = error
         ? ERROR_PALETTE

@@ -45,7 +45,7 @@ type RosterRow = {
 };
 
 /**
- * Roster of every Emilie member with access to the project, with controls to
+ * Roster of every Romy member with access to the project, with controls to
  * add/remove members. Mirrors AddDocumentsModal's frame.
  */
 export function PeopleModal({

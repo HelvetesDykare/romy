@@ -205,7 +205,6 @@ function TRResponseStatus({ isActive }: { isActive: boolean }) {
             <RomyIcon
                 spin={isActive}
                 done={showDone && doneVisible}
-                emilie={!(showDone && doneVisible)}
                 size={22}
             />
         </div>
@@ -1320,7 +1319,7 @@ export function TRChatPanel({
             {/* Header */}
             <div className="flex items-center justify-between h-8 px-2 border-b border-gray-200 shrink-0">
                 <div className="flex items-center gap-1.5 px-2 min-w-0">
-                    <RomyIcon emilie size={14} />
+                    <RomyIcon size={14} />
                     <div
                         onMouseEnter={(e) => {
                             const el = e.currentTarget;

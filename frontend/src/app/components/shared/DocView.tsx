@@ -550,7 +550,7 @@ export function DocView({
             >
                 {loading && (
                     <div className="flex h-full items-center justify-center">
-                        <RomyIcon spin emilie size={28} />
+                        <RomyIcon spin size={28} />
                     </div>
                 )}
                 {error && (

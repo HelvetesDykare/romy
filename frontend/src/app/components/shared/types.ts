@@ -1,4 +1,4 @@
-// Shared TypeScript types for Emilie AI legal assistant
+// Shared TypeScript types for Romy AI legal assistant
 
 export interface RomyFolder {
   id: string;

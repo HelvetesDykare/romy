@@ -1,12 +1,13 @@
 /**
- * Infomaniak Swiss Object Storage utilities for Emilie document management.
- * S3-compatible — uses @aws-sdk/client-s3.
+ * S3-compatible object storage utilities for Romy document management.
+ * Works with OVHcloud Object Storage (GRA/Paris), Scaleway Object Storage,
+ * or any S3-compatible endpoint. Uses @aws-sdk/client-s3.
  *
  * Required env vars:
- *   R2_ENDPOINT_URL     — https://s3.ir-1.infomaniak.com
- *   R2_ACCESS_KEY_ID    — Infomaniak Object Storage access key
- *   R2_SECRET_ACCESS_KEY — Infomaniak Object Storage secret key
- *   R2_BUCKET_NAME      — bucket name (default: "emilie")
+ *   R2_ENDPOINT_URL      — e.g. https://s3.gra.io.cloud.ovh.net
+ *   R2_ACCESS_KEY_ID     — S3 access key
+ *   R2_SECRET_ACCESS_KEY — S3 secret key
+ *   R2_BUCKET_NAME       — bucket name (default: "romy")
  */
 
 import {

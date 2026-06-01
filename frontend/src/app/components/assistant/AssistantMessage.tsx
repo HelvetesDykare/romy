@@ -330,7 +330,6 @@ function ResponseStatus({ status }: { status: StatusState }) {
                 spin={isActive}
                 done={showDone && doneVisible}
                 error={isError}
-                emilie={!isError && !(showDone && doneVisible)}
                 size={22}
             />
         </div>
@@ -990,7 +989,7 @@ interface Props {
     events?: AssistantEvent[];
     isStreaming?: boolean;
     isError?: boolean;
-    /** Human-readable error text rendered alongside the red Emilie icon. */
+    /** Human-readable error text rendered alongside the red Romy icon. */
     errorMessage?: string;
     annotations?: RomyCitationAnnotation[];
     onCitationClick?: (citation: RomyCitationAnnotation) => void;
