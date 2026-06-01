@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -8,7 +8,7 @@ import {
     uploadProjectDocument,
     addDocumentToProject,
     deleteDocument,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type { RomyDocument } from "./types";
 import { FileDirectory } from "./FileDirectory";
 import { useDirectoryData, invalidateDirectoryCache } from "./useDirectoryData";
@@ -40,7 +40,7 @@ export function AddDocumentsModal({
     const [uploading, setUploading] = useState(false);
     const [search, setSearch] = useState("");
     const [extraUploadedDocs, setExtraUploadedDocs] = useState<RomyDocument[]>([]);
-    // IDs deleted in this session — hidden locally since `useDirectoryData`'s
+    // IDs deleted in this session â€” hidden locally since `useDirectoryData`'s
     // cached state won't re-fetch until the modal reopens.
     const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set());
     const [ownerOnlyAction, setOwnerOnlyAction] = useState<string | null>(null);
@@ -147,7 +147,7 @@ export function AddDocumentsModal({
         const blocked = ids.length - owned.length;
         if (owned.length === 0 && blocked > 0) {
             setOwnerOnlyAction(
-                "delete these documents — only the document creator can delete a document",
+                "delete these documents â€” only the document creator can delete a document",
             );
             return;
         }
@@ -167,7 +167,7 @@ export function AddDocumentsModal({
         });
         if (blocked > 0) {
             setOwnerOnlyAction(
-                `delete ${blocked} of the selected documents — only the document creator can delete a document`,
+                `delete ${blocked} of the selected documents â€” only the document creator can delete a document`,
             );
         }
     }
@@ -205,7 +205,7 @@ export function AddDocumentsModal({
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         {breadcrumb.map((segment, i) => (
                             <span key={i} className="flex items-center gap-1.5">
-                                {i > 0 && <span>›</span>}
+                                {i > 0 && <span>â€º</span>}
                                 {segment}
                             </span>
                         ))}
@@ -224,7 +224,7 @@ export function AddDocumentsModal({
                         <Search className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                         <input
                             type="text"
-                            placeholder="Search…"
+                            placeholder="Searchâ€¦"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="flex-1 bg-transparent text-sm text-gray-700 placeholder:text-gray-400 outline-none"
@@ -279,7 +279,7 @@ export function AddDocumentsModal({
                             ) : (
                                 <Upload className="h-3.5 w-3.5" />
                             )}
-                            {uploading ? "Uploading…" : "Upload"}
+                            {uploading ? "Uploadingâ€¦" : "Upload"}
                         </button>
                     </div>
                     <div className="flex items-center gap-2">
@@ -299,7 +299,7 @@ export function AddDocumentsModal({
                             disabled={selectedIds.size === 0 || uploading}
                             className="rounded-lg bg-gray-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-40"
                         >
-                            {uploading ? "Saving…" : "Confirm"}
+                            {uploading ? "Savingâ€¦" : "Confirm"}
                         </button>
                     </div>
                 </div>
@@ -313,3 +313,4 @@ export function AddDocumentsModal({
         document.body,
     );
 }
+

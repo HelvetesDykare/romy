@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
     createContext,
@@ -15,7 +15,7 @@ import {
     deleteChat,
     listChats,
     renameChat,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type { RomyChat, RomyMessage } from "@/app/components/shared/types";
 
 interface ChatHistoryContextType {
@@ -192,3 +192,4 @@ export function useChatHistoryContext() {
     }
     return context;
 }
+

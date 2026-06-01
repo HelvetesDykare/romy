@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -22,7 +22,7 @@ import {
     mapTRMessages,
     type TRChat,
     type TRCitationAnnotation,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type {
     AssistantEvent,
     ColumnConfig,
@@ -170,7 +170,7 @@ function preprocessTRCitations(
             if (!ann) return [];
             const idx = citationsList.length;
             citationsList.push(ann);
-            return [`\`§${idx}§\`\u200B`];
+            return [`\`Â§${idx}Â§\`\u200B`];
         });
         return tokens.length > 0 ? tokens.join("") : full;
     });
@@ -337,7 +337,7 @@ function TRAssistantMessage({
                     ),
                     code: ({ children }) => {
                         const codeText = String(children);
-                        const citMatch = codeText.match(/^§(\d+)§$/);
+                        const citMatch = codeText.match(/^Â§(\d+)Â§$/);
                         if (citMatch) {
                             const idx = parseInt(citMatch[1]);
                             const cit = citationsList[idx];
@@ -350,7 +350,7 @@ function TRAssistantMessage({
                                                 cit.row_index,
                                             )
                                         }
-                                        title={`${cit.col_name} · ${cit.doc_name.replace(/\.[^.]+$/, "")}`}
+                                        title={`${cit.col_name} Â· ${cit.doc_name.replace(/\.[^.]+$/, "")}`}
                                         className="mx-0.5 inline-flex items-center justify-center rounded-full w-4 h-4 text-[10px] font-medium bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors align-super font-serif"
                                     >
                                         {idx + 1}
@@ -547,7 +547,7 @@ function HistoryDropdown({
                 <input
                     autoFocus
                     type="text"
-                    placeholder="Search chats…"
+                    placeholder="Search chatsâ€¦"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     className="flex-1 text-xs bg-transparent outline-none placeholder:text-gray-400 text-gray-700"
@@ -1082,7 +1082,7 @@ export function TRChatPanel({
                                     },
                                 ];
                             } else {
-                                // New reasoning block — drop any bridging
+                                // New reasoning block â€” drop any bridging
                                 // placeholder before it so the wrapper
                                 // doesn't render both.
                                 const cleaned = events.filter(
@@ -1213,7 +1213,7 @@ export function TRChatPanel({
                         }
 
                         if (data.type === "citations") {
-                            // End-of-stream signal — scrub any lingering
+                            // End-of-stream signal â€” scrub any lingering
                             // placeholders so they don't persist into the
                             // finalised message.
                             clearStreamingPlaceholders();
@@ -1468,3 +1468,4 @@ export function TRChatPanel({
         </div>
     );
 }
+

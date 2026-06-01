@@ -834,7 +834,7 @@ export async function handleDocumentUpload(
 
     await pool.query(
       "UPDATE documents SET current_version_id = $1, size_bytes = $2, page_count = $3, structure_tree = $4, status = $5, updated_at = $6 WHERE id = $7",
-      [versionRow.id, content.byteLength, pageCount, tree ?? null, "ready", new Date().toISOString(), docId]
+      [versionRow.id, content.byteLength, pageCount, tree != null ? JSON.stringify(tree) : null, "ready", new Date().toISOString(), docId]
     );
 
     const { rows: updatedRows } = await pool.query(

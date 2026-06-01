@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { PlusIcon, Upload, LayoutGridIcon, Loader2Icon } from "lucide-react";
@@ -8,7 +8,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { uploadStandaloneDocument } from "@/app/lib/emilieApi";
+import { uploadStandaloneDocument } from "@/app/lib/romyApi";
 import type { RomyDocument } from "../shared/types";
 
 interface Props {
@@ -93,7 +93,7 @@ export function AddDocButton({ onSelectDoc, onBrowseAll, selectedDocIds = [] }: 
                             <Upload className="h-4 w-4 mr-2 text-gray-500" />
                         )}
                         <span className="text-sm">
-                            {uploading ? "Uploading…" : "Upload files"}
+                            {uploading ? "Uploadingâ€¦" : "Upload files"}
                         </span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
@@ -108,3 +108,4 @@ export function AddDocButton({ onSelectDoc, onBrowseAll, selectedDocIds = [] }: 
         </>
     );
 }
+

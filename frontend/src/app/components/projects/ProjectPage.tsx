@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -44,7 +44,7 @@ import {
     renameDocumentVersion,
     getProjectPeople,
     type RomyDocumentVersion,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type {
     RomyDocument,
     RomyFolder,
@@ -142,7 +142,7 @@ function DocVersionHistory({
     const commit = async (versionId: string) => {
         const trimmed = editingValue.trim();
         setEditingVersionId(null);
-        // Empty string → clear override (falls back to V{n})
+        // Empty string â†’ clear override (falls back to V{n})
         const next = trimmed.length > 0 ? trimmed : null;
         await onRenameVersion?.(versionId, next);
     };
@@ -153,7 +153,7 @@ function DocVersionHistory({
                 <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-gray-50/60 p-2`}>
                     <div className="flex items-center gap-2">
                         <Loader2 className="h-3 w-3 animate-spin text-gray-400" />
-                        <span>Loading versions…</span>
+                        <span>Loading versionsâ€¦</span>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@ function DocVersionHistory({
                         ? `${v.version_number}`
                         : v.source === "upload"
                           ? "Original"
-                          : "—";
+                          : "â€”";
                 const displayLabel = v.display_name?.trim() || numberLabel;
                 const dt = new Date(v.created_at);
                 const dateLabel = Number.isNaN(dt.valueOf())
@@ -206,7 +206,7 @@ function DocVersionHistory({
                         <div className={`sticky left-0 z-[60] ${CHECK_W} bg-gray-50/60 group-hover:bg-gray-100/80 self-stretch`} />
                         <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-gray-50/60 group-hover:bg-gray-100/80 p-2`}>
                         <div className="flex items-center gap-2">
-                            <span className="shrink-0 text-gray-400">↳</span>
+                            <span className="shrink-0 text-gray-400">â†³</span>
                             {isEditing ? (
                                 <input
                                     autoFocus
@@ -245,7 +245,7 @@ function DocVersionHistory({
                                 </button>
                             )}
                             <span className="text-gray-400 truncate">{dateLabel}</span>
-                            <span className="text-gray-300 shrink-0">·</span>
+                            <span className="text-gray-300 shrink-0">Â·</span>
                             <span className="text-gray-400 truncate">{v.source}</span>
                         </div>
                         </div>
@@ -327,7 +327,7 @@ export function ProjectPage({ projectId }: Props) {
             });
             return;
         }
-        // Opening — expand immediately so the user sees a loading state.
+        // Opening â€” expand immediately so the user sees a loading state.
         setExpandedVersionDocIds((prev) => new Set([...prev, docId]));
         if (versionsByDocId.has(docId)) return;
         setLoadingVersionDocIds((prev) => new Set([...prev, docId]));
@@ -532,7 +532,7 @@ export function ProjectPage({ projectId }: Props) {
         }
     }, [creatingFolderIn]);
 
-    // ── Folder handlers ───────────────────────────────────────────────────────
+    // â”€â”€ Folder handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     function toggleFolder(id: string) {
         setExpandedFolderIds((prev) => {
@@ -603,7 +603,7 @@ export function ProjectPage({ projectId }: Props) {
         await deleteProjectFolder(projectId, folderId);
     }
 
-    // ── Doc/chat/review handlers ──────────────────────────────────────────────
+    // â”€â”€ Doc/chat/review handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     function handleDocsSelected(newDocs: RomyDocument[]) {
         setProject((prev) =>
@@ -765,7 +765,7 @@ export function ProjectPage({ projectId }: Props) {
         );
         if (blocked > 0) {
             setOwnerOnlyAction(
-                `delete ${blocked} of the selected documents — only the document creator can delete a document`,
+                `delete ${blocked} of the selected documents â€” only the document creator can delete a document`,
             );
         }
     }
@@ -783,7 +783,7 @@ export function ProjectPage({ projectId }: Props) {
         setChats((prev) => prev.filter((c) => !owned.includes(c.id)));
         if (blocked > 0) {
             setOwnerOnlyAction(
-                `delete ${blocked} of the selected chats — only the chat creator can delete a chat`,
+                `delete ${blocked} of the selected chats â€” only the chat creator can delete a chat`,
             );
         }
     }
@@ -801,12 +801,12 @@ export function ProjectPage({ projectId }: Props) {
         setProjectReviews((prev) => prev.filter((r) => !owned.includes(r.id)));
         if (blocked > 0) {
             setOwnerOnlyAction(
-                `delete ${blocked} of the selected reviews — only the review creator can delete a review`,
+                `delete ${blocked} of the selected reviews â€” only the review creator can delete a review`,
             );
         }
     }
 
-    // ── Drag & drop ───────────────────────────────────────────────────────────
+    // â”€â”€ Drag & drop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     function wouldCreateCycle(movingId: string, targetId: string): boolean {
         // Returns true if targetId is movingId or a descendant of it
@@ -843,7 +843,7 @@ export function ProjectPage({ projectId }: Props) {
         }
     }
 
-    // ── Tree rendering ────────────────────────────────────────────────────────
+    // â”€â”€ Tree rendering â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     function renderFolderInput(parentId: string | null) {
         if (creatingFolderIn !== parentId) return null;
@@ -949,10 +949,10 @@ export function ProjectPage({ projectId }: Props) {
                                 </div>
                                 </div>
                                 <div className="ml-auto w-20 shrink-0 text-xs text-gray-500 uppercase truncate">
-                                    {doc.file_type ?? <span className="text-gray-300">—</span>}
+                                    {doc.file_type ?? <span className="text-gray-300">â€”</span>}
                                 </div>
                                 <div className="w-24 shrink-0 text-sm text-gray-500 truncate">
-                                    {doc.size_bytes != null ? formatBytes(doc.size_bytes) : <span className="text-gray-300">—</span>}
+                                    {doc.size_bytes != null ? formatBytes(doc.size_bytes) : <span className="text-gray-300">â€”</span>}
                                 </div>
                                 <div
                                     className="w-20 shrink-0 text-sm text-gray-500 flex items-center gap-1"
@@ -971,14 +971,14 @@ export function ProjectPage({ projectId }: Props) {
                                             )}
                                         </button>
                                     ) : (
-                                        <span className="text-gray-300 pl-1">—</span>
+                                        <span className="text-gray-300 pl-1">â€”</span>
                                     )}
                                 </div>
                                 <div className="w-32 shrink-0 text-sm text-gray-500 truncate">
-                                    {doc.created_at ? formatDate(doc.created_at) : <span className="text-gray-300">—</span>}
+                                    {doc.created_at ? formatDate(doc.created_at) : <span className="text-gray-300">â€”</span>}
                                 </div>
                                 <div className="w-32 shrink-0 text-sm text-gray-500 truncate">
-                                    {doc.updated_at ? formatDate(doc.updated_at) : <span className="text-gray-300">—</span>}
+                                    {doc.updated_at ? formatDate(doc.updated_at) : <span className="text-gray-300">â€”</span>}
                                 </div>
                                 <div className="w-8 shrink-0 flex justify-end">
                                     {!isProcessing && (
@@ -1075,11 +1075,11 @@ export function ProjectPage({ projectId }: Props) {
                                     )}
                                 </div>
                                 </div>
-                                <div className="ml-auto w-20 shrink-0 text-xs text-gray-300">—</div>
-                                <div className="w-24 shrink-0 text-sm text-gray-300">—</div>
-                                <div className="w-20 shrink-0 text-sm text-gray-300">—</div>
-                                <div className="w-32 shrink-0 text-sm text-gray-300">—</div>
-                                <div className="w-32 shrink-0 text-sm text-gray-300">—</div>
+                                <div className="ml-auto w-20 shrink-0 text-xs text-gray-300">â€”</div>
+                                <div className="w-24 shrink-0 text-sm text-gray-300">â€”</div>
+                                <div className="w-20 shrink-0 text-sm text-gray-300">â€”</div>
+                                <div className="w-32 shrink-0 text-sm text-gray-300">â€”</div>
+                                <div className="w-32 shrink-0 text-sm text-gray-300">â€”</div>
                                 <div
                                     className="w-8 shrink-0 flex justify-end"
                                     onClick={(e) => e.stopPropagation()}
@@ -1104,7 +1104,7 @@ export function ProjectPage({ projectId }: Props) {
         );
     }
 
-    // ── Loading skeleton ──────────────────────────────────────────────────────
+    // â”€â”€ Loading skeleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     if (loading) {
         return (
@@ -1112,7 +1112,7 @@ export function ProjectPage({ projectId }: Props) {
                 <div className="flex items-start justify-between px-8 py-4">
                     <div className="flex items-center gap-1.5 text-2xl font-medium font-serif">
                         <span className="text-gray-400">Projects</span>
-                        <span className="text-gray-300">›</span>
+                        <span className="text-gray-300">â€º</span>
                         <div className="h-6 w-40 rounded bg-gray-100 animate-pulse" />
                     </div>
                     <div className="flex items-center gap-2">
@@ -1250,7 +1250,7 @@ export function ProjectPage({ projectId }: Props) {
                         >
                             Projects
                         </button>
-                        <span className="text-gray-300">›</span>
+                        <span className="text-gray-300">â€º</span>
                         {tab !== "documents" ? (
                             <button
                                 onClick={() => router.push(`/projects/${projectId}`)}
@@ -1268,14 +1268,14 @@ export function ProjectPage({ projectId }: Props) {
                         )}
                         {tab !== "documents" && (
                             <>
-                                <span className="text-gray-300">›</span>
+                                <span className="text-gray-300">â€º</span>
                                 <span className="text-gray-900">{tab === "assistant" ? "Assistant" : "Tabular Reviews"}</span>
                             </>
                         )}
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Search…" />
+                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Searchâ€¦" />
                     <button
                         onClick={() => setPeopleModalOpen(true)}
                         className="flex h-8 w-8 items-center justify-center text-sm text-gray-500 transition-colors hover:text-gray-900 cursor-pointer"
@@ -1429,8 +1429,8 @@ export function ProjectPage({ projectId }: Props) {
                                                         <span className="text-sm text-gray-800 truncate">{doc.filename}</span>
                                                     </div>
                                                     </div>
-                                                    <div className="ml-auto w-20 shrink-0 text-xs text-gray-500 uppercase truncate">{doc.file_type ?? <span className="text-gray-300">—</span>}</div>
-                                                    <div className="w-24 shrink-0 text-sm text-gray-500 truncate">{doc.size_bytes != null ? formatBytes(doc.size_bytes) : <span className="text-gray-300">—</span>}</div>
+                                                    <div className="ml-auto w-20 shrink-0 text-xs text-gray-500 uppercase truncate">{doc.file_type ?? <span className="text-gray-300">â€”</span>}</div>
+                                                    <div className="w-24 shrink-0 text-sm text-gray-500 truncate">{doc.size_bytes != null ? formatBytes(doc.size_bytes) : <span className="text-gray-300">â€”</span>}</div>
                                                     <div
                                                         className="w-20 shrink-0 text-sm text-gray-500 flex items-center gap-1"
                                                         onClick={(e) => e.stopPropagation()}
@@ -1448,14 +1448,14 @@ export function ProjectPage({ projectId }: Props) {
                                                                 )}
                                                             </button>
                                                         ) : (
-                                                            <span className="text-gray-300 pl-1">—</span>
+                                                            <span className="text-gray-300 pl-1">â€”</span>
                                                         )}
                                                     </div>
                                                     <div className="w-32 shrink-0 text-sm text-gray-500 truncate">
-                                                        {doc.created_at ? formatDate(doc.created_at) : <span className="text-gray-300">—</span>}
+                                                        {doc.created_at ? formatDate(doc.created_at) : <span className="text-gray-300">â€”</span>}
                                                     </div>
                                                     <div className="w-32 shrink-0 text-sm text-gray-500 truncate">
-                                                        {doc.updated_at ? formatDate(doc.updated_at) : <span className="text-gray-300">—</span>}
+                                                        {doc.updated_at ? formatDate(doc.updated_at) : <span className="text-gray-300">â€”</span>}
                                                     </div>
                                                     <div className="w-8 shrink-0 flex justify-end">
                                                         {!isProcessing && (
@@ -1496,7 +1496,7 @@ export function ProjectPage({ projectId }: Props) {
                                 ) : (
                                     renderLevel(null, 0)
                                 )}
-                                {/* Spacer — fills remaining height and extends the root drop zone */}
+                                {/* Spacer â€” fills remaining height and extends the root drop zone */}
                                 <div className="flex-1 min-h-16" />
                             </div>
                         )}
@@ -1682,7 +1682,7 @@ export function ProjectPage({ projectId }: Props) {
                                         </div>
                                         <div className="ml-auto w-24 shrink-0 text-sm text-gray-500 truncate">{review.columns_config?.length ?? 0}</div>
                                         <div className="w-24 shrink-0 text-sm text-gray-500 truncate">{review.document_count ?? 0}</div>
-                                        <div className="w-32 shrink-0 text-sm text-gray-500 truncate">{review.created_at ? formatDate(review.created_at) : <span className="text-gray-300">—</span>}</div>
+                                        <div className="w-32 shrink-0 text-sm text-gray-500 truncate">{review.created_at ? formatDate(review.created_at) : <span className="text-gray-300">â€”</span>}</div>
                                         <div className="w-8 shrink-0 flex justify-end" onClick={(e) => e.stopPropagation()}>
                                             <RowActions
                                                 onRename={() => {
@@ -1770,7 +1770,7 @@ export function ProjectPage({ projectId }: Props) {
                     "People",
                 ]}
                 // Only owners may modify the member list. Without this prop
-                // PeopleModal renders read-only — non-owners can still see
+                // PeopleModal renders read-only â€” non-owners can still see
                 // who has access but the add/remove controls are hidden.
                 onSharedWithChange={
                     project.is_owner === false
@@ -1793,3 +1793,4 @@ export function ProjectPage({ projectId }: Props) {
         </div>
     );
 }
+

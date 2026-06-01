@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { X, MessageSquare, Table2 } from "lucide-react";
-import { createWorkflow, updateWorkflow } from "@/app/lib/emilieApi";
+import { createWorkflow, updateWorkflow } from "@/app/lib/romyApi";
 import type { RomyWorkflow } from "../shared/types";
 import { PRACTICE_OPTIONS } from "./practices";
 
@@ -101,7 +101,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                 <div className="flex items-center justify-between px-6 pt-5 pb-2 shrink-0">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         <span>Workflows</span>
-                        <span>›</span>
+                        <span>â€º</span>
                         <span>{isEditing ? "Edit workflow" : "New workflow"}</span>
                     </div>
                     <button
@@ -125,7 +125,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                             autoFocus
                         />
 
-                        {/* Type pills — only shown when creating */}
+                        {/* Type pills â€” only shown when creating */}
                         {!isEditing && (
                             <div className="mt-5">
                                 <p className="mb-2 text-sm font-medium text-gray-500">Type</p>
@@ -183,7 +183,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                                     type="text"
                                     value={customPractice}
                                     onChange={(e) => setCustomPractice(e.target.value)}
-                                    placeholder="Enter practice area…"
+                                    placeholder="Enter practice areaâ€¦"
                                     className="mt-3 w-full rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-700 placeholder-gray-400 focus:border-gray-400 focus:outline-none"
                                 />
                             )}
@@ -208,7 +208,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                             disabled={!title.trim() || loading}
                             className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-40 transition-colors"
                         >
-                            {loading ? (isEditing ? "Saving…" : "Creating…") : (isEditing ? "Save changes" : "Create workflow")}
+                            {loading ? (isEditing ? "Savingâ€¦" : "Creatingâ€¦") : (isEditing ? "Save changes" : "Create workflow")}
                         </button>
                     </div>
                 </form>
@@ -216,3 +216,4 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
         </div>
     );
 }
+

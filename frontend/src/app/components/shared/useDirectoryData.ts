@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
-import { getProject, listProjects, listStandaloneDocuments } from "@/app/lib/emilieApi";
+import { getProject, listProjects, listStandaloneDocuments } from "@/app/lib/romyApi";
 import type { RomyDocument, RomyProject } from "./types";
 
 const CACHE_TTL_MS = 30_000;
@@ -61,3 +61,4 @@ export function useDirectoryData(enabled: boolean) {
 
     return { loading, standaloneDocuments, projects };
 }
+

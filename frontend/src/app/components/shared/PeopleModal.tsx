@@ -1,12 +1,12 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X, User, UserPlus, Loader2, Plus } from "lucide-react";
-import type { ProjectPeople } from "@/app/lib/emilieApi";
+import type { ProjectPeople } from "@/app/lib/romyApi";
 
 /**
- * Any resource the modal can manage members for — projects today, tabular
+ * Any resource the modal can manage members for â€” projects today, tabular
  * reviews now, anything else with a `shared_with` email list later.
  */
 export interface SharedResource {
@@ -17,16 +17,16 @@ export interface SharedResource {
 interface Props {
     open: boolean;
     onClose: () => void;
-    /** The thing being shared (project, review, …). */
+    /** The thing being shared (project, review, â€¦). */
     resource: SharedResource | null;
     /**
      * Resolve the owner + members roster for the given resource. Different
      * resource types hit different endpoints (`/projects/:id/people`,
-     * `/tabular-review/:id/people`, …) so the caller passes the appropriate
+     * `/tabular-review/:id/people`, â€¦) so the caller passes the appropriate
      * fetcher.
      */
     fetchPeople: (id: string) => Promise<ProjectPeople>;
-    /** Currently signed-in user's email — gets the "You" tag if it matches. */
+    /** Currently signed-in user's email â€” gets the "You" tag if it matches. */
     currentUserEmail?: string | null;
     breadcrumb: string[];
     /**
@@ -81,7 +81,7 @@ export function PeopleModal({
         setRemovingEmail(null);
     }, [open]);
 
-    // Re-fetch roster whenever the modal opens or membership changes —
+    // Re-fetch roster whenever the modal opens or membership changes â€”
     // keyed by the joined shared_with list so add/remove triggers a refresh.
     const sharedKey = sharedWith
         .map((e) => e.toLowerCase())
@@ -193,7 +193,7 @@ export function PeopleModal({
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         {breadcrumb.map((segment, i) => (
                             <span key={i} className="flex items-center gap-1.5">
-                                {i > 0 && <span>›</span>}
+                                {i > 0 && <span>â€º</span>}
                                 {segment}
                             </span>
                         ))}
@@ -214,7 +214,7 @@ export function PeopleModal({
                                 <UserPlus className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                                 <input
                                     type="email"
-                                    placeholder="Add by email…"
+                                    placeholder="Add by emailâ€¦"
                                     value={newEmail}
                                     onChange={(e) =>
                                         setNewEmail(e.target.value)
@@ -362,3 +362,4 @@ export function PeopleModal({
         document.body,
     );
 }
+

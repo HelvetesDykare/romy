@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -13,7 +13,7 @@ import {
     regenerateTabularCell,
     streamTabularGeneration,
     updateTabularReview,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type {
     ColumnConfig,
     RomyDocument,
@@ -480,7 +480,7 @@ export function TRView({ reviewId, projectId }: Props) {
                                 >
                                     Projects
                                 </button>
-                                <span className="text-gray-300">›</span>
+                                <span className="text-gray-300">â€º</span>
                                 <button
                                     onClick={() =>
                                         router.push(`/projects/${projectId}`)
@@ -500,7 +500,7 @@ export function TRView({ reviewId, projectId }: Props) {
                                         </>
                                     )}
                                 </button>
-                                <span className="text-gray-300">›</span>
+                                <span className="text-gray-300">â€º</span>
                                 <button
                                     onClick={() =>
                                         router.push(
@@ -521,7 +521,7 @@ export function TRView({ reviewId, projectId }: Props) {
                                 Tabular Reviews
                             </button>
                         )}
-                        <span className="text-gray-300">›</span>
+                        <span className="text-gray-300">â€º</span>
                         {loading ? (
                             <div className="h-6 w-40 rounded bg-gray-100 animate-pulse" />
                         ) : (
@@ -533,7 +533,7 @@ export function TRView({ reviewId, projectId }: Props) {
                     </div>
                     {!loading && (
                         <div className="flex items-center gap-2">
-                            <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Search documents…" />
+                            <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Search documentsâ€¦" />
                             {!projectId && (
                                 <button
                                     onClick={() => setPeopleModalOpen(true)}
@@ -591,7 +591,7 @@ export function TRView({ reviewId, projectId }: Props) {
                                 ) : (
                                     <Play className="h-4 w-4" />
                                 )}
-                                {generating ? "Running…" : "Run"}
+                                {generating ? "Runningâ€¦" : "Run"}
                             </button>
                         </div>
                     )}
@@ -851,3 +851,4 @@ export function TRView({ reviewId, projectId }: Props) {
         </div>
     );
 }
+

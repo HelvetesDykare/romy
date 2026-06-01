@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Download, Trash2, X } from "lucide-react";
 import { DocView } from "./DocView";
-import { getDocumentUrl } from "@/app/lib/emilieApi";
+import { getDocumentUrl } from "@/app/lib/romyApi";
 import type { RomyDocument } from "./types";
 
 interface Props {
@@ -99,3 +99,4 @@ export function DocViewModal({
         document.body,
     );
 }
+

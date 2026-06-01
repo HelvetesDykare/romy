@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -6,7 +6,7 @@ import { ChevronLeft, Search, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { RomyWorkflow } from "../shared/types";
-import { listWorkflows } from "@/app/lib/emilieApi";
+import { listWorkflows } from "@/app/lib/romyApi";
 import { BUILT_IN_WORKFLOWS } from "../workflows/builtinWorkflows";
 
 interface Props {
@@ -98,22 +98,22 @@ export function AssistantWorkflowModal({
                         {projectName ? (
                             <>
                                 <span>Projects</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>
                                     {projectName}
                                     {projectCmNumber
                                         ? ` (#${projectCmNumber})`
                                         : ""}
                                 </span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>Assistant</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>Add workflow</span>
                             </>
                         ) : (
                             <>
                                 <span>Assistant</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>Add workflow</span>
                             </>
                         )}
@@ -128,7 +128,7 @@ export function AssistantWorkflowModal({
 
                 {/* Content */}
                 <div className="flex flex-row flex-1 min-h-0 overflow-hidden">
-                    {/* Left panel — workflow list */}
+                    {/* Left panel â€” workflow list */}
                     <div
                         className={`overflow-y-auto ${selected ? "w-80 shrink-0" : "flex-1"}`}
                     >
@@ -138,7 +138,7 @@ export function AssistantWorkflowModal({
                                 <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                 <input
                                     type="text"
-                                    placeholder="Search workflows…"
+                                    placeholder="Search workflowsâ€¦"
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     className="flex-1 bg-transparent text-xs text-gray-700 placeholder:text-gray-400 outline-none"
@@ -197,7 +197,7 @@ export function AssistantWorkflowModal({
                         )}
                     </div>
 
-                    {/* Right panel — prompt preview */}
+                    {/* Right panel â€” prompt preview */}
                     {selected && (
                         <div className={`flex-1 border-l border-gray-100 flex flex-col overflow-hidden px-3 pb-3 transition-opacity duration-200 ${rightVisible ? "opacity-100" : "opacity-0"}`}>
                             <div className="flex items-center justify-between py-3 shrink-0">
@@ -291,3 +291,4 @@ export function AssistantWorkflowModal({
         document.body,
     );
 }
+

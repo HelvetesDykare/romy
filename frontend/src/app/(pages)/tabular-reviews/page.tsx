@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import {
     createTabularReview,
     listProjects,
     updateTabularReview,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type { TabularReview, RomyProject } from "@/app/components/shared/types";
 import { ToolbarTabs } from "@/app/components/shared/ToolbarTabs";
 import { AddNewTRModal } from "@/app/components/tabular/AddNewTRModal";
@@ -183,7 +183,7 @@ export default function TabularReviewsPage() {
         setReviews((prev) => prev.filter((r) => !owned.includes(r.id)));
         if (blocked > 0) {
             setOwnerOnlyAction(
-                `delete ${blocked} of the selected reviews — only the review creator can delete a review`,
+                `delete ${blocked} of the selected reviews â€” only the review creator can delete a review`,
             );
         }
     }
@@ -273,7 +273,7 @@ export default function TabularReviewsPage() {
                     Tabular Reviews
                 </h1>
                 <div className="flex items-center gap-2">
-                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Search reviews…" />
+                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Search reviewsâ€¦" />
                     <button
                         onClick={() => setNewTROpen(true)}
                         disabled={creating}
@@ -458,7 +458,7 @@ export default function TabularReviewsPage() {
                                             project.name
                                         ) : (
                                             <span className="text-gray-300">
-                                                —
+                                                â€”
                                             </span>
                                         )}
                                     </div>
@@ -467,7 +467,7 @@ export default function TabularReviewsPage() {
                                             formatDate(review.created_at)
                                         ) : (
                                             <span className="text-gray-300">
-                                                —
+                                                â€”
                                             </span>
                                         )}
                                     </div>
@@ -537,3 +537,4 @@ export default function TabularReviewsPage() {
         </div>
     );
 }
+

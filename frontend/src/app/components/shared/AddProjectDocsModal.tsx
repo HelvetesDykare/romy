@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Check, Loader2, Search, Upload, X } from "lucide-react";
-import { getProject, uploadProjectDocument } from "@/app/lib/emilieApi";
+import { getProject, uploadProjectDocument } from "@/app/lib/romyApi";
 import type { RomyDocument } from "./types";
 import { DocFileIcon } from "./FileDirectory";
 import { VersionChip } from "./VersionChip";
@@ -14,7 +14,7 @@ interface Props {
     onSelect: (documents: RomyDocument[]) => void;
     breadcrumb: string[];
     projectId: string;
-    /** Docs already in the target list — rendered checked + disabled. */
+    /** Docs already in the target list â€” rendered checked + disabled. */
     excludeDocIds?: Set<string>;
     allowMultiple?: boolean;
 }
@@ -126,7 +126,7 @@ export function AddProjectDocsModal({
                                 key={i}
                                 className="flex items-center gap-1.5"
                             >
-                                {i > 0 && <span>›</span>}
+                                {i > 0 && <span>â€º</span>}
                                 {segment}
                             </span>
                         ))}
@@ -145,7 +145,7 @@ export function AddProjectDocsModal({
                         <Search className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                         <input
                             type="text"
-                            placeholder="Search…"
+                            placeholder="Searchâ€¦"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="flex-1 bg-transparent text-sm text-gray-700 placeholder:text-gray-400 outline-none"
@@ -268,7 +268,7 @@ export function AddProjectDocsModal({
                             ) : (
                                 <Upload className="h-3.5 w-3.5" />
                             )}
-                            {uploading ? "Uploading…" : "Upload"}
+                            {uploading ? "Uploadingâ€¦" : "Upload"}
                         </button>
                     </div>
                     <div className="flex items-center gap-2">
@@ -297,3 +297,4 @@ export function AddProjectDocsModal({
         document.body,
     );
 }
+

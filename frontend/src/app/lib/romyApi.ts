@@ -1,5 +1,5 @@
 /**
- * Emilie API client — all requests to the Node.js backend.
+ * Romy API client — all requests to the Node.js backend.
  * Attaches the JWT bearer token for user authentication.
  */
 

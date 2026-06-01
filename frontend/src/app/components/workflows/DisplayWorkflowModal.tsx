@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -13,7 +13,7 @@ import {
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { RomyDocument, RomyWorkflow } from "../shared/types";
-import { createTabularReview } from "@/app/lib/emilieApi";
+import { createTabularReview } from "@/app/lib/romyApi";
 import { useRouter } from "next/navigation";
 import { formatIcon, formatLabel } from "../tabular/columnFormat";
 import { useDirectoryData } from "../shared/useDirectoryData";
@@ -77,7 +77,7 @@ function SimpleProjectPicker({
                 }}
                 onFocus={() => setOpen(true)}
                 onBlur={() => setTimeout(() => setOpen(false), 150)}
-                placeholder="Select a project…"
+                placeholder="Select a projectâ€¦"
                 className="w-full text-xs text-gray-700 placeholder:text-gray-400 bg-gray-50 border border-gray-200 rounded-md px-3 py-2 outline-none"
             />
             {selectedId && (
@@ -190,7 +190,7 @@ function AssistantPanel({ workflow }: { workflow: RomyWorkflow }) {
 }
 
 // ---------------------------------------------------------------------------
-// Right panel for tabular workflows — accordion column list (select screen)
+// Right panel for tabular workflows â€” accordion column list (select screen)
 // ---------------------------------------------------------------------------
 function TabularPanel({ workflow }: { workflow: RomyWorkflow }) {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -455,7 +455,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                         {screen === "select" ? (
                             <>
                                 <span>Workflows</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>Select workflow</span>
                             </>
                         ) : (
@@ -466,11 +466,11 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                 >
                                     Workflows
                                 </button>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span className="truncate max-w-[160px]">
                                     {wf.title}
                                 </span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>
                                     {wf.type === "assistant"
                                         ? "New Chat"
@@ -487,7 +487,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                     </button>
                 </div>
 
-                {/* ── SELECT SCREEN ── */}
+                {/* â”€â”€ SELECT SCREEN â”€â”€ */}
                 {screen === "select" && (
                     <>
                         <div className="flex flex-row flex-1 min-h-0 overflow-hidden">
@@ -499,7 +499,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                         <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                         <input
                                             type="text"
-                                            placeholder="Search…"
+                                            placeholder="Searchâ€¦"
                                             value={listSearch}
                                             onChange={(e) => setListSearch(e.target.value)}
                                             className="flex-1 bg-transparent text-xs text-gray-700 placeholder:text-gray-400 outline-none"
@@ -576,7 +576,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                     </>
                 )}
 
-                {/* ── ASSISTANT CONFIGURE SCREEN ── */}
+                {/* â”€â”€ ASSISTANT CONFIGURE SCREEN â”€â”€ */}
                 {screen === "configure" && wf.type === "assistant" && (
                     <>
                         <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
@@ -591,7 +591,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                     onChange={(e) =>
                                         setAssistantPrompt(e.target.value)
                                     }
-                                    placeholder="Add any additional instructions to the workflow prompt…"
+                                    placeholder="Add any additional instructions to the workflow promptâ€¦"
                                     className="w-full text-sm text-gray-700 placeholder:text-gray-400 bg-gray-50 border border-gray-200 rounded-md px-3 py-2 resize-none outline-none leading-relaxed"
                                 />
                             </div>
@@ -641,7 +641,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                             <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                             <input
                                                 type="text"
-                                                placeholder="Search…"
+                                                placeholder="Searchâ€¦"
                                                 value={docSearch}
                                                 onChange={(e) =>
                                                     setDocSearch(e.target.value)
@@ -697,13 +697,13 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                 }
                                 className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
                             >
-                                {saving ? "Starting…" : "Start Chat"}
+                                {saving ? "Startingâ€¦" : "Start Chat"}
                             </button>
                         </div>
                     </>
                 )}
 
-                {/* ── TABULAR CONFIGURE SCREEN ── */}
+                {/* â”€â”€ TABULAR CONFIGURE SCREEN â”€â”€ */}
                 {screen === "configure" && wf.type === "tabular" && (
                     <>
                         <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
@@ -760,7 +760,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                     <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                     <input
                                         type="text"
-                                        placeholder="Search…"
+                                        placeholder="Searchâ€¦"
                                         value={docSearch}
                                         onChange={(e) =>
                                             setDocSearch(e.target.value)
@@ -820,7 +820,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                 }
                                 className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
                             >
-                                {saving ? "Creating…" : "Create Review"}
+                                {saving ? "Creatingâ€¦" : "Create Review"}
                             </button>
                         </div>
                     </>
@@ -830,3 +830,4 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
         document.body,
     );
 }
+

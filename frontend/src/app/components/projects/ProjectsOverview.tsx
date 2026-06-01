@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, FolderOpen, ChevronDown } from "lucide-react";
 import { HeaderSearchBtn } from "@/app/components/shared/HeaderSearchBtn";
-import { listProjects, updateProject, deleteProject } from "@/app/lib/emilieApi";
+import { listProjects, updateProject, deleteProject } from "@/app/lib/romyApi";
 import { OwnerOnlyModal } from "@/app/components/shared/OwnerOnlyModal";
 import { useAuth } from "@/contexts/AuthContext";
 import type { RomyProject } from "@/app/components/shared/types";
@@ -142,7 +142,7 @@ export function ProjectsOverview() {
         setProjects((prev) => prev.filter((p) => !owned.includes(p.id)));
         if (blocked > 0) {
             setOwnerOnlyAction(
-                `delete ${blocked} of the selected projects — only the project owner can delete a project`,
+                `delete ${blocked} of the selected projects â€” only the project owner can delete a project`,
             );
         }
     }
@@ -184,7 +184,7 @@ export function ProjectsOverview() {
                     <HeaderSearchBtn
                         value={search}
                         onChange={setSearch}
-                        placeholder="Search projects…"
+                        placeholder="Search projectsâ€¦"
                     />
                     <button
                         onClick={() => setModalOpen(true)}
@@ -374,7 +374,7 @@ export function ProjectsOverview() {
                                     ) : (
                                         (project.cm_number ?? (
                                             <span className="text-gray-300">
-                                                —
+                                                â€”
                                             </span>
                                         ))
                                     )}
@@ -446,3 +446,4 @@ export function ProjectsOverview() {
         </div>
     );
 }
+

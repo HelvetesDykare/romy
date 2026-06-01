@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { LogOut, Check } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserProfile } from "@/contexts/UserProfileContext";
-import { deleteAccount } from "@/app/lib/emilieApi";
+import { deleteAccount } from "@/app/lib/romyApi";
 
 export default function AccountPage() {
     const router = useRouter();
@@ -133,9 +133,9 @@ export default function AccountPage() {
                         <label className="text-sm text-gray-600 block mb-2">Language</label>
                         <div className="flex gap-2">
                             {[
-                                { code: "en", flag: "🇬🇧", label: "English" },
-                                { code: "fr", flag: "🇫🇷", label: "Français" },
-                                { code: "es", flag: "🇪🇸", label: "Español" },
+                                { code: "en", flag: "ðŸ‡¬ðŸ‡§", label: "English" },
+                                { code: "fr", flag: "ðŸ‡«ðŸ‡·", label: "FranÃ§ais" },
+                                { code: "es", flag: "ðŸ‡ªðŸ‡¸", label: "EspaÃ±ol" },
                             ].map((lang) => (
                                 <button
                                     key={lang.code}
@@ -197,7 +197,7 @@ export default function AccountPage() {
                                 Cancel
                             </Button>
                             <Button onClick={handleDeleteAccount} disabled={isDeleting} className="text-sm bg-red-600 hover:bg-red-700 text-white">
-                                {isDeleting ? "Deleting…" : "Delete Account"}
+                                {isDeleting ? "Deletingâ€¦" : "Delete Account"}
                             </Button>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -7,7 +7,7 @@ import {
     deleteWorkflowShare,
     listWorkflowShares,
     shareWorkflow,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import { EmailPillInput } from "../shared/EmailPillInput";
 
 interface Share {
@@ -68,11 +68,11 @@ export function ShareWorkflowModal({
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         <span>Workflows</span>
-                        <span>›</span>
+                        <span>â€º</span>
                         <span className="truncate max-w-[220px]">
                             {workflowName}
                         </span>
-                        <span>›</span>
+                        <span>â€º</span>
                         <span>People</span>
                     </div>
                     <button onClick={onClose} className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
@@ -84,7 +84,7 @@ export function ShareWorkflowModal({
                     <EmailPillInput
                         emails={pendingEmails}
                         onChange={setPendingEmails}
-                        placeholder="Add people by email…"
+                        placeholder="Add people by emailâ€¦"
                         autoFocus
                     />
 
@@ -148,7 +148,7 @@ export function ShareWorkflowModal({
                         disabled={saving || pendingEmails.length === 0}
                         className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-40 transition-colors"
                     >
-                        {saving ? "Sharing…" : "Share"}
+                        {saving ? "Sharingâ€¦" : "Share"}
                     </button>
                 </div>
             </div>
@@ -156,3 +156,4 @@ export function ShareWorkflowModal({
         document.body,
     );
 }
+

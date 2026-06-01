@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { streamChat, streamProjectChat } from "@/app/lib/emilieApi";
+import { streamChat, streamProjectChat } from "@/app/lib/romyApi";
 import { useChatHistoryContext } from "@/app/contexts/ChatHistoryContext";
 import { useGenerateChatTitle } from "./useGenerateChatTitle";
 import type {
@@ -89,7 +89,7 @@ export function useAssistantChat({
      * Finalize any in-flight streaming content event and reset the drip
      * counters so the next content_delta starts a fresh block. Called
      * before any non-content event is appended, so interleaved content /
-     * reasoning / tool events stay in chronological order — without the
+     * reasoning / tool events stay in chronological order â€” without the
      * later content block inheriting the earlier block's accumulated text.
      */
     const finalizeStreamingContent = () => {
@@ -211,7 +211,7 @@ export function useAssistantChat({
     const pushThinkingPlaceholder = () => {
         const events = eventsRef.current;
         const last = events[events.length - 1];
-        // Don't stack placeholders back-to-back; one "Thinking…" line is plenty.
+        // Don't stack placeholders back-to-back; one "Thinkingâ€¦" line is plenty.
         if (last && isStreamingPlaceholder(last)) return;
         eventsRef.current = [
             ...events,
@@ -398,8 +398,8 @@ export function useAssistantChat({
                         if (data.type === "content_delta") {
                             const text = data.text as string;
 
-                            // Real content is streaming — retire any
-                            // "Thinking…" / "Running…" placeholders, and
+                            // Real content is streaming â€” retire any
+                            // "Thinkingâ€¦" / "Runningâ€¦" placeholders, and
                             // finalize any in-flight reasoning block so it
                             // doesn't get stuck rendering as streaming.
                             clearStreamingPlaceholders();
@@ -407,7 +407,7 @@ export function useAssistantChat({
 
                             // Ensure a streaming content event exists. If
                             // the last event isn't already a streaming
-                            // content block, start a fresh one — and reset
+                            // content block, start a fresh one â€” and reset
                             // the drip so we don't inherit a previous
                             // block's accumulated text.
                             const events = eventsRef.current;
@@ -463,7 +463,7 @@ export function useAssistantChat({
                                     },
                                 ];
                             } else {
-                                // New reasoning block — finalize any in-flight
+                                // New reasoning block â€” finalize any in-flight
                                 // content event first so the next content_delta
                                 // starts a fresh block at the correct position.
                                 finalizeStreamingContent();
@@ -528,8 +528,8 @@ export function useAssistantChat({
                             // Transient placeholder so the client immediately
                             // shows activity after Claude ends a turn with
                             // tool_use. Replaced by the real tool event
-                            // (doc_edited_start, doc_read_start, …) if one
-                            // arrives; otherwise it lingers as a "Working…"
+                            // (doc_edited_start, doc_read_start, â€¦) if one
+                            // arrives; otherwise it lingers as a "Workingâ€¦"
                             // indicator until the next iteration streams.
                             pushEvent({
                                 type: "tool_call_start",
@@ -757,7 +757,7 @@ export function useAssistantChat({
                         }
 
                         if (data.type === "citations") {
-                            // End-of-stream signal — scrub any lingering
+                            // End-of-stream signal â€” scrub any lingering
                             // placeholders so they don't persist into the
                             // finalised message.
                             clearStreamingPlaceholders();
@@ -935,3 +935,4 @@ export function useAssistantChat({
         chatId,
     };
 }
+

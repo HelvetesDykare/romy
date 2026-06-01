@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X, Upload } from "lucide-react";
-import { listDocumentVersions } from "@/app/lib/emilieApi";
+import { listDocumentVersions } from "@/app/lib/romyApi";
 import type { RomyDocument } from "./types";
 
 interface Props {
@@ -78,7 +78,7 @@ export function UploadNewVersionModal({ open, onClose, doc, onSubmit }: Props) {
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 py-4">
                     <div className="text-xs text-gray-400">
-                        Upload new version · {doc.filename}
+                        Upload new version Â· {doc.filename}
                     </div>
                     <button
                         onClick={onClose}
@@ -103,7 +103,7 @@ export function UploadNewVersionModal({ open, onClose, doc, onSubmit }: Props) {
                     <div className="mt-2 text-xs text-gray-500">
                         Current Version:{" "}
                         <span className="text-gray-700 font-medium">
-                            {currentVersion ?? "—"}
+                            {currentVersion ?? "â€”"}
                         </span>
                     </div>
                     {stagedFile && (
@@ -147,7 +147,7 @@ export function UploadNewVersionModal({ open, onClose, doc, onSubmit }: Props) {
                             disabled={!stagedFile || submitting}
                             className="rounded-lg bg-gray-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-40"
                         >
-                            {submitting ? "Saving…" : "Save"}
+                            {submitting ? "Savingâ€¦" : "Save"}
                         </button>
                     </div>
                 </div>
@@ -156,3 +156,4 @@ export function UploadNewVersionModal({ open, onClose, doc, onSubmit }: Props) {
         document.body,
     );
 }
+

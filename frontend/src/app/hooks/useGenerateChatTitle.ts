@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useCallback } from "react";
-import { generateChatTitle } from "@/app/lib/emilieApi";
+import { generateChatTitle } from "@/app/lib/romyApi";
 import { useChatHistoryContext } from "@/app/contexts/ChatHistoryContext";
 
 export function useGenerateChatTitle() {
@@ -13,7 +13,7 @@ export function useGenerateChatTitle() {
                 const { title } = await generateChatTitle(chatId, message);
                 await renameChat(chatId, title);
             } catch {
-                // best-effort — title generation should never break the chat
+                // best-effort â€” title generation should never break the chat
             }
         },
         [renameChat],
@@ -21,3 +21,4 @@ export function useGenerateChatTitle() {
 
     return { generate };
 }
+

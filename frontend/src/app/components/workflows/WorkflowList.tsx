@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ import {
     listHiddenWorkflows,
     hideWorkflow,
     unhideWorkflow,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import type { RomyWorkflow } from "../shared/types";
 import { BUILT_IN_WORKFLOWS, BUILT_IN_IDS } from "./builtinWorkflows";
 import { DisplayWorkflowModal } from "./DisplayWorkflowModal";
@@ -366,7 +366,7 @@ export function WorkflowList() {
                     <HeaderSearchBtn
                         value={search}
                         onChange={setSearch}
-                        placeholder="Search workflows…"
+                        placeholder="Search workflowsâ€¦"
                     />
                     <button
                         onClick={() => setNewModalOpen(true)}
@@ -528,7 +528,7 @@ export function WorkflowList() {
                                         </span>
                                     ) : (
                                         <span className="text-xs text-gray-300">
-                                            —
+                                            â€”
                                         </span>
                                     )}
                                 </div>
@@ -608,3 +608,4 @@ export function WorkflowList() {
         </div>
     );
 }
+

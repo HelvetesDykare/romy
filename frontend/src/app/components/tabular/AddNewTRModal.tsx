@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -11,7 +11,7 @@ import {
     listWorkflows,
     uploadProjectDocument,
     uploadStandaloneDocument,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import { FileDirectory } from "../shared/FileDirectory";
 import { BUILT_IN_WORKFLOWS } from "../workflows/builtinWorkflows";
 
@@ -91,7 +91,7 @@ export function AddNewTRModal({
         }
 
         setLoadingDirectory(true);
-        // /projects only returns counts, not the documents array — fetch
+        // /projects only returns counts, not the documents array â€” fetch
         // each project in parallel so FileDirectory can render the docs
         // when the user expands a folder.
         Promise.all([listStandaloneDocuments(), listProjects()])
@@ -223,20 +223,20 @@ export function AddNewTRModal({
                         {isProjectMode && projectName ? (
                             <>
                                 <span>Projects</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>
                                     {projectName}
                                     {projectCmNumber ? ` (#${projectCmNumber})` : ""}
                                 </span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>Tabular Reviews</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>New review</span>
                             </>
                         ) : (
                             <>
                                 <span>Tabular Reviews</span>
-                                <span>›</span>
+                                <span>â€º</span>
                                 <span>New review</span>
                             </>
                         )}
@@ -290,10 +290,10 @@ export function AddNewTRModal({
                                             }
                                         >
                                             {loadingWorkflows
-                                                ? "Loading templates…"
+                                                ? "Loading templatesâ€¦"
                                                 : selectedWorkflow
                                                   ? selectedWorkflow.title
-                                                  : "No template — start from scratch"}
+                                                  : "No template â€” start from scratch"}
                                         </span>
                                     </div>
                                     <ChevronDown className="h-3.5 w-3.5 text-gray-400 shrink-0 ml-2" />
@@ -309,7 +309,7 @@ export function AddNewTRModal({
                                             className={`w-full text-left flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-gray-50 ${!selectedWorkflowId ? "bg-gray-50 text-gray-900" : "text-gray-500"}`}
                                         >
                                             <span className="flex-1">
-                                                No template — start from scratch
+                                                No template â€” start from scratch
                                             </span>
                                             {!selectedWorkflowId && (
                                                 <Check className="h-3.5 w-3.5 text-gray-500 shrink-0" />
@@ -395,7 +395,7 @@ export function AddNewTRModal({
                                                   (selectedProject.cm_number
                                                       ? ` (#${selectedProject.cm_number})`
                                                       : "")
-                                                : "Select project…"}
+                                                : "Select projectâ€¦"}
                                         </span>
                                         <ChevronDown className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                                     </button>
@@ -501,7 +501,7 @@ export function AddNewTRModal({
                                 ) : (
                                     <Upload className="h-3.5 w-3.5" />
                                 )}
-                                {uploading ? "Uploading…" : "Upload"}
+                                {uploading ? "Uploadingâ€¦" : "Upload"}
                             </button>
                         </div>
                         <div className="flex items-center gap-2">
@@ -530,3 +530,4 @@ export function AddNewTRModal({
         document.body,
     );
 }
+

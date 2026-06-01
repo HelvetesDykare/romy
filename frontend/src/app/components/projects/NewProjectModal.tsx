@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { X, Users, Upload } from "lucide-react";
@@ -6,7 +6,7 @@ import {
     addDocumentToProject,
     createProject,
     uploadProjectDocument,
-} from "@/app/lib/emilieApi";
+} from "@/app/lib/romyApi";
 import { useDirectoryData } from "../shared/useDirectoryData";
 import { FileDirectory } from "../shared/FileDirectory";
 import { EmailPillInput } from "../shared/EmailPillInput";
@@ -87,7 +87,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                 <div className="flex items-center justify-between px-6 pt-5 pb-2">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         <span>Projects</span>
-                        <span>›</span>
+                        <span>â€º</span>
                         <span>New project</span>
                     </div>
                     <button
@@ -137,7 +137,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                                 <EmailPillInput
                                     emails={sharedEmails}
                                     onChange={setSharedEmails}
-                                    placeholder="Add colleagues by email…"
+                                    placeholder="Add colleagues by emailâ€¦"
                                 />
                             </div>
                         )}
@@ -193,7 +193,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                                 disabled={!name.trim() || loading}
                                 className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-40 transition-colors"
                             >
-                                {loading ? "Creating…" : "Create project"}
+                                {loading ? "Creatingâ€¦" : "Create project"}
                             </button>
                         </div>
                     </div>
@@ -202,3 +202,4 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
         </div>
     );
 }
+
