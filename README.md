@@ -120,7 +120,19 @@ cp .env.example .env
 # Créer la base de données
 psql -U postgres -c "CREATE DATABASE romy;"
 psql -U postgres -d romy -f migrations/000_one_shot_schema.sql
+```
 
+#### Notes Windows
+
+- PostgreSQL n'est pas ajouté automatiquement au PATH. Après installation, ajoutez `C:\Program Files\PostgreSQL\<version>\bin` à votre PATH système, ou exécutez les commandes psql avec le chemin complet :
+  `& "C:\Program Files\PostgreSQL\<version>\bin\psql.exe" -U postgres ...`
+- Si le port 3001 est déjà utilisé, trouvez et arrêtez le processus :
+  `netstat -ano | findstr :3001` puis `taskkill /PID <pid> /F`
+- Utilisez PowerShell en tant qu'Administrateur pour modifier les variables d'environnement système
+- La commande `grep` n'est pas disponible sous Windows. Utilisez à la place :
+  `Get-ChildItem -Recurse -Include "*.ts","*.tsx" | Select-String -Pattern "votre-pattern"`
+
+```bash
 npm run dev
 
 # Frontend (terminal séparé)
@@ -385,7 +397,19 @@ cp .env.example .env
 # Create the database
 psql -U postgres -c "CREATE DATABASE romy;"
 psql -U postgres -d romy -f migrations/000_one_shot_schema.sql
+```
 
+#### Windows Notes
+
+- PostgreSQL is not added to PATH automatically. After installing, add `C:\Program Files\PostgreSQL\<version>\bin` to your system PATH, or run psql commands using the full path:
+  `& "C:\Program Files\PostgreSQL\<version>\bin\psql.exe" -U postgres ...`
+- If port 3001 is already in use, find and kill the process:
+  `netstat -ano | findstr :3001` then `taskkill /PID <pid> /F`
+- Use PowerShell as Administrator when modifying system environment variables
+- The `grep` command is not available on Windows. Use instead:
+  `Get-ChildItem -Recurse -Include "*.ts","*.tsx" | Select-String -Pattern "your-pattern"`
+
+```bash
 npm run dev
 
 # Frontend (separate terminal)
