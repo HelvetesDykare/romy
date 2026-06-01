@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -64,6 +64,16 @@ export default function RomyLayout({
         }
     }, [authLoading, isAuthenticated, router]);
 
+    const handleSetSidebarOpen = useCallback((open: boolean) => {
+        setIsSidebarOpen(open);
+        setIsSidebarOpenDesktop(open);
+    }, []);
+
+    const sidebarContextValue = useMemo(
+        () => ({ setSidebarOpen: handleSetSidebarOpen }),
+        [handleSetSidebarOpen],
+    );
+
     if (authLoading) {
         return (
             <div className="flex h-screen items-center justify-center">
@@ -76,9 +86,7 @@ export default function RomyLayout({
 
     return (
         <ChatHistoryProvider>
-            <SidebarContext.Provider
-                value={{ setSidebarOpen: (open) => { setIsSidebarOpen(open); setIsSidebarOpenDesktop(open); } }}
-            >
+            <SidebarContext.Provider value={sidebarContextValue}>
                 <div className="h-dvh bg-white flex flex-col">
                     <div className="flex-1 flex overflow-hidden">
                         <AppSidebar

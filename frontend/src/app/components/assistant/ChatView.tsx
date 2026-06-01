@@ -356,7 +356,7 @@ export function ChatView({
                 `calc(100dvh - ${headerHeight + gap + userMessageHeight + paddingBottom + marginBottom}px)`,
             );
         }
-    }, [messages.length, latestUserMessageRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [messages.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const updateScrollButton = useCallback(() => {
         const c = messagesContainerRef.current;
@@ -369,8 +369,11 @@ export function ChatView({
         const c = messagesContainerRef.current;
         if (!c) return;
         c.addEventListener("scroll", updateScrollButton);
-        updateScrollButton();
         return () => c.removeEventListener("scroll", updateScrollButton);
+    }, [updateScrollButton]);
+
+    useEffect(() => {
+        updateScrollButton();
     }, [messages, updateScrollButton]);
 
     const scrollToBottom = () => {

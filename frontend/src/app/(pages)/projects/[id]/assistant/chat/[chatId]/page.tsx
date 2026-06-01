@@ -404,7 +404,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
         setMinHeight(
             `${Math.max(0, containerEl.clientHeight - 48 - userEl.offsetHeight - 16)}px`,
         );
-    }, [messages.length, latestUserMessageRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [messages.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (!activeTabId) return;

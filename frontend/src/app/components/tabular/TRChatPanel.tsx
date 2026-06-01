@@ -742,7 +742,7 @@ export function TRChatPanel({
             `${Math.max(0, containerEl.clientHeight - BOTTOM_PAD - userEl.offsetHeight - messageContainerTopPadding - messageGap)}px`,
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [messages.length, latestUserMessageRef.current]);
+    }, [messages.length]);
 
     useEffect(() => {
         if (!historyOpen) return;
