@@ -1,0 +1,20 @@
+{
+    "nav": {
+        "assistant": "Assistant",
+        "projects": "Projects",
+        "tabularReview": "Tabular Review",
+        "workflows": "Workflows",
+        "closeSidebar": "Close sidebar",
+        "openSidebar": "Open sidebar",
+        "accountSettings": "Account Settings"
+    },
+    "assistant": {
+        "placeholder": "Ask a legal question…",
+        "greeting": "Hello, {username}",
+        "disclaimer": "Romy can make mistakes. Always verify important legal information."
+    },
+    "sidebar": {
+        "assistantHistory": "Assistant History",
+        "noChats": "No conversations yet"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "nav": {
+        "assistant": "Assistant",
+        "projects": "Projets",
+        "tabularReview": "Revue tabulaire",
+        "workflows": "Workflows",
+        "closeSidebar": "Fermer le menu",
+        "openSidebar": "Ouvrir le menu",
+        "accountSettings": "Paramètres du compte"
+    },
+    "assistant": {
+        "placeholder": "Posez une question juridique…",
+        "greeting": "Bonjour, {username}",
+        "disclaimer": "Romy peut faire des erreurs. Vérifiez toujours les informations juridiques importantes."
+    },
+    "sidebar": {
+        "assistantHistory": "Historique des conversations",
+        "noChats": "Aucune conversation"
+    }
+}

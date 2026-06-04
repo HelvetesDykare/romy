@@ -3,9 +3,9 @@
 import { NextIntlClientProvider } from "next-intl";
 import { useUserProfile } from "@/contexts/UserProfileContext";
 
-import en from "../../../messages/en.json";
-import fr from "../../../messages/fr.json";
-import es from "../../../messages/es.json";
+import en from "../../messages/en.json";
+import fr from "../../messages/fr.json";
+import es from "../../messages/es.json";
 
 type Messages = Record<string, unknown>;
 
